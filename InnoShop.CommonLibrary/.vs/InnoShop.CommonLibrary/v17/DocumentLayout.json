@@ -1,0 +1,122 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "G:\\\u0421#_new\\Innowise\\InnoShopV2\\InnoShop.CommonLibrary\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{84FFEC64-F0BD-447A-BF3E-C6E139972453}|InnoShop.CommonLibrary\\InnoShop.CommonLibrary.csproj|g:\\\u0441#_new\\innowise\\innoshopv2\\innoshop.commonlibrary\\innoshop.commonlibrary\\dependencyinjection\\commonservicecontainer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{84FFEC64-F0BD-447A-BF3E-C6E139972453}|InnoShop.CommonLibrary\\InnoShop.CommonLibrary.csproj|solutionrelative:innoshop.commonlibrary\\dependencyinjection\\commonservicecontainer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{84FFEC64-F0BD-447A-BF3E-C6E139972453}|InnoShop.CommonLibrary\\InnoShop.CommonLibrary.csproj|g:\\\u0441#_new\\innowise\\innoshopv2\\innoshop.commonlibrary\\innoshop.commonlibrary\\dependencyinjection\\jwtauthenticationscheme.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{84FFEC64-F0BD-447A-BF3E-C6E139972453}|InnoShop.CommonLibrary\\InnoShop.CommonLibrary.csproj|solutionrelative:innoshop.commonlibrary\\dependencyinjection\\jwtauthenticationscheme.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{84FFEC64-F0BD-447A-BF3E-C6E139972453}|InnoShop.CommonLibrary\\InnoShop.CommonLibrary.csproj|g:\\\u0441#_new\\innowise\\innoshopv2\\innoshop.commonlibrary\\innoshop.commonlibrary\\middleware\\listentoonlyapigatewayrule.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{84FFEC64-F0BD-447A-BF3E-C6E139972453}|InnoShop.CommonLibrary\\InnoShop.CommonLibrary.csproj|solutionrelative:innoshop.commonlibrary\\middleware\\listentoonlyapigatewayrule.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{84FFEC64-F0BD-447A-BF3E-C6E139972453}|InnoShop.CommonLibrary\\InnoShop.CommonLibrary.csproj|g:\\\u0441#_new\\innowise\\innoshopv2\\innoshop.commonlibrary\\innoshop.commonlibrary\\middleware\\globalexception.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{84FFEC64-F0BD-447A-BF3E-C6E139972453}|InnoShop.CommonLibrary\\InnoShop.CommonLibrary.csproj|solutionrelative:innoshop.commonlibrary\\middleware\\globalexception.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{84FFEC64-F0BD-447A-BF3E-C6E139972453}|InnoShop.CommonLibrary\\InnoShop.CommonLibrary.csproj|g:\\\u0441#_new\\innowise\\innoshopv2\\innoshop.commonlibrary\\innoshop.commonlibrary\\response\\response.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{84FFEC64-F0BD-447A-BF3E-C6E139972453}|InnoShop.CommonLibrary\\InnoShop.CommonLibrary.csproj|solutionrelative:innoshop.commonlibrary\\response\\response.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{84FFEC64-F0BD-447A-BF3E-C6E139972453}|InnoShop.CommonLibrary\\InnoShop.CommonLibrary.csproj|g:\\\u0441#_new\\innowise\\innoshopv2\\innoshop.commonlibrary\\innoshop.commonlibrary\\logs\\logexception.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{84FFEC64-F0BD-447A-BF3E-C6E139972453}|InnoShop.CommonLibrary\\InnoShop.CommonLibrary.csproj|solutionrelative:innoshop.commonlibrary\\logs\\logexception.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 550,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "CommonServiceContainer.cs",
+              "DocumentMoniker": "G:\\\u0421#_new\\Innowise\\InnoShopV2\\InnoShop.CommonLibrary\\InnoShop.CommonLibrary\\DependencyInjection\\CommonServiceContainer.cs",
+              "RelativeDocumentMoniker": "InnoShop.CommonLibrary\\DependencyInjection\\CommonServiceContainer.cs",
+              "ToolTip": "G:\\\u0421#_new\\Innowise\\InnoShopV2\\InnoShop.CommonLibrary\\InnoShop.CommonLibrary\\DependencyInjection\\CommonServiceContainer.cs",
+              "RelativeToolTip": "InnoShop.CommonLibrary\\DependencyInjection\\CommonServiceContainer.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAASAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-19T19:59:40.866Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "JWTAuthenticationScheme.cs",
+              "DocumentMoniker": "G:\\\u0421#_new\\Innowise\\InnoShopV2\\InnoShop.CommonLibrary\\InnoShop.CommonLibrary\\DependencyInjection\\JWTAuthenticationScheme.cs",
+              "RelativeDocumentMoniker": "InnoShop.CommonLibrary\\DependencyInjection\\JWTAuthenticationScheme.cs",
+              "ToolTip": "G:\\\u0421#_new\\Innowise\\InnoShopV2\\InnoShop.CommonLibrary\\InnoShop.CommonLibrary\\DependencyInjection\\JWTAuthenticationScheme.cs",
+              "RelativeToolTip": "InnoShop.CommonLibrary\\DependencyInjection\\JWTAuthenticationScheme.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABUAAAAwAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-19T19:50:32.981Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ListenToOnlyApiGatewayRule.cs",
+              "DocumentMoniker": "G:\\\u0421#_new\\Innowise\\InnoShopV2\\InnoShop.CommonLibrary\\InnoShop.CommonLibrary\\Middleware\\ListenToOnlyApiGatewayRule.cs",
+              "RelativeDocumentMoniker": "InnoShop.CommonLibrary\\Middleware\\ListenToOnlyApiGatewayRule.cs",
+              "ToolTip": "G:\\\u0421#_new\\Innowise\\InnoShopV2\\InnoShop.CommonLibrary\\InnoShop.CommonLibrary\\Middleware\\ListenToOnlyApiGatewayRule.cs",
+              "RelativeToolTip": "InnoShop.CommonLibrary\\Middleware\\ListenToOnlyApiGatewayRule.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABkAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-19T19:24:59.013Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "GlobalException.cs",
+              "DocumentMoniker": "G:\\\u0421#_new\\Innowise\\InnoShopV2\\InnoShop.CommonLibrary\\InnoShop.CommonLibrary\\Middleware\\GlobalException.cs",
+              "RelativeDocumentMoniker": "InnoShop.CommonLibrary\\Middleware\\GlobalException.cs",
+              "ToolTip": "G:\\\u0421#_new\\Innowise\\InnoShopV2\\InnoShop.CommonLibrary\\InnoShop.CommonLibrary\\Middleware\\GlobalException.cs",
+              "RelativeToolTip": "InnoShop.CommonLibrary\\Middleware\\GlobalException.cs",
+              "ViewState": "AQIAABoAAAAAAAAAAAAowD0AAABJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-18T16:35:23.793Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "LogException.cs",
+              "DocumentMoniker": "G:\\\u0421#_new\\Innowise\\InnoShopV2\\InnoShop.CommonLibrary\\InnoShop.CommonLibrary\\Logs\\LogException.cs",
+              "RelativeDocumentMoniker": "InnoShop.CommonLibrary\\Logs\\LogException.cs",
+              "ToolTip": "G:\\\u0421#_new\\Innowise\\InnoShopV2\\InnoShop.CommonLibrary\\InnoShop.CommonLibrary\\Logs\\LogException.cs",
+              "RelativeToolTip": "InnoShop.CommonLibrary\\Logs\\LogException.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAAmAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-18T16:26:55.252Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Response.cs",
+              "DocumentMoniker": "G:\\\u0421#_new\\Innowise\\InnoShopV2\\InnoShop.CommonLibrary\\InnoShop.CommonLibrary\\Response\\Response.cs",
+              "RelativeDocumentMoniker": "InnoShop.CommonLibrary\\Response\\Response.cs",
+              "ToolTip": "G:\\\u0421#_new\\Innowise\\InnoShopV2\\InnoShop.CommonLibrary\\InnoShop.CommonLibrary\\Response\\Response.cs",
+              "RelativeToolTip": "InnoShop.CommonLibrary\\Response\\Response.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-18T16:25:29.801Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
