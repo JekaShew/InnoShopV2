@@ -1,0 +1,12 @@
+E:\NEED\C#\Innowise\InnoShop\InnoShopV2\InnoShop.ProductManagement\ProductManagement.Domain\bin\Debug\net8.0\ProductManagement.Domain.deps.json
+E:\NEED\C#\Innowise\InnoShop\InnoShopV2\InnoShop.ProductManagement\ProductManagement.Domain\bin\Debug\net8.0\ProductManagement.Domain.dll
+E:\NEED\C#\Innowise\InnoShop\InnoShopV2\InnoShop.ProductManagement\ProductManagement.Domain\bin\Debug\net8.0\ProductManagement.Domain.pdb
+E:\NEED\C#\Innowise\InnoShop\InnoShopV2\InnoShop.ProductManagement\ProductManagement.Domain\obj\Debug\net8.0\ProductManagement.Domain.GeneratedMSBuildEditorConfig.editorconfig
+E:\NEED\C#\Innowise\InnoShop\InnoShopV2\InnoShop.ProductManagement\ProductManagement.Domain\obj\Debug\net8.0\ProductManagement.Domain.AssemblyInfoInputs.cache
+E:\NEED\C#\Innowise\InnoShop\InnoShopV2\InnoShop.ProductManagement\ProductManagement.Domain\obj\Debug\net8.0\ProductManagement.Domain.AssemblyInfo.cs
+E:\NEED\C#\Innowise\InnoShop\InnoShopV2\InnoShop.ProductManagement\ProductManagement.Domain\obj\Debug\net8.0\ProductManagement.Domain.csproj.CoreCompileInputs.cache
+E:\NEED\C#\Innowise\InnoShop\InnoShopV2\InnoShop.ProductManagement\ProductManagement.Domain\obj\Debug\net8.0\ProductManagement.Domain.sourcelink.json
+E:\NEED\C#\Innowise\InnoShop\InnoShopV2\InnoShop.ProductManagement\ProductManagement.Domain\obj\Debug\net8.0\ProductManagement.Domain.dll
+E:\NEED\C#\Innowise\InnoShop\InnoShopV2\InnoShop.ProductManagement\ProductManagement.Domain\obj\Debug\net8.0\refint\ProductManagement.Domain.dll
+E:\NEED\C#\Innowise\InnoShop\InnoShopV2\InnoShop.ProductManagement\ProductManagement.Domain\obj\Debug\net8.0\ProductManagement.Domain.pdb
+E:\NEED\C#\Innowise\InnoShop\InnoShopV2\InnoShop.ProductManagement\ProductManagement.Domain\obj\Debug\net8.0\ref\ProductManagement.Domain.dll

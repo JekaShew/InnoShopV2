@@ -10,3 +10,16 @@ G:\С#_new\Innowise\InnoShopV2\InnoShop.CommonLibrary\InnoShop.CommonLibrary\obj
 G:\С#_new\Innowise\InnoShopV2\InnoShop.CommonLibrary\InnoShop.CommonLibrary\obj\Debug\net8.0\refint\InnoShop.CommonLibrary.dll
 G:\С#_new\Innowise\InnoShopV2\InnoShop.CommonLibrary\InnoShop.CommonLibrary\obj\Debug\net8.0\InnoShop.CommonLibrary.pdb
 G:\С#_new\Innowise\InnoShopV2\InnoShop.CommonLibrary\InnoShop.CommonLibrary\obj\Debug\net8.0\ref\InnoShop.CommonLibrary.dll
+E:\NEED\C#\Innowise\InnoShop\InnoShopV2\InnoShop.CommonLibrary\InnoShop.CommonLibrary\bin\Debug\net8.0\InnoShop.CommonLibrary.deps.json
+E:\NEED\C#\Innowise\InnoShop\InnoShopV2\InnoShop.CommonLibrary\InnoShop.CommonLibrary\bin\Debug\net8.0\InnoShop.CommonLibrary.dll
+E:\NEED\C#\Innowise\InnoShop\InnoShopV2\InnoShop.CommonLibrary\InnoShop.CommonLibrary\bin\Debug\net8.0\InnoShop.CommonLibrary.pdb
+E:\NEED\C#\Innowise\InnoShop\InnoShopV2\InnoShop.CommonLibrary\InnoShop.CommonLibrary\obj\Debug\net8.0\InnoShop.CommonLibrary.csproj.AssemblyReference.cache
+E:\NEED\C#\Innowise\InnoShop\InnoShopV2\InnoShop.CommonLibrary\InnoShop.CommonLibrary\obj\Debug\net8.0\InnoShop.CommonLibrary.GeneratedMSBuildEditorConfig.editorconfig
+E:\NEED\C#\Innowise\InnoShop\InnoShopV2\InnoShop.CommonLibrary\InnoShop.CommonLibrary\obj\Debug\net8.0\InnoShop.CommonLibrary.AssemblyInfoInputs.cache
+E:\NEED\C#\Innowise\InnoShop\InnoShopV2\InnoShop.CommonLibrary\InnoShop.CommonLibrary\obj\Debug\net8.0\InnoShop.CommonLibrary.AssemblyInfo.cs
+E:\NEED\C#\Innowise\InnoShop\InnoShopV2\InnoShop.CommonLibrary\InnoShop.CommonLibrary\obj\Debug\net8.0\InnoShop.CommonLibrary.csproj.CoreCompileInputs.cache
+E:\NEED\C#\Innowise\InnoShop\InnoShopV2\InnoShop.CommonLibrary\InnoShop.CommonLibrary\obj\Debug\net8.0\InnoShop.CommonLibrary.sourcelink.json
+E:\NEED\C#\Innowise\InnoShop\InnoShopV2\InnoShop.CommonLibrary\InnoShop.CommonLibrary\obj\Debug\net8.0\InnoShop.CommonLibrary.dll
+E:\NEED\C#\Innowise\InnoShop\InnoShopV2\InnoShop.CommonLibrary\InnoShop.CommonLibrary\obj\Debug\net8.0\refint\InnoShop.CommonLibrary.dll
+E:\NEED\C#\Innowise\InnoShop\InnoShopV2\InnoShop.CommonLibrary\InnoShop.CommonLibrary\obj\Debug\net8.0\InnoShop.CommonLibrary.pdb
+E:\NEED\C#\Innowise\InnoShop\InnoShopV2\InnoShop.CommonLibrary\InnoShop.CommonLibrary\obj\Debug\net8.0\ref\InnoShop.CommonLibrary.dll

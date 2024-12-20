@@ -47,6 +47,14 @@ namespace InnoShop.CommonLibrary.Middleware
                     statusCode = (int)StatusCodes.Status403Forbidden;
                     await ModifyHeaders(context, title, message, statusCode);
                 }
+
+                if (context.Response.StatusCode == StatusCodes.Status404NotFound)
+                {
+                    title = "Not Found!";
+                    message = "Ou! Sorry! The resource is not found!";
+                    statusCode = (int)StatusCodes.Status404NotFound;
+                    await ModifyHeaders(context, title, message, statusCode);
+                }
             }
             catch (Exception ex)
             {
