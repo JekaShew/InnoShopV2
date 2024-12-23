@@ -21,6 +21,7 @@ namespace ProductManagement.Infrastructure.Handlers.ProductHandlers.CommandHandl
         }
         public async Task<Response> Handle(AddProductCommand request, CancellationToken cancellationToken)
         {
+            request.ProductDTO.Id = Guid.NewGuid();
             await _pmDBContext.Products.AddAsync(ProductMapper.ProductDTOToProduct(request.ProductDTO));
             await _pmDBContext.SaveChangesAsync();
 

@@ -17,7 +17,7 @@ namespace InnoShop.CommonLibrary.DependencyInjection
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer("Bearer", options =>
                 {
-                    var key = Encoding.UTF8.GetBytes(configuration.GetSection("Authentication:Key").Value!);
+                    var key = Encoding.UTF8.GetBytes(configuration.GetSection("Authentication:SecretKey").Value!);
                     var issuer = configuration.GetSection("Authentication:Issuer").Value!;
                     var audience = configuration.GetSection("Authentication:Audience").Value!;
 

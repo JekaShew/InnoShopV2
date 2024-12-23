@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
+using Serilog.Events;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,19 +20,33 @@ namespace InnoShop.CommonLibrary.DependencyInjection
         {
             // DB 
             services.AddDbContext<TContext>(option => option.UseSqlServer(
-                configuration.GetConnectionString("InnoShop"), sqlserverOption => sqlserverOption.EnableRetryOnFailure()));
+                configuration.GetConnectionString("Work"), sqlserverOption => sqlserverOption.EnableRetryOnFailure()));
 
             // Serilog logger
+            //Log.Logger = new LoggerConfiguration()
+            //    .MinimumLevel
+            //    .Information()
+            //    .WriteTo.Debug()
+            //    .WriteTo.Console()
+            //    .WriteTo.File(path: $"{fileName}-.log",
+            //    restrictedToMinimumLevel: Serilog.Events.LogEventLevel.Information,
+            //    //outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {message:lj}{NewLine}{Exception}",
+            //    rollingInterval: RollingInterval.Day)
+            //    .CreateLogger();
+
             Log.Logger = new LoggerConfiguration()
-                .MinimumLevel
-                .Information()
-                .WriteTo.Debug()
-                .WriteTo.Console()
-                .WriteTo.File(path: $"{fileName}-.log",
-                restrictedToMinimumLevel: Serilog.Events.LogEventLevel.Information,
-                outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {message:lj}{NewLine}{Exception}",
-                rollingInterval: RollingInterval.Day)
-                .CreateLogger();
+                .MinimumLevel.Override("Microsoft.AspNetCore", LogEventLevel.Information)
+                .Enrich.FromLogContext()
+                .WriteTo.File("InnoShop_ProductManagement.log")
+                .CreateBootstrapLogger();
+
+            services.AddSerilog((services, lc) => lc
+                .ReadFrom.Configuration(configuration)
+                .ReadFrom.Services(services)
+                .Enrich.FromLogContext()
+                .WriteTo.Console(Serilog.Events.LogEventLevel.Error)
+                .WriteTo.File("InnoShop_ProductManagement.log"));
+
 
             // JWT Authentication Scheme
             JWTAuthenticationScheme.AddJWTAuthenticationScheme(services, configuration);
@@ -42,7 +57,7 @@ namespace InnoShop.CommonLibrary.DependencyInjection
         {
             app.UseMiddleware<GlobalException>();
 
-            app.UseMiddleware<ListenToOnlyApiGatewayRule>();
+            //app.UseMiddleware<ListenToOnlyApiGatewayRule>();
 
             return app;
         }

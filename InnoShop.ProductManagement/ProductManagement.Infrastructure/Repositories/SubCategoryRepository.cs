@@ -10,71 +10,71 @@ using System.Threading.Tasks;
 
 namespace ProductManagement.Infrastructure.Repositories
 {
-    public class SubCategoryRepository : ISubCategory
+    public class SubCategoryRepository /*: ISubCategory*/
     {
-        public Task<Response> AddSubCategory(SubCategoryDTO subCategoryDTO)
-        {
-            try
-            {
+        //public Task<Response> AddSubCategory(SubCategoryDTO subCategoryDTO)
+        //{
+        //    try
+        //    {
 
-            }
-            catch (Exception ex)
-            {
-                LogException.LogExceptions(ex);
-                return new Response(false, "Error while adding new SubCategory!");
-            }
-        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        LogException.LogExceptions(ex);
+        //        return new Response(false, "Error while adding new SubCategory!");
+        //    }
+        //}
 
-        public Task<Response> DeleteSubCategoryById(Guid subCategoryId)
-        {
-            try
-            {
+        //public Task<Response> DeleteSubCategoryById(Guid subCategoryId)
+        //{
+        //    try
+        //    {
 
-            }
-            catch (Exception ex)
-            {
-                LogException.LogExceptions(ex);
-                return new Response(false, "Error while deleting SubCategory!");
-            }
-        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        LogException.LogExceptions(ex);
+        //        return new Response(false, "Error while deleting SubCategory!");
+        //    }
+        //}
 
-        public Task<List<SubCategoryDTO>> TakeAllSubCategories()
-        {
-            try
-            {
+        //public Task<List<SubCategoryDTO>> TakeAllSubCategories()
+        //{
+        //    try
+        //    {
 
-            }
-            catch (Exception ex)
-            {
-                LogException.LogExceptions(ex);
-                return new Response(false, "Error while taking all SubCategories!");
-            }
-        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        LogException.LogExceptions(ex);
+        //        return new Response(false, "Error while taking all SubCategories!");
+        //    }
+        //}
 
-        public Task<SubCategoryDTO> TakeSubCategoryById(Guid subCategoryId)
-        {
-            try
-            {
+        //public Task<SubCategoryDTO> TakeSubCategoryById(Guid subCategoryId)
+        //{
+        //    try
+        //    {
 
-            }
-            catch (Exception ex)
-            {
-                LogException.LogExceptions(ex);
-                return new Response(false, "Error while taking SubCategory!");
-            }
-        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        LogException.LogExceptions(ex);
+        //        return new Response(false, "Error while taking SubCategory!");
+        //    }
+        //}
 
-        public Task<Response> UpdateSubCategory(SubCategoryDTO subCategoryDTO)
-        {
-            try
-            {
+        //public Task<Response> UpdateSubCategory(SubCategoryDTO subCategoryDTO)
+        //{
+        //    try
+        //    {
 
-            }
-            catch (Exception ex)
-            {
-                LogException.LogExceptions(ex);
-                return new Response(false, "Error while updating SubCategory!");
-            }
-        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        LogException.LogExceptions(ex);
+        //        return new Response(false, "Error while updating SubCategory!");
+        //    }
+        //}
     }
 }

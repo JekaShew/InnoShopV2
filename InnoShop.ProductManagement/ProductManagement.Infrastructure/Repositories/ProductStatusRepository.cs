@@ -11,71 +11,71 @@ using System.Threading.Tasks;
 
 namespace ProductManagement.Infrastructure.Repositories
 {
-    public class ProductStatusRepository(ProductManagementDBContext dBContext) : IProductStatus
+    public class ProductStatusRepository(ProductManagementDBContext dBContext) /*: IProductStatus*/
     {
-        public async Task<Response> AddProductStatus(ProductStatusDTO productStatusDTO)
-        {
-            try
-            {
+        //public async Task<Response> AddProductStatus(ProductStatusDTO productStatusDTO)
+        //{
+        //    try
+        //    {
 
-            }
-            catch (Exception ex)
-            {
-                LogException.LogExceptions(ex);
-                return new Response(false,"Error while adding new Product Status!");
-            }
-        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        LogException.LogExceptions(ex);
+        //        return new Response(false,"Error while adding new Product Status!");
+        //    }
+        //}
 
-        public Task<Response> DeleteProductStatusById(Guid productStatusId)
-        {
-            try
-            {
+        //public Task<Response> DeleteProductStatusById(Guid productStatusId)
+        //{
+        //    try
+        //    {
 
-            }
-            catch (Exception ex)
-            {
-                LogException.LogExceptions(ex);
-                return new Response(false, "Error while deleting Product Status!");
-            }
-        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        LogException.LogExceptions(ex);
+        //        return new Response(false, "Error while deleting Product Status!");
+        //    }
+        //}
 
-        public Task<List<ProductStatusDTO>> TakeAllProductStatuses()
-        {
-            try
-            {
+        //public Task<List<ProductStatusDTO>> TakeAllProductStatuses()
+        //{
+        //    try
+        //    {
 
-            }
-            catch (Exception ex)
-            {
-                LogException.LogExceptions(ex);
-                return new Response(false, "Error while taking all Product Statuses!");
-            }
-        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        LogException.LogExceptions(ex);
+        //        return new Response(false, "Error while taking all Product Statuses!");
+        //    }
+        //}
 
-        public Task<ProductStatusDTO> TakeProductStatusById(Guid productStatusId)
-        {
-            try
-            {
+        //public Task<ProductStatusDTO> TakeProductStatusById(Guid productStatusId)
+        //{
+        //    try
+        //    {
 
-            }
-            catch (Exception ex)
-            {
-                LogException.LogExceptions(ex);
-                return new Response(false, "Error while taking Product Status!");
-            }
-        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        LogException.LogExceptions(ex);
+        //        return new Response(false, "Error while taking Product Status!");
+        //    }
+        //}
 
-        public Task<Response> UpdateProductStatus(ProductStatusDTO productStatusDTO)
-        {
-            try
-            {
+        //public Task<Response> UpdateProductStatus(ProductStatusDTO productStatusDTO)
+        //{
+        //    try
+        //    {
 
-            }
-            catch (Exception ex)
-            {
-                LogException.LogExceptions(ex);
-                return new Response(false, "Error while updating Product Status!");
-            }
-        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        LogException.LogExceptions(ex);
+        //        return new Response(false, "Error while updating Product Status!");
+        //    }
+        //}
     }
 }

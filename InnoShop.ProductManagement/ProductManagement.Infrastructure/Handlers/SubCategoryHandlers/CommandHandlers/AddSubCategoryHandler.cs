@@ -21,6 +21,7 @@ namespace ProductManagement.Infrastructure.Handlers.SubCategoryHandlers.CommandH
         }
         public async Task<Response> Handle(AddSubCategoryCommand request, CancellationToken cancellationToken)
         {
+            request.SubCategoryDTO.Id = Guid.NewGuid();
             await _pmDBContext.SubCategories.AddAsync(SubCategoryMapper.SubCategoryDTOToSubCategory(request.SubCategoryDTO));
             await _pmDBContext.SaveChangesAsync();
          

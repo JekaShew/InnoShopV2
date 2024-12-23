@@ -1,0 +1,35 @@
+﻿using InnoShop.CommonLibrary.DependencyInjection;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using ProductManagement.Infrastructure.Data;
+using ProductManagement.Infrastructure.Handlers.SubCategoryHandlers.QueryHandlers;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ProductManagement.Infrastructure.DependencyInjection
+{
+    public static class ServiceContainer
+    {
+        public static IServiceCollection AddInfrastructureService(this IServiceCollection services, IConfiguration configuration)
+        {
+            CommonServiceContainer.AddCommonServices<ProductManagementDBContext>(services, configuration, configuration["Serilog:FileName"]!);
+
+            services.AddMediatR(cfg => cfg
+                            .RegisterServicesFromAssembly(typeof(TakeSubCategoryDTOListHandler)
+                            .Assembly));
+
+            return services;
+        }
+
+        public static IApplicationBuilder UseInfrqastructurePolicy(this IApplicationBuilder app)
+        {
+            CommonServiceContainer.UseCommonPolicies(app);
+
+            return app;
+        }
+    }
+}

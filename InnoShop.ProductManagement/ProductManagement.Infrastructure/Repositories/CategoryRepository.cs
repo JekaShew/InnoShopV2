@@ -10,71 +10,71 @@ using System.Threading.Tasks;
 
 namespace ProductManagement.Infrastructure.Repositories
 {
-    public class CategoryRepository : ICategory
+    public class CategoryRepository /*: ICategory*/
     {
-        public Task<Response> AddCategory(CategoryDTO categoryDTO)
-        {
-            try
-            {
+        //public Task<Response> AddCategory(CategoryDTO categoryDTO)
+        //{
+        //    try
+        //    {
 
-            }
-            catch (Exception ex)
-            {
-                LogException.LogExceptions(ex);
-                return new Response(false, "Error while adding new Category!");
-            }
-        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        LogException.LogExceptions(ex);
+        //        return new Response(false, "Error while adding new Category!");
+        //    }
+        //}
 
-        public Task<Response> DeleteCategoryById(Guid categoryId)
-        {
-            try
-            {
+        //public Task<Response> DeleteCategoryById(Guid categoryId)
+        //{
+        //    try
+        //    {
 
-            }
-            catch (Exception ex)
-            {
-                LogException.LogExceptions(ex);
-                return new Response(false, "Error while deleting Category!");
-            }
-        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        LogException.LogExceptions(ex);
+        //        return new Response(false, "Error while deleting Category!");
+        //    }
+        //}
 
-        public Task<List<CategoryDTO>> TakeAllCategories()
-        {
-            try
-            {
+        //public Task<List<CategoryDTO>> TakeAllCategories()
+        //{
+        //    try
+        //    {
 
-            }
-            catch (Exception ex)
-            {
-                LogException.LogExceptions(ex);
-                return new Response(false, "Error while taking all Categories!");
-            }
-        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        LogException.LogExceptions(ex);
+        //        return new Response(false, "Error while taking all Categories!");
+        //    }
+        //}
 
-        public Task<CategoryDTO> TakeCategoryById(Guid categoryId)
-        {
-            try
-            {
+        //public Task<CategoryDTO> TakeCategoryById(Guid categoryId)
+        //{
+        //    try
+        //    {
 
-            }
-            catch (Exception ex)
-            {
-                LogException.LogExceptions(ex);
-                return new Response(false, "Error while taking Category!");
-            }
-        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        LogException.LogExceptions(ex);
+        //        return new Response(false, "Error while taking Category!");
+        //    }
+        //}
 
-        public Task<Response> UpdateCategory(CategoryDTO categoryDTO)
-        {
-            try
-            {
+        //public Task<Response> UpdateCategory(CategoryDTO categoryDTO)
+        //{
+        //    try
+        //    {
 
-            }
-            catch (Exception ex)
-            {
-                LogException.LogExceptions(ex);
-                return new Response(false, "Error while updating Category !");
-            }
-        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        LogException.LogExceptions(ex);
+        //        return new Response(false, "Error while updating Category !");
+        //    }
+        //}
     }
 }

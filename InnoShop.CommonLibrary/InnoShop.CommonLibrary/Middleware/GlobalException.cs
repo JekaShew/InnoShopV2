@@ -48,13 +48,21 @@ namespace InnoShop.CommonLibrary.Middleware
                     await ModifyHeaders(context, title, message, statusCode);
                 }
 
-                if (context.Response.StatusCode == StatusCodes.Status404NotFound)
-                {
-                    title = "Not Found!";
-                    message = "Ou! Sorry! The resource is not found!";
-                    statusCode = (int)StatusCodes.Status404NotFound;
-                    await ModifyHeaders(context, title, message, statusCode);
-                }
+                //if (context.Response.StatusCode == StatusCodes.Status404NotFound)
+                //{
+                //    title = "Not Found!";
+                //    message = "Ou! Sorry! The resource is not found!";
+                //    statusCode = (int)StatusCodes.Status404NotFound;
+                //    await ModifyHeaders(context, title, message, statusCode);
+                //}
+
+                //if (context.Response.StatusCode == StatusCodes.Status400BadRequest)
+                //{
+                //    title = "Invalid Data!";
+                //    message = "Oops! The data you entered is InValid! Please, check it and try again!";
+                //    statusCode = (int)StatusCodes.Status400BadRequest;
+                //    await ModifyHeaders(context, title, message, statusCode);
+                //}
             }
             catch (Exception ex)
             {
@@ -74,8 +82,9 @@ namespace InnoShop.CommonLibrary.Middleware
         }
         private static async Task ModifyHeaders(HttpContext context, string title, string message, int statusCode)
         {
+           
             context.Response.ContentType = "application/json";
-            await context.Response.WriteAsync(JsonSerializer.Serialize(new ProblemDetails()
+            await context.Response.WriteAsync(JsonSerializer.Serialize(new ProblemDetails
             {
                 Detail = message,
                 Status = statusCode,

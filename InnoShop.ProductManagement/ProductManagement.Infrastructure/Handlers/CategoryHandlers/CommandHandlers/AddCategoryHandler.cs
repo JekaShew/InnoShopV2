@@ -3,11 +3,6 @@ using MediatR;
 using ProductManagement.Application.Commands.CategoryCommands;
 using ProductManagement.Application.Mappers;
 using ProductManagement.Infrastructure.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProductManagement.Infrastructure.Handlers.CategoryHandlers.CommandHandlers
 {
@@ -20,10 +15,11 @@ namespace ProductManagement.Infrastructure.Handlers.CategoryHandlers.CommandHand
         }
         public async Task<Response> Handle(AddCategoryCommand request, CancellationToken cancellationToken)
         {
+            request.CategoryDTO.Id = Guid.NewGuid();
             await _pmDBContext.Categories.AddAsync(CategoryMapper.CategoryDTOToCategory(request.CategoryDTO));
-            await _pmDBContext.SaveChangesAsync();
+            await _pmDBContext.SaveChangesAsync(cancellationToken);
 
-            return new Response(true, "Successfully Added!");
+            return (new Response(true, "Successfully Added!"));
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using InnoShop.CommonLibrary.Response;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using ProductManagement.Application.Commands.SubCategoryCommands;
 using ProductManagement.Application.DTOs;
@@ -20,34 +21,83 @@ namespace ProductManagement.Presentation.Controllers
         [HttpGet]
         public async Task<IActionResult> TakeSubCatigories()
         {
-            //var subCategories =  await subCategory.TakeAllSubCategories();
-            var subCategoryDTOs = await _mediator.Send(new TakeSubCategoryDTOListQuery());
-            return Ok(subCategoryDTOs);
+            try
+            {
+                var subCategoryDTOs = await _mediator.Send(new TakeSubCategoryDTOListQuery());
+                    
+                if (!subCategoryDTOs.Any())
+                    return NotFound("No SubCategory found!"); 
+                else
+                    return Ok(subCategoryDTOs);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{subCategoryId}")]
         public async Task<IActionResult> TakeSubCatigoryById(Guid subCategoryId)
         {
-            var subCategoryDTO = await _mediator.Send(new TakeSubCategoryDTOByIdQuery() { Id = subCategoryId });
-            return Ok(subCategoryDTO);
+            try
+            {
+                var subCategoryDTO = await _mediator.Send(new TakeSubCategoryDTOByIdQuery() { Id = subCategoryId });
+                if (subCategoryDTO is null)
+                    return NotFound("No SubCategory found!"); 
+                else
+                    return Ok(subCategoryDTO);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
 
         [HttpPost]
         public async Task<IActionResult> AddSubCatigory([FromBody] SubCategoryDTO subCategoryDTO)
         {
-            return Ok(await _mediator.Send(new AddSubCategoryCommand() { SubCategoryDTO = subCategoryDTO }));
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    return Ok(await _mediator.Send(new AddSubCategoryCommand() { SubCategoryDTO = subCategoryDTO }));
+                }
+                else return BadRequest(ModelState);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }     
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{subCategoryId}")]
         public async Task<IActionResult> DeleteSubCatigoryById(Guid subCategoryId)
         {
-            return Ok(await _mediator.Send(new DeleteSubCategoryByIdCommand() { Id = subCategoryId }));
+            try
+            {
+                return Ok(await _mediator.Send(new DeleteSubCategoryByIdCommand() { Id = subCategoryId }));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
 
         [HttpPut]
         public async Task<IActionResult> UpdateSubCatigory([FromBody] SubCategoryDTO subCategoryDTO)
         {
-            return Ok(await _mediator.Send(new UpdateSubCategoryCommand() { SubCategoryDTO = subCategoryDTO }));
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    return Ok(await _mediator.Send(new UpdateSubCategoryCommand() { SubCategoryDTO = subCategoryDTO }));
+                }
+                else return BadRequest(ModelState);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
     }
 }

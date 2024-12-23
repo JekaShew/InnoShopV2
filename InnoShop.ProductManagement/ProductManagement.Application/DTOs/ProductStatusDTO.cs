@@ -10,10 +10,10 @@ namespace ProductManagement.Application.DTOs
 {
     public class ProductStatusDTO
     {
-        public Guid Id { get; set; }
+        public Guid? Id { get; set; }
         [Required]
         public string Title { get; set; }
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
         public List<Product> Products { get; set; }
     }

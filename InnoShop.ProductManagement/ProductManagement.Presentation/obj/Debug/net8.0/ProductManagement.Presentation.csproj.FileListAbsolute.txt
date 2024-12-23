@@ -190,3 +190,5 @@ E:\NEED\C#\Innowise\InnoShop\InnoShopV2\InnoShop.ProductManagement\ProductManage
 E:\NEED\C#\Innowise\InnoShop\InnoShopV2\InnoShop.ProductManagement\ProductManagement.Presentation\obj\Debug\net8.0\ProductManagement.Presentation.csproj.AssemblyReference.cache
 E:\NEED\C#\Innowise\InnoShop\InnoShopV2\InnoShop.ProductManagement\ProductManagement.Presentation\obj\Debug\net8.0\ProductManagement.Presentation.MvcApplicationPartsAssemblyInfo.cs
 E:\NEED\C#\Innowise\InnoShop\InnoShopV2\InnoShop.ProductManagement\ProductManagement.Presentation\obj\Debug\net8.0\ProductM.EE2C35C2.Up2Date
+E:\NEED\C#\Innowise\InnoShop\InnoShopV2\InnoShop.ProductManagement\ProductManagement.Presentation\bin\Debug\net8.0\MediatR.dll
+E:\NEED\C#\Innowise\InnoShop\InnoShopV2\InnoShop.ProductManagement\ProductManagement.Presentation\bin\Debug\net8.0\MediatR.Contracts.dll
