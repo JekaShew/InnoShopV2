@@ -15,7 +15,7 @@ namespace UserManagement.Infrastructure.DependencyInjection
 {
     public static class ServiceContainer
     {
-        public static IServiceCollection AddInfrastructureService(IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddInfrastructureService(this IServiceCollection services, IConfiguration configuration)
         {
             CommonServiceContainer.AddCommonServices<UserManagementDBContext>(services, configuration, configuration["Serolog:FileNAme"]);
 
@@ -24,18 +24,6 @@ namespace UserManagement.Infrastructure.DependencyInjection
                         .Assembly));
 
             return services;
-        }
-
-        public static IServiceCollection AddInfrastructureService(IServiceCollection services, IConfiguration configuration)
-        {
-            CommonServiceContainer.AddCommonServices<UserManagementDBContext>(services, configuration, configuration["Serilog:FileName"]);
-
-            services.AddMediatR(cfg => cfg
-                            .RegisterServicesFromAssembly(typeof(TakeRoleDTOListHandler)
-                            .Assembly));
-
-            return services;
-
         }
 
         public static IApplicationBuilder UseInfrastructurePolicy(this IApplicationBuilder app)

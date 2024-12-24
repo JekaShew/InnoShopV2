@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using InnoShop.CommonLibrary.Response;
+using MediatR;
+using UserManagement.Application.DTOs;
+
 
 namespace UserManagement.Application.Commands.UserStatusCommands
 {
-    internal class UpdateUserStatusCommand
+    public class UpdateUserStatusCommand : IRequest<Response>
     {
+        public UserStatusDTO UserStatusDTO { get; set; }
     }
 }
