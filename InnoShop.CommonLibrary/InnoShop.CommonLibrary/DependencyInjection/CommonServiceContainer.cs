@@ -20,20 +20,10 @@ namespace InnoShop.CommonLibrary.DependencyInjection
         {
             // DB 
             services.AddDbContext<TContext>(option => option.UseSqlServer(
-                configuration.GetConnectionString("Work"), sqlserverOption => sqlserverOption.EnableRetryOnFailure()));
+                configuration.GetConnectionString("Home"), sqlserverOption => sqlserverOption.EnableRetryOnFailure()));
 
-            // Serilog logger
-            //Log.Logger = new LoggerConfiguration()
-            //    .MinimumLevel
-            //    .Information()
-            //    .WriteTo.Debug()
-            //    .WriteTo.Console()
-            //    .WriteTo.File(path: $"{fileName}-.log",
-            //    restrictedToMinimumLevel: Serilog.Events.LogEventLevel.Information,
-            //    //outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {message:lj}{NewLine}{Exception}",
-            //    rollingInterval: RollingInterval.Day)
-            //    .CreateLogger();
-
+        
+            //Serilog
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Override("Microsoft.AspNetCore", LogEventLevel.Information)
                 .Enrich.FromLogContext()

@@ -1,10 +1,6 @@
-﻿using ProductManagement.Domain.Data.Models;
-using System;
-using System.Collections.Generic;
+﻿using InnoShop.CommonLibrary.CommonDTOs;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace ProductManagement.Application.DTOs
 {

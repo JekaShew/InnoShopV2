@@ -1,0 +1,12 @@
+G:\С#_new\Innowise\InnoShopV2\InnoShopV2\InnoShop.UserManagement\UserManagement.Domain\bin\Debug\net8.0\UserManagement.Domain.deps.json
+G:\С#_new\Innowise\InnoShopV2\InnoShopV2\InnoShop.UserManagement\UserManagement.Domain\bin\Debug\net8.0\UserManagement.Domain.dll
+G:\С#_new\Innowise\InnoShopV2\InnoShopV2\InnoShop.UserManagement\UserManagement.Domain\bin\Debug\net8.0\UserManagement.Domain.pdb
+G:\С#_new\Innowise\InnoShopV2\InnoShopV2\InnoShop.UserManagement\UserManagement.Domain\obj\Debug\net8.0\UserManagement.Domain.GeneratedMSBuildEditorConfig.editorconfig
+G:\С#_new\Innowise\InnoShopV2\InnoShopV2\InnoShop.UserManagement\UserManagement.Domain\obj\Debug\net8.0\UserManagement.Domain.AssemblyInfoInputs.cache
+G:\С#_new\Innowise\InnoShopV2\InnoShopV2\InnoShop.UserManagement\UserManagement.Domain\obj\Debug\net8.0\UserManagement.Domain.AssemblyInfo.cs
+G:\С#_new\Innowise\InnoShopV2\InnoShopV2\InnoShop.UserManagement\UserManagement.Domain\obj\Debug\net8.0\UserManagement.Domain.csproj.CoreCompileInputs.cache
+G:\С#_new\Innowise\InnoShopV2\InnoShopV2\InnoShop.UserManagement\UserManagement.Domain\obj\Debug\net8.0\UserManagement.Domain.sourcelink.json
+G:\С#_new\Innowise\InnoShopV2\InnoShopV2\InnoShop.UserManagement\UserManagement.Domain\obj\Debug\net8.0\UserManagement.Domain.dll
+G:\С#_new\Innowise\InnoShopV2\InnoShopV2\InnoShop.UserManagement\UserManagement.Domain\obj\Debug\net8.0\refint\UserManagement.Domain.dll
+G:\С#_new\Innowise\InnoShopV2\InnoShopV2\InnoShop.UserManagement\UserManagement.Domain\obj\Debug\net8.0\UserManagement.Domain.pdb
+G:\С#_new\Innowise\InnoShopV2\InnoShopV2\InnoShop.UserManagement\UserManagement.Domain\obj\Debug\net8.0\ref\UserManagement.Domain.dll

@@ -10,3 +10,15 @@ E:\NEED\C#\Innowise\InnoShop\InnoShopV2\InnoShop.ProductManagement\ProductManage
 E:\NEED\C#\Innowise\InnoShop\InnoShopV2\InnoShop.ProductManagement\ProductManagement.Domain\obj\Debug\net8.0\refint\ProductManagement.Domain.dll
 E:\NEED\C#\Innowise\InnoShop\InnoShopV2\InnoShop.ProductManagement\ProductManagement.Domain\obj\Debug\net8.0\ProductManagement.Domain.pdb
 E:\NEED\C#\Innowise\InnoShop\InnoShopV2\InnoShop.ProductManagement\ProductManagement.Domain\obj\Debug\net8.0\ref\ProductManagement.Domain.dll
+G:\С#_new\Innowise\InnoShopV2\InnoShopV2\InnoShop.ProductManagement\ProductManagement.Domain\bin\Debug\net8.0\ProductManagement.Domain.deps.json
+G:\С#_new\Innowise\InnoShopV2\InnoShopV2\InnoShop.ProductManagement\ProductManagement.Domain\bin\Debug\net8.0\ProductManagement.Domain.dll
+G:\С#_new\Innowise\InnoShopV2\InnoShopV2\InnoShop.ProductManagement\ProductManagement.Domain\bin\Debug\net8.0\ProductManagement.Domain.pdb
+G:\С#_new\Innowise\InnoShopV2\InnoShopV2\InnoShop.ProductManagement\ProductManagement.Domain\obj\Debug\net8.0\ProductManagement.Domain.GeneratedMSBuildEditorConfig.editorconfig
+G:\С#_new\Innowise\InnoShopV2\InnoShopV2\InnoShop.ProductManagement\ProductManagement.Domain\obj\Debug\net8.0\ProductManagement.Domain.AssemblyInfoInputs.cache
+G:\С#_new\Innowise\InnoShopV2\InnoShopV2\InnoShop.ProductManagement\ProductManagement.Domain\obj\Debug\net8.0\ProductManagement.Domain.AssemblyInfo.cs
+G:\С#_new\Innowise\InnoShopV2\InnoShopV2\InnoShop.ProductManagement\ProductManagement.Domain\obj\Debug\net8.0\ProductManagement.Domain.csproj.CoreCompileInputs.cache
+G:\С#_new\Innowise\InnoShopV2\InnoShopV2\InnoShop.ProductManagement\ProductManagement.Domain\obj\Debug\net8.0\ProductManagement.Domain.sourcelink.json
+G:\С#_new\Innowise\InnoShopV2\InnoShopV2\InnoShop.ProductManagement\ProductManagement.Domain\obj\Debug\net8.0\ProductManagement.Domain.dll
+G:\С#_new\Innowise\InnoShopV2\InnoShopV2\InnoShop.ProductManagement\ProductManagement.Domain\obj\Debug\net8.0\refint\ProductManagement.Domain.dll
+G:\С#_new\Innowise\InnoShopV2\InnoShopV2\InnoShop.ProductManagement\ProductManagement.Domain\obj\Debug\net8.0\ProductManagement.Domain.pdb
+G:\С#_new\Innowise\InnoShopV2\InnoShopV2\InnoShop.ProductManagement\ProductManagement.Domain\obj\Debug\net8.0\ref\ProductManagement.Domain.dll

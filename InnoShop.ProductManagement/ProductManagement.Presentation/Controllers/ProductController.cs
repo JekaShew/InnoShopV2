@@ -1,11 +1,9 @@
-﻿using MediatR;
+﻿using InnoShop.CommonLibrary.CommonDTOs;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using ProductManagement.Application.Commands.ProductCommands;
-using ProductManagement.Application.Commands.SubCategoryCommands;
-using ProductManagement.Application.DTOs;
 using ProductManagement.Application.Queries.ProductQueries;
-using ProductManagement.Application.Queries.SubCategoryQueries;
-using ProductManagement.Domain.Data.Models;
+
 
 namespace ProductManagement.Presentation.Controllers
 {

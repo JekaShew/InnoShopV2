@@ -1,10 +1,5 @@
-﻿using InnoShop.CommonLibrary.Response;
-using ProductManagement.Application.DTOs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using InnoShop.CommonLibrary.CommonDTOs;
+using InnoShop.CommonLibrary.Response;
 
 namespace ProductManagement.Application.Interfaces
 {

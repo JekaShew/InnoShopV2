@@ -1,4 +1,5 @@
-﻿using InnoShop.CommonLibrary.Response;
+﻿using InnoShop.CommonLibrary.CommonDTOs;
+using InnoShop.CommonLibrary.Response;
 using MediatR;
 using ProductManagement.Application.DTOs;
 using System;

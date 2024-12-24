@@ -626,3 +626,123 @@ WHERE [s].[Id] = @__request_Id_0
 2024-12-23 18:08:58.044 +03:00 [INF] Executed action ProductManagement.Presentation.Controllers.SubCategoryController.TakeSubCatigoryById (ProductManagement.Presentation) in 57.6425ms
 2024-12-23 18:08:58.044 +03:00 [INF] Executed endpoint 'ProductManagement.Presentation.Controllers.SubCategoryController.TakeSubCatigoryById (ProductManagement.Presentation)'
 2024-12-23 18:08:58.044 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5001/api/SubCategory/e7abdb35-2173-41ba-9633-4982e952f561 - 404 null text/plain; charset=utf-8 58.8968ms
+2024-12-24 14:34:29.784 +03:00 [WRN] No store type was specified for the decimal property 'Price' on entity type 'Product'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2024-12-24 14:35:21.011 +03:00 [WRN] No store type was specified for the decimal property 'Price' on entity type 'Product'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2024-12-24 14:35:21.773 +03:00 [INF] Executed DbCommand (309ms) [Parameters=[], CommandType='"Text"', CommandTimeout='60']
+CREATE DATABASE [InnoShopDB];
+2024-12-24 14:35:21.915 +03:00 [INF] Executed DbCommand (139ms) [Parameters=[], CommandType='"Text"', CommandTimeout='60']
+IF SERVERPROPERTY('EngineEdition') <> 5
+BEGIN
+    ALTER DATABASE [InnoShopDB] SET READ_COMMITTED_SNAPSHOT ON;
+END;
+2024-12-24 14:35:21.936 +03:00 [INF] Executed DbCommand (7ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2024-12-24 14:35:21.940 +03:00 [INF] Acquiring an exclusive lock for migration application. See https://aka.ms/efcore-docs-migrations-lock for more information if this takes too long.
+2024-12-24 14:35:21.978 +03:00 [INF] Executed DbCommand (37ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_getapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session', @LockMode = 'Exclusive';
+SELECT @result
+2024-12-24 14:35:22.035 +03:00 [INF] Executed DbCommand (10ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+IF OBJECT_ID(N'[__EFMigrationsHistory]') IS NULL
+BEGIN
+    CREATE TABLE [__EFMigrationsHistory] (
+        [MigrationId] nvarchar(150) NOT NULL,
+        [ProductVersion] nvarchar(32) NOT NULL,
+        CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY ([MigrationId])
+    );
+END;
+2024-12-24 14:35:22.046 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2024-12-24 14:35:22.047 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2024-12-24 14:35:22.057 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2024-12-24 14:35:22.070 +03:00 [INF] Applying migration '20241223093230_InitialProductManagement'.
+2024-12-24 14:35:22.092 +03:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [Categories] (
+    [Id] uniqueidentifier NOT NULL,
+    [Title] nvarchar(max) NOT NULL,
+    [Description] nvarchar(max) NOT NULL,
+    CONSTRAINT [PK_Categories] PRIMARY KEY ([Id])
+);
+2024-12-24 14:35:22.094 +03:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [ProductStatuses] (
+    [Id] uniqueidentifier NOT NULL,
+    [Title] nvarchar(max) NOT NULL,
+    [Description] nvarchar(max) NOT NULL,
+    CONSTRAINT [PK_ProductStatuses] PRIMARY KEY ([Id])
+);
+2024-12-24 14:35:22.098 +03:00 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [SubCategories] (
+    [Id] uniqueidentifier NOT NULL,
+    [Title] nvarchar(max) NOT NULL,
+    [Description] nvarchar(max) NOT NULL,
+    [CategoryId] uniqueidentifier NOT NULL,
+    CONSTRAINT [PK_SubCategories] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_SubCategories_Categories_CategoryId] FOREIGN KEY ([CategoryId]) REFERENCES [Categories] ([Id]) ON DELETE NO ACTION
+);
+2024-12-24 14:35:22.101 +03:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [Products] (
+    [Id] uniqueidentifier NOT NULL,
+    [Title] nvarchar(max) NOT NULL,
+    [Price] decimal(18,2) NOT NULL,
+    [CreateDate] datetime2 NOT NULL,
+    [Description] nvarchar(max) NOT NULL,
+    [UserId] uniqueidentifier NOT NULL,
+    [ProductStatusId] uniqueidentifier NOT NULL,
+    [SubCategoryId] uniqueidentifier NOT NULL,
+    CONSTRAINT [PK_Products] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_Products_ProductStatuses_ProductStatusId] FOREIGN KEY ([ProductStatusId]) REFERENCES [ProductStatuses] ([Id]) ON DELETE NO ACTION,
+    CONSTRAINT [FK_Products_SubCategories_SubCategoryId] FOREIGN KEY ([SubCategoryId]) REFERENCES [SubCategories] ([Id]) ON DELETE NO ACTION
+);
+2024-12-24 14:35:22.106 +03:00 [INF] Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_Products_ProductStatusId] ON [Products] ([ProductStatusId]);
+2024-12-24 14:35:22.107 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_Products_SubCategoryId] ON [Products] ([SubCategoryId]);
+2024-12-24 14:35:22.110 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_SubCategories_CategoryId] ON [SubCategories] ([CategoryId]);
+2024-12-24 14:35:22.113 +03:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20241223093230_InitialProductManagement', N'9.0.0');
+2024-12-24 14:35:22.113 +03:00 [INF] Applying migration '20241223095208_someNullablefixes'.
+2024-12-24 14:35:22.211 +03:00 [INF] Executed DbCommand (85ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @var0 sysname;
+SELECT @var0 = [d].[name]
+FROM [sys].[default_constraints] [d]
+INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+WHERE ([d].[parent_object_id] = OBJECT_ID(N'[SubCategories]') AND [c].[name] = N'Description');
+IF @var0 IS NOT NULL EXEC(N'ALTER TABLE [SubCategories] DROP CONSTRAINT [' + @var0 + '];');
+ALTER TABLE [SubCategories] ALTER COLUMN [Description] nvarchar(max) NULL;
+2024-12-24 14:35:22.226 +03:00 [INF] Executed DbCommand (16ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @var1 sysname;
+SELECT @var1 = [d].[name]
+FROM [sys].[default_constraints] [d]
+INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+WHERE ([d].[parent_object_id] = OBJECT_ID(N'[ProductStatuses]') AND [c].[name] = N'Description');
+IF @var1 IS NOT NULL EXEC(N'ALTER TABLE [ProductStatuses] DROP CONSTRAINT [' + @var1 + '];');
+ALTER TABLE [ProductStatuses] ALTER COLUMN [Description] nvarchar(max) NULL;
+2024-12-24 14:35:22.241 +03:00 [INF] Executed DbCommand (14ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @var2 sysname;
+SELECT @var2 = [d].[name]
+FROM [sys].[default_constraints] [d]
+INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+WHERE ([d].[parent_object_id] = OBJECT_ID(N'[Products]') AND [c].[name] = N'Description');
+IF @var2 IS NOT NULL EXEC(N'ALTER TABLE [Products] DROP CONSTRAINT [' + @var2 + '];');
+ALTER TABLE [Products] ALTER COLUMN [Description] nvarchar(max) NULL;
+2024-12-24 14:35:22.256 +03:00 [INF] Executed DbCommand (15ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @var3 sysname;
+SELECT @var3 = [d].[name]
+FROM [sys].[default_constraints] [d]
+INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+WHERE ([d].[parent_object_id] = OBJECT_ID(N'[Categories]') AND [c].[name] = N'Description');
+IF @var3 IS NOT NULL EXEC(N'ALTER TABLE [Categories] DROP CONSTRAINT [' + @var3 + '];');
+ALTER TABLE [Categories] ALTER COLUMN [Description] nvarchar(max) NULL;
+2024-12-24 14:35:22.257 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20241223095208_someNullablefixes', N'9.0.0');
+2024-12-24 14:35:22.263 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_releaseapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session';
+SELECT @result

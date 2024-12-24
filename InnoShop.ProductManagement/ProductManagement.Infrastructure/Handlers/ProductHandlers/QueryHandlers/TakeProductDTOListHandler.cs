@@ -1,14 +1,9 @@
-﻿using MediatR;
+﻿using InnoShop.CommonLibrary.CommonDTOs;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
-using ProductManagement.Application.DTOs;
 using ProductManagement.Application.Mappers;
 using ProductManagement.Application.Queries.ProductQueries;
 using ProductManagement.Infrastructure.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProductManagement.Infrastructure.Handlers.ProductHandlers.QueryHandlers
 {
