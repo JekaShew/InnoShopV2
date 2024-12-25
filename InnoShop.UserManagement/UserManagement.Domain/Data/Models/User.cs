@@ -14,8 +14,8 @@ namespace UserManagement.Domain.Data.Models
         public string Login { get; set; }
         public string PasswordHash { get; set; }
         public string SecurityStamp { get; set; }
-        public string SecretWord { get; set; }
-        public DateTime RegisterDate { get; set; }
+        public string SecretWordHash { get; set; }
+        public DateTime RegisterDate { get; set; } = DateTime.UtcNow;
         public Guid RoleId { get; set; }
         public Role? Role { get; set; }
 

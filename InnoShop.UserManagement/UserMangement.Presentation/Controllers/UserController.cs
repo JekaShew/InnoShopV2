@@ -2,7 +2,10 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using UserManagement.Application.Commands.UserCommands;
+using UserManagement.Application.DTOs;
+using UserManagement.Application.Interfaces;
 using UserManagement.Application.Queries.UserQueries;
+using UserManagement.Domain.Data.Models;
 
 namespace UserMangement.Presentation.Controllers
 {
@@ -11,9 +14,11 @@ namespace UserMangement.Presentation.Controllers
     public class UserController : ControllerBase
     {
         private readonly IMediator _mediator;
-        public UserController(IMediator mediator)
+        private readonly IUserServices _userServices;
+        public UserController(IMediator mediator, IUserServices userServices)
         {
             _mediator = mediator;   
+            _userServices = userServices;
         }
 
         [HttpGet]
@@ -51,22 +56,41 @@ namespace UserMangement.Presentation.Controllers
             }
         }
 
-        [HttpPost]
-        public async Task<IActionResult> AddUser([FromBody] UserDTO userDTO)
-        {
-            try
-            {
-                if (ModelState.IsValid)
-                {
-                    return Ok(await _mediator.Send(new AddUserCommand() { UserDTO = userDTO }));
-                }
-                else return BadRequest(ModelState);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, ex.Message);
-            }
-        }
+        //[HttpPost]
+        //public async Task<IActionResult> Login([FromBody] LoginInfoDTO loginInfoDTO)
+        //{
+        //    try
+        //    {
+        //        if (ModelState.IsValid)
+        //        {
+        //            await _userServices.Login(loginInfoDTO);
+        //            await _authenticationServices.GenerateJwtTokenStringByUserId(userId);
+        //            return Ok(await _mediator.Send(new AddUserCommand() { UserDTO = userDTO }));
+        //        }
+        //        else return BadRequest(ModelState);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return StatusCode(500, ex.Message);
+        //    }
+        //}
+
+        //[HttpPost]
+        //public async Task<IActionResult> AddUser([FromBody] UserDTO userDTO)
+        //{
+        //    try
+        //    {
+        //        if (ModelState.IsValid)
+        //        {
+        //            return Ok(await _mediator.Send(new AddUserCommand() { UserDTO = userDTO }));
+        //        }
+        //        else return BadRequest(ModelState);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return StatusCode(500, ex.Message);
+        //    }
+        //}
 
         [HttpDelete("{userId}")]
         public async Task<IActionResult> DeleteUserById(Guid userId)

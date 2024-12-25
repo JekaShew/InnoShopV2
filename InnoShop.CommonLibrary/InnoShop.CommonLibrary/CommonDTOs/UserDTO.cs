@@ -11,8 +11,6 @@ namespace InnoShop.CommonLibrary.CommonDTOs
         public string? Email { get; set; }
         [Required, MinLength(3)]
         public string Login { get; set; }
-        public string PasswordHash { get; set; }
-
         public DateTime RegisterDate { get; set; }
 
         public Guid RoleId { get; set; }

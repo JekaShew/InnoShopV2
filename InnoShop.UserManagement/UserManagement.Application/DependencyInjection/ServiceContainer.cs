@@ -17,6 +17,7 @@ namespace UserManagement.Application.DependencyInjection
     {
         public static IServiceCollection AddApplicationService(this IServiceCollection services, IConfiguration configuration)
         {
+            services.AddScoped<IAuthorizationServices, AuthorizationServices>();
             services.AddHttpClient<IUserServices, UserServices>(options =>
             {
                 options.BaseAddress = new Uri(configuration["ApiGateway:BaseAdress"]!);

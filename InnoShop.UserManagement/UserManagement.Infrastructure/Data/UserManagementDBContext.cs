@@ -18,6 +18,10 @@ namespace UserManagement.Infrastructure.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<User>()
+                    .HasIndex(u => u.Login)
+                    .IsUnique();
+
             foreach (var entityType in modelBuilder.Model.GetEntityTypes())
             {
                 entityType.GetForeignKeys()
