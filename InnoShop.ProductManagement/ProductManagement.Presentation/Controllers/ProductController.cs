@@ -2,6 +2,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using ProductManagement.Application.Commands.ProductCommands;
+using ProductManagement.Application.DTOs;
 using ProductManagement.Application.Queries.ProductQueries;
 
 
@@ -87,6 +88,75 @@ namespace ProductManagement.Presentation.Controllers
                 return StatusCode(500, ex.Message);
             }
             
+        }
+
+        [HttpGet("/takefilteredproducts")]
+        public async Task<IActionResult> TakeFilteredProducts([FromBody]ProductFilterDTO productFilterDTO)
+        {
+            try
+            {
+                var productDTOs = await _mediator.Send(new TakeFilteredProductDTOListQuery() { ProductFilterDTO = productFilterDTO});
+                if (productDTOs is null)
+                    return NotFound("No Product found!");
+                else
+                    return Ok(productDTOs);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        [HttpGet("/takesearchedproducts")]
+        public async Task<IActionResult> TakeSearchedProducts([FromBody] string queryString)
+        {
+            try
+            {
+                var productDTOs = await _mediator.Send(new TakeSearchedProductDTOListQuery() { QueryString = queryString});
+                if (productDTOs is null)
+                    return NotFound("No Product found!");
+                else
+                    return Ok(productDTOs);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        [HttpGet("/takeproductsbyuserid")]
+        public async Task<IActionResult> TakeProductsByUserId([FromBody]Guid userId)
+        {
+            try
+            {
+                var productDTOs = await _mediator.Send(new TakeProductDTOListByUserIdQuery() { UserId = userId});
+                if (productDTOs is null)
+                    return NotFound("No Product found!");
+                else
+                    return Ok(productDTOs);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        [HttpPatch("/changeproductstatusofproduct")]
+        public async Task<IActionResult> ChangeProductStatusOfProduct([FromBody] Guid productId, Guid productStatusId)
+        {
+            try
+            {
+                return Ok(await _mediator.Send(new ChangeProductStatusOfProductCommand() 
+                { 
+                    ProductId = productId,
+                    ProductStatusId = productStatusId
+                }));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+
         }
     }
 }
