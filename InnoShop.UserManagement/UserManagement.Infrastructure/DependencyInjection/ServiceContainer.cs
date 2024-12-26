@@ -20,8 +20,7 @@ namespace UserManagement.Infrastructure.DependencyInjection
             CommonServiceContainer.AddCommonServices<UserManagementDBContext>(services, configuration, configuration["Serolog:FileNAme"]);
 
             services.AddMediatR(cfg => cfg
-                        .RegisterServicesFromAssembly(typeof(TakeRoleDTOListHandler)
-                        .Assembly));
+                        .RegisterServicesFromAssembly(typeof(TakeRoleDTOListHandler).Assembly));
 
             return services;
         }

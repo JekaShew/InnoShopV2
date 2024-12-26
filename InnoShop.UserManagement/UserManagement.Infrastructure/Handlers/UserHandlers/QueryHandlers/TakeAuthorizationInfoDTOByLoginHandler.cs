@@ -1,11 +1,5 @@
-﻿using InnoShop.CommonLibrary.CommonDTOs;
-using MediatR;
+﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UserManagement.Application.DTOs;
 using UserManagement.Application.Mappers;
 using UserManagement.Application.Queries.UserQueries;
@@ -24,7 +18,8 @@ namespace UserManagement.Infrastructure.Handlers.UserHandlers.QueryHandlers
         {
             return UserMapper.UserToAuthorizationInfoDTO(await _umDBContext.Users
                                                     .AsNoTracking()
-                                                    .FirstOrDefaultAsync(u => u.Login.Equals(request.EnteredLogin)));
+                                                    .FirstOrDefaultAsync(u => u.Login
+                                                            .Equals(request.EnteredLogin)));
         }
     }
 }

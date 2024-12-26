@@ -4,6 +4,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Timeouts;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Polly.Registry;
 using System.Net.Http.Json;
 using System.Security.Claims;
@@ -18,64 +19,27 @@ namespace UserManagement.Application.Services
 {
 
     // SOLUTION NOT FOUND!!!!
-    public class UserServices(/*HttpClient httpClient,*/
-    //        ResiliencePipelineProvider<string> resiliencePipeline
-            /*IHttpContextAccessor _httpContextAccessor, IMediator mediator*/) : IUserServices
+    public class UserServices(
+        IHttpContextAccessor _httpContextAccessor,
+        IMediator _mediator,
+        IAuthorizationServices _authenticationServices,
+        HttpClient httpClient,
+        ResiliencePipelineProvider<string> resiliencePipeline)
     {
-        private readonly HttpClient _httpClient;
-        private readonly ResiliencePipelineProvider<string> _resiliencePipeline;
-        private readonly IHttpContextAccessor _httpContextAccessor;
-        private readonly IMediator _mediator;
-        private readonly IAuthorizationServices _authenticationServices;
-
-        public UserServices(
-            HttpClient httpClient,
-            ResiliencePipelineProvider<string> resiliencePipeline,
-            IHttpContextAccessor httpContextAccessor,
-            IMediator mediator,
-            IAuthorizationServices authenticationServices)
-        {
-            _httpClient = httpClient;
-            _resiliencePipeline = resiliencePipeline;
-            _httpContextAccessor = httpContextAccessor;
-            _mediator = mediator;
-            _authenticationServices = authenticationServices;
-        }
-
         public async Task<Response> Register(RegistrationInfoDTO registrationInfoDTO)
         {
-            //var checkIsLoginRegistered = await _mediator.Send(new IsUserLoginRegisteredQuery()
-            //{
-            //    EnteredLogin = registrationInfoDTO.Login,
-            //});
+            var securityStamp = await GetHash(registrationInfoDTO.SecretWord);
+            var secretWordHash = await GetHash($"{registrationInfoDTO.SecretWord}{securityStamp}");
+            var passwordHash = await GetHash($"{registrationInfoDTO.Password}{securityStamp}");
 
-            //if(checkIsLoginRegistered.Flag == true)
-            //    return checkIsLoginRegistered;
-            //else
-            //{
-                var securityStamp = await GetHash(registrationInfoDTO.SecretWord);
-                var secretWordHash = await GetHash($"{registrationInfoDTO.SecretWord}{securityStamp}");
-                var passwordHash = await GetHash($"{registrationInfoDTO.Password}{securityStamp}");
-
-                return await _mediator.Send(new AddUserCommand()
-                {
-                    RegistrationInfoDTO = registrationInfoDTO,
-                    SecurityStamp = securityStamp,
-                    PasswordHash = passwordHash,
-                    SecretWordHash = secretWordHash
-                });
-            //}
+            return await _mediator.Send(new AddUserCommand()
+            {
+                RegistrationInfoDTO = registrationInfoDTO,
+                SecurityStamp = securityStamp,
+                PasswordHash = passwordHash,
+                SecretWordHash = secretWordHash
+            });
         }
-
-        //public async Task<Response> TryLogin(LoginInfoDTO loginInfoDTO)
-        //{
-        //    var checkIsLoginRegistered = await CheckIsLoginRegistered(loginInfoDTO.Login);
-
-        //    if (checkIsLoginRegistered.Flag == false)
-        //        return checkIsLoginRegistered;
-        //    else
-        //        return await CheckLoginPasswordPair(loginInfoDTO.Login, loginInfoDTO.Password);
-        //}
 
         //To Controller ???????"
         public Guid? TakeCurrentUserId()
@@ -94,7 +58,7 @@ namespace UserManagement.Application.Services
         // to Controller
         public async Task<List<ProductDTO>> TakeProductsDTOListByUserId(Guid userId)
         {
-            var getProducts = await _httpClient.GetAsync($"/api/products/takeproductsbyuserid/{userId}");
+            var getProducts = await httpClient.GetAsync($"/api/products/takeproductsbyuserid/{userId}");
             if (!getProducts.IsSuccessStatusCode)
                 return null;
             var userProducts = await getProducts.Content.ReadFromJsonAsync<List<ProductDTO>>();
@@ -113,7 +77,7 @@ namespace UserManagement.Application.Services
             var userId = TakeCurrentUserId();
             if(userId is null)
                 return null;
-            var retryPipline = _resiliencePipeline.GetPipeline("retry-pipeline");
+            var retryPipline = resiliencePipeline.GetPipeline("retry-pipeline");
             var currentUserProducts = await retryPipline
                         .ExecuteAsync(
                             async token => await TakeProductsDTOListByUserId(userId.Value));
@@ -136,26 +100,22 @@ namespace UserManagement.Application.Services
         // To Controller
         public async Task<Response> CheckIsLoginRegistered(string login)
         {
-            //Mediator
             return await _mediator.Send(new IsUserLoginRegisteredQuery() { EnteredLogin = login });
         }
 
         public async Task<Response> CheckLoginPasswordPair(string login, string password)
         {
-                //Mediator
-                var authorizationInfoDTO = await _mediator.Send(new TakeAuthorizationInfoDTOByLoginQuery() { EnteredLogin = login });
-                var enteredPasswordHash = await GetHash($"{password}{authorizationInfoDTO.SecurityStamp}");
-                //Mediator
-                return await _mediator.Send(new CheckLoginPasswordPairQuery() { Login = login, PasswordHash = enteredPasswordHash });
+            var authorizationInfoDTO = await _mediator.Send(new TakeAuthorizationInfoDTOByLoginQuery() { EnteredLogin = login });
+            var enteredPasswordHash = await GetHash($"{password}{authorizationInfoDTO.SecurityStamp}");
+
+            return await _mediator.Send(new CheckLoginPasswordPairQuery() { Login = login, PasswordHash = enteredPasswordHash });
         }
 
         public async Task<Response> CheckLoginSecretWordPair(string login, string secretWord)
         {
-            //Mediator
             var authorizationInfoDTO = await _mediator.Send(new TakeAuthorizationInfoDTOByLoginQuery() { EnteredLogin = login });
             var enteredSecretWordHash = await GetHash($"{secretWord}{authorizationInfoDTO.SecurityStamp}");
 
-            //Mediator
             return await _mediator.Send(new CheckLoginSecretWordPairQuery() { Login = login, SecretWordHash = enteredSecretWordHash });
         }
 
@@ -207,8 +167,6 @@ namespace UserManagement.Application.Services
         private async Task<Response> ChangePassword(Guid userId, string newPasswordHash)
         {
             return await _mediator.Send(new ChangePasswordCommand() { UserId = userId, NewPasswordHash = newPasswordHash });
-        }
-
-        
+        }   
     }
 }

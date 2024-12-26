@@ -18,3 +18,12 @@ G:\С#_new\Innowise\InnoShopV2\InnoShopV2\InnoShop.UserManagement\UserManagement
 G:\С#_new\Innowise\InnoShopV2\InnoShopV2\InnoShop.UserManagement\UserManagement.Infrastructure\obj\Debug\net8.0\refint\UserManagement.Infrastructure.dll
 G:\С#_new\Innowise\InnoShopV2\InnoShopV2\InnoShop.UserManagement\UserManagement.Infrastructure\obj\Debug\net8.0\UserManagement.Infrastructure.pdb
 G:\С#_new\Innowise\InnoShopV2\InnoShopV2\InnoShop.UserManagement\UserManagement.Infrastructure\obj\Debug\net8.0\ref\UserManagement.Infrastructure.dll
+E:\NEED\C#\Innowise\InnoShop\InnoShopV2\InnoShop.UserManagement\UserManagement.Infrastructure\obj\Debug\net8.0\UserManagement.Infrastructure.csproj.AssemblyReference.cache
+E:\NEED\C#\Innowise\InnoShop\InnoShopV2\InnoShop.UserManagement\UserManagement.Infrastructure\obj\Debug\net8.0\UserManagement.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+E:\NEED\C#\Innowise\InnoShop\InnoShopV2\InnoShop.UserManagement\UserManagement.Infrastructure\obj\Debug\net8.0\UserManagement.Infrastructure.AssemblyInfoInputs.cache
+E:\NEED\C#\Innowise\InnoShop\InnoShopV2\InnoShop.UserManagement\UserManagement.Infrastructure\obj\Debug\net8.0\UserManagement.Infrastructure.AssemblyInfo.cs
+E:\NEED\C#\Innowise\InnoShop\InnoShopV2\InnoShop.UserManagement\UserManagement.Infrastructure\obj\Debug\net8.0\UserManagement.Infrastructure.csproj.CoreCompileInputs.cache
+E:\NEED\C#\Innowise\InnoShop\InnoShopV2\InnoShop.UserManagement\UserManagement.Infrastructure\obj\Debug\net8.0\UserManagement.Infrastructure.sourcelink.json
+E:\NEED\C#\Innowise\InnoShop\InnoShopV2\InnoShop.UserManagement\UserManagement.Infrastructure\obj\Debug\net8.0\UserManagement.Infrastructure.dll
+E:\NEED\C#\Innowise\InnoShop\InnoShopV2\InnoShop.UserManagement\UserManagement.Infrastructure\obj\Debug\net8.0\refint\UserManagement.Infrastructure.dll
+E:\NEED\C#\Innowise\InnoShop\InnoShopV2\InnoShop.UserManagement\UserManagement.Infrastructure\obj\Debug\net8.0\UserManagement.Infrastructure.pdb

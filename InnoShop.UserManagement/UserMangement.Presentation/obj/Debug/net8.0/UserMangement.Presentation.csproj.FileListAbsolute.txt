@@ -196,3 +196,14 @@ G:\С#_new\Innowise\InnoShopV2\InnoShopV2\InnoShop.UserManagement\UserMangement.
 G:\С#_new\Innowise\InnoShopV2\InnoShopV2\InnoShop.UserManagement\UserMangement.Presentation\obj\Debug\net8.0\UserMangement.Presentation.genruntimeconfig.cache
 G:\С#_new\Innowise\InnoShopV2\InnoShopV2\InnoShop.UserManagement\UserMangement.Presentation\obj\Debug\net8.0\ref\UserMangement.Presentation.dll
 G:\С#_new\Innowise\InnoShopV2\InnoShopV2\InnoShop.UserManagement\UserMangement.Presentation\bin\Debug\net8.0\Riok.Mapperly.Abstractions.dll
+E:\NEED\C#\Innowise\InnoShop\InnoShopV2\InnoShop.UserManagement\UserMangement.Presentation\obj\Debug\net8.0\UserMangement.Presentation.csproj.AssemblyReference.cache
+E:\NEED\C#\Innowise\InnoShop\InnoShopV2\InnoShop.UserManagement\UserMangement.Presentation\obj\Debug\net8.0\UserMangement.Presentation.GeneratedMSBuildEditorConfig.editorconfig
+E:\NEED\C#\Innowise\InnoShop\InnoShopV2\InnoShop.UserManagement\UserMangement.Presentation\obj\Debug\net8.0\UserMangement.Presentation.AssemblyInfoInputs.cache
+E:\NEED\C#\Innowise\InnoShop\InnoShopV2\InnoShop.UserManagement\UserMangement.Presentation\obj\Debug\net8.0\UserMangement.Presentation.AssemblyInfo.cs
+E:\NEED\C#\Innowise\InnoShop\InnoShopV2\InnoShop.UserManagement\UserMangement.Presentation\obj\Debug\net8.0\UserMangement.Presentation.csproj.CoreCompileInputs.cache
+E:\NEED\C#\Innowise\InnoShop\InnoShopV2\InnoShop.UserManagement\UserMangement.Presentation\obj\Debug\net8.0\UserMangement.Presentation.MvcApplicationPartsAssemblyInfo.cs
+E:\NEED\C#\Innowise\InnoShop\InnoShopV2\InnoShop.UserManagement\UserMangement.Presentation\obj\Debug\net8.0\UserMangement.Presentation.MvcApplicationPartsAssemblyInfo.cache
+E:\NEED\C#\Innowise\InnoShop\InnoShopV2\InnoShop.UserManagement\UserMangement.Presentation\obj\Debug\net8.0\UserMangement.Presentation.sourcelink.json
+E:\NEED\C#\Innowise\InnoShop\InnoShopV2\InnoShop.UserManagement\UserMangement.Presentation\obj\Debug\net8.0\UserMangement.Presentation.dll
+E:\NEED\C#\Innowise\InnoShop\InnoShopV2\InnoShop.UserManagement\UserMangement.Presentation\obj\Debug\net8.0\refint\UserMangement.Presentation.dll
+E:\NEED\C#\Innowise\InnoShop\InnoShopV2\InnoShop.UserManagement\UserMangement.Presentation\obj\Debug\net8.0\UserMangement.Presentation.pdb
