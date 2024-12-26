@@ -207,3 +207,5 @@ E:\NEED\C#\Innowise\InnoShop\InnoShopV2\InnoShop.UserManagement\UserMangement.Pr
 E:\NEED\C#\Innowise\InnoShop\InnoShopV2\InnoShop.UserManagement\UserMangement.Presentation\obj\Debug\net8.0\UserMangement.Presentation.dll
 E:\NEED\C#\Innowise\InnoShop\InnoShopV2\InnoShop.UserManagement\UserMangement.Presentation\obj\Debug\net8.0\refint\UserMangement.Presentation.dll
 E:\NEED\C#\Innowise\InnoShop\InnoShopV2\InnoShop.UserManagement\UserMangement.Presentation\obj\Debug\net8.0\UserMangement.Presentation.pdb
+G:\С#_new\Innowise\InnoShopV2\InnoShopV2\InnoShop.UserManagement\UserMangement.Presentation\bin\Debug\net8.0\MediatR.dll
+G:\С#_new\Innowise\InnoShopV2\InnoShopV2\InnoShop.UserManagement\UserMangement.Presentation\bin\Debug\net8.0\MediatR.Contracts.dll

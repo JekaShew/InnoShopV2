@@ -5448,23 +5448,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\eugenyshevtsov\\.nuget\\packages\\": {},
+    "C:\\Users\\1\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\NEED\\C#\\Innowise\\InnoShop\\InnoShopV2\\InnoShop.ProductManagement\\ProductManagement.Presentation\\ProductManagement.Presentation.csproj",
+      "projectUniqueName": "G:\\С#_new\\Innowise\\InnoShopV2\\InnoShopV2\\InnoShop.ProductManagement\\ProductManagement.Presentation\\ProductManagement.Presentation.csproj",
       "projectName": "ProductManagement.Presentation",
-      "projectPath": "E:\\NEED\\C#\\Innowise\\InnoShop\\InnoShopV2\\InnoShop.ProductManagement\\ProductManagement.Presentation\\ProductManagement.Presentation.csproj",
-      "packagesPath": "C:\\Users\\eugenyshevtsov\\.nuget\\packages\\",
-      "outputPath": "E:\\NEED\\C#\\Innowise\\InnoShop\\InnoShopV2\\InnoShop.ProductManagement\\ProductManagement.Presentation\\obj\\",
+      "projectPath": "G:\\С#_new\\Innowise\\InnoShopV2\\InnoShopV2\\InnoShop.ProductManagement\\ProductManagement.Presentation\\ProductManagement.Presentation.csproj",
+      "packagesPath": "C:\\Users\\1\\.nuget\\packages\\",
+      "outputPath": "G:\\С#_new\\Innowise\\InnoShopV2\\InnoShopV2\\InnoShop.ProductManagement\\ProductManagement.Presentation\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\eugenyshevtsov\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\1\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -5480,8 +5480,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "E:\\NEED\\C#\\Innowise\\InnoShop\\InnoShopV2\\InnoShop.ProductManagement\\ProductManagement.Infrastructure\\ProductManagement.Infrastructure.csproj": {
-              "projectPath": "E:\\NEED\\C#\\Innowise\\InnoShop\\InnoShopV2\\InnoShop.ProductManagement\\ProductManagement.Infrastructure\\ProductManagement.Infrastructure.csproj"
+            "G:\\С#_new\\Innowise\\InnoShopV2\\InnoShopV2\\InnoShop.ProductManagement\\ProductManagement.Infrastructure\\ProductManagement.Infrastructure.csproj": {
+              "projectPath": "G:\\С#_new\\Innowise\\InnoShopV2\\InnoShopV2\\InnoShop.ProductManagement\\ProductManagement.Infrastructure\\ProductManagement.Infrastructure.csproj"
             }
           }
         }
@@ -5547,7 +5547,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.300/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

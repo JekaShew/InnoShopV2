@@ -44,10 +44,11 @@ namespace UserMangement.Presentation.Controllers
                             var userId = await _mediator.Send(new TakeUserIdByLoginQuery() { Login = loginInfoDTO.Login });
                             if (userId == null)
                                 return BadRequest("The Error occured while Signing In!");
-                            var jwtToken = await _authorizationServices.GenerateJwtTokenStringByUserId(userId);
-                            if (jwtToken == null)
-                                return StatusCode(500, "The Error occured while Generating JWT!");
-                            return Ok(jwtToken);
+                            
+                            var tokens = await GenerateTokenPair(userId);
+                            if (tokens.Item1 == null || tokens.Item2 == null)
+                                return BadRequest("Generating tokens Failed!");
+                            return Ok(new { AccessToken = tokens.Item1, RefreshToken = tokens.Item2 });
                         }
                         else
                             return Unauthorized(checkLoginPasswordPair);
@@ -92,6 +93,76 @@ namespace UserMangement.Presentation.Controllers
             {
                 return StatusCode(500, ex.Message);
             }
+        }
+
+        [HttpPost("logout")]
+        public async Task<IActionResult> Logout([FromBody] Guid rTokenId)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var deleteRefreshToken = await _authorizationServices.DeleteRefreshTokenByRTokenId(rTokenId);
+                    if (deleteRefreshToken.Flag == true)
+                        return Ok(deleteRefreshToken.Message);
+                    else
+                        return BadRequest(deleteRefreshToken.Message);
+                }
+                else return BadRequest(ModelState);
+
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+
+        }
+
+        [HttpPost("/refresh")]
+        public async Task<IActionResult> Refresh([FromBody] Guid rTokenId)
+        {
+            var isRefreshTokenCorrect = await _authorizationServices.IsRefreshTokenCorrectByRTokenId(rTokenId);
+            if (isRefreshTokenCorrect.Flag == true)
+            {
+                var userId = await _authorizationServices.TakeUserIdByRTokenId(rTokenId);
+                if (userId != null)
+                {
+                    var tokens = await GenerateTokenPair(userId);
+
+                    var deleteRefreshToken = await _authorizationServices.DeleteRefreshTokenByRTokenId(rTokenId);
+
+                    if(deleteRefreshToken.Flag == true)
+                        return Ok(new { AccessToken = tokens.Item1, RefreshToken = tokens.Item2 });
+                    else
+                        return BadRequest(deleteRefreshToken.Message);
+                }
+                else
+                    return BadRequest("User not found!");
+            }
+            return BadRequest(isRefreshTokenCorrect.Message);
+        }
+
+        [HttpPatch("/revoke/{id}")]
+        public async Task<IActionResult> RevokeTokenById(Guid rTokenId)
+        {
+            var isRefreshTokenCorrect = await _authorizationServices.IsRefreshTokenCorrectByRTokenId(rTokenId);
+            if (isRefreshTokenCorrect.Flag == true)
+            {
+                var revokeToken = await _authorizationServices.RevokeTokenByRTokenId(rTokenId);
+                if(revokeToken.Flag == true)
+                    return Ok(revokeToken.Message);
+                else 
+                    return BadRequest(revokeToken.Message);
+            }
+            else
+                return BadRequest(isRefreshTokenCorrect.Message);
+        }
+
+        private async Task<(string, string)> GenerateTokenPair(Guid userId)
+        {
+            var jwt = await _authorizationServices.GenerateJwtTokenStringByUserId(userId); 
+            var rt = await _authorizationServices.GenerateRefreshTokenByUserId(userId);
+            return (jwt, rt);
         }
     }
 }

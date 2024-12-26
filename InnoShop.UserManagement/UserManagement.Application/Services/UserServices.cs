@@ -15,17 +15,26 @@ using UserManagement.Application.DTOs;
 using UserManagement.Application.Interfaces;
 using UserManagement.Application.Queries.UserQueries;
 
-namespace UserManagement.Application.Services
+namespace UserManagement.Application.Services 
 {
 
     // SOLUTION NOT FOUND!!!!
-    public class UserServices(
-        IHttpContextAccessor _httpContextAccessor,
-        IMediator _mediator,
-        IAuthorizationServices _authenticationServices,
-        HttpClient httpClient,
-        ResiliencePipelineProvider<string> resiliencePipeline)
+    public class UserServices(HttpClient httpClient,
+        ResiliencePipelineProvider<string> resiliencePipeline) :IUserServices
     {
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IMediator _mediator;
+
+        public UserServices(IHttpContextAccessor httpContextAccessor,
+        IMediator mediator,
+        HttpClient httpClient,
+        ResiliencePipelineProvider<string> resiliencePipeline) : this(httpClient,resiliencePipeline)
+        {
+            _mediator = mediator;
+            _httpContextAccessor = httpContextAccessor;
+            
+        }
+
         public async Task<Response> Register(RegistrationInfoDTO registrationInfoDTO)
         {
             var securityStamp = await GetHash(registrationInfoDTO.SecretWord);
@@ -68,6 +77,15 @@ namespace UserManagement.Application.Services
         // to Controller 
         public async Task<Response> ChangeUserStatusOfUser(Guid userId, Guid userStatusId)
         {
+            // Request to PorductManagement to change products statuses!
+            var retryPipline = resiliencePipeline.GetPipeline("retry-pipeline");
+            var changeUserProductsStatus = await retryPipline
+                        .ExecuteAsync(
+                                    async token => await httpClient
+                                                    .GetAsync($"/api/products/changeproductstatusesofproductsbyuserid/{userId}"));
+            if (!changeUserProductsStatus.IsSuccessStatusCode)
+                return new Response(false, "Error occured while changing User's Porduct Statuses!");
+
             return await _mediator.Send(new ChangeUserStatusOfUserCommand() { UserId = userId, UserStatusId = userStatusId });
         }
 
@@ -167,6 +185,11 @@ namespace UserManagement.Application.Services
         private async Task<Response> ChangePassword(Guid userId, string newPasswordHash)
         {
             return await _mediator.Send(new ChangePasswordCommand() { UserId = userId, NewPasswordHash = newPasswordHash });
-        }   
+        }
+
+        public async Task<Response> ChangeRoleOfUser(Guid userId, Guid roleId)
+        {
+            return await _mediator.Send(new ChangeRoleOfUserCommand() {UserId = userId, RoleId = roleId });
+        }
     }
 }

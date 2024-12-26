@@ -10,6 +10,9 @@ namespace ProductManagement.Application.Interfaces
         public Task<List<ProductDTO>> TakeFilteredProductDTOList(ProductFilterDTO productFilterDTO);
         public Task<List<ProductDTO>> TakeSearchedProductDTOList(string query);
         public Task<Response> ChangeProductStatusOfProduct(Guid productId, Guid productStatusId);
+        public Task<Response> ChangeProductStatusesOfProductsByUserId(Guid userId);
+        public Task<Response> CreateProduct(ProductDTO productDTO);
+        public Guid? GetCurrentUserId();
 
     }
 }

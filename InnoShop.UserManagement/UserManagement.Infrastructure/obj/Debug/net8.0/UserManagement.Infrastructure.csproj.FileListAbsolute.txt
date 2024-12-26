@@ -27,3 +27,5 @@ E:\NEED\C#\Innowise\InnoShop\InnoShopV2\InnoShop.UserManagement\UserManagement.I
 E:\NEED\C#\Innowise\InnoShop\InnoShopV2\InnoShop.UserManagement\UserManagement.Infrastructure\obj\Debug\net8.0\UserManagement.Infrastructure.dll
 E:\NEED\C#\Innowise\InnoShop\InnoShopV2\InnoShop.UserManagement\UserManagement.Infrastructure\obj\Debug\net8.0\refint\UserManagement.Infrastructure.dll
 E:\NEED\C#\Innowise\InnoShop\InnoShopV2\InnoShop.UserManagement\UserManagement.Infrastructure\obj\Debug\net8.0\UserManagement.Infrastructure.pdb
+G:\С#_new\Innowise\InnoShopV2\InnoShopV2\InnoShop.UserManagement\UserManagement.Infrastructure\bin\Debug\net8.0\UserManagement.Infrastructure.runtimeconfig.json
+G:\С#_new\Innowise\InnoShopV2\InnoShopV2\InnoShop.UserManagement\UserManagement.Infrastructure\obj\Debug\net8.0\UserManagement.Infrastructure.genruntimeconfig.cache

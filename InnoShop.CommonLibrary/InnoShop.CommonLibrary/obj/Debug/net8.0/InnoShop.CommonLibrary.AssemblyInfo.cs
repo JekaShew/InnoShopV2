@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("InnoShop.CommonLibrary")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5c6ac2fa81fbb3bc3b2c3cf134967103f50e9271")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+848f86e80736aaecf8d150609278ec32e824e5a1")]
 [assembly: System.Reflection.AssemblyProductAttribute("InnoShop.CommonLibrary")]
 [assembly: System.Reflection.AssemblyTitleAttribute("InnoShop.CommonLibrary")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

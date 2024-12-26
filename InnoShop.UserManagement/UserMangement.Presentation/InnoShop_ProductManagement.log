@@ -1,0 +1,113 @@
+2024-12-26 18:06:03.546 +03:00 [INF] Executed DbCommand (20ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2024-12-26 18:06:03.575 +03:00 [INF] Acquiring an exclusive lock for migration application. See https://aka.ms/efcore-docs-migrations-lock for more information if this takes too long.
+2024-12-26 18:06:03.617 +03:00 [INF] Executed DbCommand (38ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_getapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session', @LockMode = 'Exclusive';
+SELECT @result
+2024-12-26 18:06:03.711 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+IF OBJECT_ID(N'[__EFMigrationsHistory]') IS NULL
+BEGIN
+    CREATE TABLE [__EFMigrationsHistory] (
+        [MigrationId] nvarchar(150) NOT NULL,
+        [ProductVersion] nvarchar(32) NOT NULL,
+        CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY ([MigrationId])
+    );
+END;
+2024-12-26 18:06:03.725 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2024-12-26 18:06:03.727 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2024-12-26 18:06:03.740 +03:00 [INF] Executed DbCommand (12ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2024-12-26 18:06:03.758 +03:00 [INF] Applying migration '20241226150548_InitialUserManagementDB'.
+2024-12-26 18:06:03.794 +03:00 [INF] Executed DbCommand (16ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [Roles] (
+    [Id] uniqueidentifier NOT NULL,
+    [Title] nvarchar(max) NOT NULL,
+    [Description] nvarchar(max) NULL,
+    CONSTRAINT [PK_Roles] PRIMARY KEY ([Id])
+);
+2024-12-26 18:06:03.798 +03:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [UserStatuses] (
+    [Id] uniqueidentifier NOT NULL,
+    [Title] nvarchar(max) NOT NULL,
+    [Description] nvarchar(max) NULL,
+    CONSTRAINT [PK_UserStatuses] PRIMARY KEY ([Id])
+);
+2024-12-26 18:06:03.803 +03:00 [INF] Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [Users] (
+    [Id] uniqueidentifier NOT NULL,
+    [FIO] nvarchar(max) NOT NULL,
+    [Email] nvarchar(max) NULL,
+    [Login] nvarchar(450) NOT NULL,
+    [PasswordHash] nvarchar(max) NOT NULL,
+    [SecurityStamp] nvarchar(max) NOT NULL,
+    [SecretWordHash] nvarchar(max) NOT NULL,
+    [RegisterDate] datetime2 NOT NULL,
+    [RoleId] uniqueidentifier NOT NULL,
+    [UserStatusId] uniqueidentifier NOT NULL,
+    CONSTRAINT [PK_Users] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_Users_Roles_RoleId] FOREIGN KEY ([RoleId]) REFERENCES [Roles] ([Id]) ON DELETE NO ACTION,
+    CONSTRAINT [FK_Users_UserStatuses_UserStatusId] FOREIGN KEY ([UserStatusId]) REFERENCES [UserStatuses] ([Id]) ON DELETE NO ACTION
+);
+2024-12-26 18:06:03.806 +03:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [RefreshTokens] (
+    [Id] uniqueidentifier NOT NULL,
+    [IsRevoked] bit NOT NULL,
+    [ExpireDate] datetime2 NOT NULL,
+    [UserId] uniqueidentifier NOT NULL,
+    CONSTRAINT [PK_RefreshTokens] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_RefreshTokens_Users_UserId] FOREIGN KEY ([UserId]) REFERENCES [Users] ([Id]) ON DELETE NO ACTION
+);
+2024-12-26 18:06:03.811 +03:00 [INF] Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_RefreshTokens_UserId] ON [RefreshTokens] ([UserId]);
+2024-12-26 18:06:03.813 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX [IX_Users_Login] ON [Users] ([Login]);
+2024-12-26 18:06:03.814 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_Users_RoleId] ON [Users] ([RoleId]);
+2024-12-26 18:06:03.816 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_Users_UserStatusId] ON [Users] ([UserStatusId]);
+2024-12-26 18:06:03.819 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20241226150548_InitialUserManagementDB', N'9.0.0');
+2024-12-26 18:06:03.830 +03:00 [INF] Executed DbCommand (6ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_releaseapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session';
+SELECT @result
+2024-12-26 18:06:30.058 +03:00 [INF] User profile is available. Using 'C:\Users\1\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-12-26 18:06:30.158 +03:00 [INF] Creating key {a490df44-53b7-4b6f-928d-d612b6ad16e3} with creation date 2024-12-26 15:06:30Z, activation date 2024-12-26 15:06:30Z, and expiration date 2025-03-26 15:06:30Z.
+2024-12-26 18:06:30.180 +03:00 [INF] Writing data to file 'C:\Users\1\AppData\Local\ASP.NET\DataProtection-Keys\key-a490df44-53b7-4b6f-928d-d612b6ad16e3.xml'.
+2024-12-26 18:06:30.421 +03:00 [INF] Now listening on: http://localhost:5002
+2024-12-26 18:06:30.425 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-12-26 18:06:30.426 +03:00 [INF] Hosting environment: Development
+2024-12-26 18:06:30.426 +03:00 [INF] Content root path: G:\С#_new\Innowise\InnoShopV2\InnoShopV2\InnoShop.UserManagement\UserMangement.Presentation
+2024-12-26 18:06:31.961 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5002/swagger - null null
+2024-12-26 18:06:36.686 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5002/swagger - 301 0 null 4777.5383ms
+2024-12-26 18:06:36.707 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5002/swagger/index.html - null null
+2024-12-26 18:06:37.127 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5002/swagger/index.html - 200 null text/html;charset=utf-8 423.3997ms
+2024-12-26 18:06:37.635 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5002/swagger/index.css - null null
+2024-12-26 18:06:37.636 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5002/swagger/swagger-ui-bundle.js - null null
+2024-12-26 18:06:37.637 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5002/swagger/swagger-ui-standalone-preset.js - null null
+2024-12-26 18:06:37.653 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5002/swagger/swagger-ui.css - null null
+2024-12-26 18:06:37.654 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5002/swagger/index.js - null null
+2024-12-26 18:06:37.671 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5002/_framework/aspnetcore-browser-refresh.js - null null
+2024-12-26 18:06:37.701 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5002/_framework/aspnetcore-browser-refresh.js - 200 13788 application/javascript; charset=utf-8 30.1239ms
+2024-12-26 18:06:37.746 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5002/_vs/browserLink - null null
+2024-12-26 18:06:37.865 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5002/swagger/index.js - 200 null application/javascript;charset=utf-8 211.0422ms
+2024-12-26 18:06:37.876 +03:00 [INF] Sending file. Request path: '/swagger-ui.css'. Physical path: 'N/A'
+2024-12-26 18:06:37.877 +03:00 [INF] Sending file. Request path: '/swagger-ui-standalone-preset.js'. Physical path: 'N/A'
+2024-12-26 18:06:37.877 +03:00 [INF] Sending file. Request path: '/index.css'. Physical path: 'N/A'
+2024-12-26 18:06:37.877 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5002/swagger/index.css - 200 202 text/css 242.1241ms
+2024-12-26 18:06:37.882 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5002/swagger/swagger-ui-standalone-preset.js - 200 230007 text/javascript 244.5088ms
+2024-12-26 18:06:37.882 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5002/swagger/swagger-ui.css - 200 152035 text/css 228.4229ms
+2024-12-26 18:06:37.941 +03:00 [INF] Sending file. Request path: '/swagger-ui-bundle.js'. Physical path: 'N/A'
+2024-12-26 18:06:37.941 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5002/swagger/swagger-ui-bundle.js - 200 1426050 text/javascript 304.594ms
+2024-12-26 18:06:38.226 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5002/_vs/browserLink - 200 null text/javascript; charset=UTF-8 479.909ms
+2024-12-26 18:06:38.866 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5002/swagger/v1/swagger.json - null null
+2024-12-26 18:06:38.939 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5002/swagger/favicon-32x32.png - null null
+2024-12-26 18:06:38.940 +03:00 [INF] Sending file. Request path: '/favicon-32x32.png'. Physical path: 'N/A'
+2024-12-26 18:06:38.940 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5002/swagger/favicon-32x32.png - 200 628 image/png 1.2623ms
+2024-12-26 18:06:39.180 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5002/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 313.5402ms

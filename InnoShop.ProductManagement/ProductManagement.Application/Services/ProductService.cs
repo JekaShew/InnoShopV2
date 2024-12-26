@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using ProductManagement.Application.Commands.ProductCommands;
 using ProductManagement.Application.DTOs;
 using ProductManagement.Application.Interfaces;
+using ProductManagement.Application.Queries.ProductQueries;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,25 +26,29 @@ namespace ProductManagement.Application.Services
         }
         public async Task<Response> ChangeProductStatusOfProduct(Guid productId, Guid productStatusId)
         {
-            throw new NotImplementedException();
+            return await _mediator.Send(new ChangeProductStatusOfProductCommand()
+            {
+                ProductId = productId,
+                ProductStatusId = productStatusId
+            });
         }
 
-        public Task<List<ProductDTO>> TakeFilteredProductDTOList(ProductFilterDTO productFilterDTO)
+        public async Task<List<ProductDTO>> TakeFilteredProductDTOList(ProductFilterDTO productFilterDTO)
         {
-            throw new NotImplementedException();
+            return await _mediator.Send(new TakeFilteredProductDTOListQuery() { ProductFilterDTO = productFilterDTO });
         }
 
-        public Task<List<ProductDTO>> TakeProductsByUserId(Guid userId)
+        public async Task<List<ProductDTO>> TakeProductsByUserId(Guid userId)
         {
-            throw new NotImplementedException();
+            return await _mediator.Send(new TakeProductDTOListByUserIdQuery() { UserId = userId });
         }
 
-        public Task<List<ProductDTO>> TakeSearchedProductDTOList(string query)
+        public async Task<List<ProductDTO>> TakeSearchedProductDTOList(string query)
         {
-            throw new NotImplementedException();
+            return await _mediator.Send(new TakeSearchedProductDTOListQuery() { QueryString = query });
         }
 
-        public Guid? GetCurrentAccountId()
+        public Guid? GetCurrentUserId()
         {
             if (!_httpContextAccessor.HttpContext.User.Identity.IsAuthenticated)
                 return null;
@@ -58,7 +63,7 @@ namespace ProductManagement.Application.Services
 
         public async Task<Response> CreateProduct(ProductDTO productDTO)
         {
-            var userId = GetCurrentAccountId();
+            var userId = GetCurrentUserId();
             if (userId != null)
             {
                 productDTO.UserId = userId.Value;
@@ -68,5 +73,9 @@ namespace ProductManagement.Application.Services
             return new Response(false, "An Error occured while adding Product!");
         }
 
+        public async Task<Response> ChangeProductStatusesOfProductsByUserId(Guid userId)
+        {
+            return await _mediator.Send(new ChangeProductStatusesOfProductsByUserIdCommand() { UserId = userId });
+        }
     }
 }

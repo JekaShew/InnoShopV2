@@ -3,7 +3,9 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using ProductManagement.Application.Commands.ProductCommands;
 using ProductManagement.Application.DTOs;
+using ProductManagement.Application.Interfaces;
 using ProductManagement.Application.Queries.ProductQueries;
+using ProductManagement.Domain.Data.Models;
 
 
 namespace ProductManagement.Presentation.Controllers
@@ -13,9 +15,11 @@ namespace ProductManagement.Presentation.Controllers
     public class ProductController : ControllerBase
     {
         private readonly IMediator _mediator;
-        public ProductController(IMediator mediator)
+        private readonly IProductServices _productServices;
+        public ProductController(IMediator mediator, IProductServices productServices)
         {
             _mediator = mediator;
+            _productServices = productServices;
         }
 
         [HttpGet]
@@ -54,13 +58,17 @@ namespace ProductManagement.Presentation.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddProduct([FromBody] ProductDTO productDTO)
+        public async Task<IActionResult> CreateProduct([FromBody] ProductDTO productDTO)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    return Ok(await _mediator.Send(new AddProductCommand() { ProductDTO = productDTO }));
+                    var createProduct = await _productServices.CreateProduct(productDTO);
+                    if (createProduct.Flag == true)
+                        return Ok(createProduct.Message);
+                    else
+                        return BadRequest(createProduct.Message);
                 }
                 else return BadRequest(ModelState);
             }
@@ -73,7 +81,23 @@ namespace ProductManagement.Presentation.Controllers
         [HttpDelete("{productId}")]
         public async Task<IActionResult> DeleteProductById(Guid productId)
         {
-            return Ok(await _mediator.Send(new DeleteProductByIdCommand() { Id = productId }));
+            try
+            {
+                var userId = _productServices.GetCurrentUserId();
+
+                var product = await _mediator.Send(new TakeProductDTOByIdQuery() { Id = productId });
+                if (product != null)
+                    if (product.UserId != userId.Value)
+                        return Forbid("Forbidden Action Detected! You can't delete this Product!");
+                    else
+                        return Ok(await _mediator.Send(new DeleteProductByIdCommand() { Id = productId }));
+                else
+                    return BadRequest("Product not Found!");
+            }
+            catch(Exception ex) 
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
 
         [HttpPut]
@@ -81,13 +105,21 @@ namespace ProductManagement.Presentation.Controllers
         {
             try
             {
-                return Ok(await _mediator.Send(new UpdateProductCommand() { ProductDTO = productDTO }));
+                var userId = _productServices.GetCurrentUserId();
+
+                var product = await _mediator.Send(new TakeProductDTOByIdQuery() { Id = productDTO.Id.Value });
+                if (product != null)
+                    if (product.UserId != userId.Value)
+                        return Forbid("Forbidden Action Detected! You can't update this Product!");
+                    else
+                        return Ok(await _mediator.Send(new UpdateProductCommand() { ProductDTO = productDTO }));
+                else
+                    return BadRequest("Product not Found!");
             }
             catch (Exception ex)
             {
                 return StatusCode(500, ex.Message);
-            }
-            
+            }            
         }
 
         [HttpGet("/takefilteredproducts")]
@@ -95,7 +127,7 @@ namespace ProductManagement.Presentation.Controllers
         {
             try
             {
-                var productDTOs = await _mediator.Send(new TakeFilteredProductDTOListQuery() { ProductFilterDTO = productFilterDTO});
+                var productDTOs = await _productServices.TakeFilteredProductDTOList(productFilterDTO);
                 if (productDTOs is null)
                     return NotFound("No Product found!");
                 else
@@ -112,7 +144,7 @@ namespace ProductManagement.Presentation.Controllers
         {
             try
             {
-                var productDTOs = await _mediator.Send(new TakeSearchedProductDTOListQuery() { QueryString = queryString});
+                var productDTOs = await _productServices.TakeSearchedProductDTOList(queryString);
                 if (productDTOs is null)
                     return NotFound("No Product found!");
                 else
@@ -124,12 +156,12 @@ namespace ProductManagement.Presentation.Controllers
             }
         }
 
-        [HttpGet("/takeproductsbyuserid")]
-        public async Task<IActionResult> TakeProductsByUserId([FromBody]Guid userId)
+        [HttpGet("/takeproductsbyuserid/{userId}")]
+        public async Task<IActionResult> TakeProductsByUserId(Guid userId)
         {
             try
             {
-                var productDTOs = await _mediator.Send(new TakeProductDTOListByUserIdQuery() { UserId = userId});
+                var productDTOs = await _productServices.TakeProductsByUserId(userId);
                 if (productDTOs is null)
                     return NotFound("No Product found!");
                 else
@@ -146,17 +178,64 @@ namespace ProductManagement.Presentation.Controllers
         {
             try
             {
-                return Ok(await _mediator.Send(new ChangeProductStatusOfProductCommand() 
-                { 
-                    ProductId = productId,
-                    ProductStatusId = productStatusId
-                }));
+                var userId = _productServices.GetCurrentUserId();
+
+                var product = await _mediator.Send(new TakeProductDTOByIdQuery() { Id = productId });
+                if (product != null)
+                    if (product.UserId != userId.Value)
+                        return Forbid("Forbidden Action Detected! You can't update this Product!");
+                    else
+                    {
+                        var changeProductsStatusOfProduct = await _productServices.ChangeProductStatusOfProduct(productId, productStatusId);
+
+                        if (changeProductsStatusOfProduct.Flag == true)
+                            return Ok(changeProductsStatusOfProduct.Message);
+                        else
+                            return BadRequest(changeProductsStatusOfProduct.Message);
+                    }
+                else
+                    return BadRequest("Product not Found!");
             }
             catch (Exception ex)
             {
                 return StatusCode(500, ex.Message);
             }
+        }
 
+        [HttpPatch("/changeproductstatusofbadproduct")]
+        public async Task<IActionResult> ChangeProductStatusOfBadProduct([FromBody] Guid productId, Guid productStatusId)
+        {
+            try
+            {
+                var changeProductsStatusOfProduct = await _productServices.ChangeProductStatusOfProduct(productId, productStatusId);
+
+                if (changeProductsStatusOfProduct.Flag == true)
+                    return Ok(changeProductsStatusOfProduct.Message);
+                else
+                    return BadRequest(changeProductsStatusOfProduct.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        [HttpPatch("/changeproductstatusesofproductsbyuserid/{userId}")]
+        public async Task<IActionResult> ChangeProductStatusesOfProductsByUserId(Guid userId)
+        {
+            try
+            {
+                var changeProductsStatusesOfProducts = await _productServices.ChangeProductStatusesOfProductsByUserId(userId);
+
+                if (changeProductsStatusesOfProducts.Flag == true)
+                    return Ok(changeProductsStatusesOfProducts.Message);
+                else
+                    return BadRequest(changeProductsStatusesOfProducts.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
     }
 }
