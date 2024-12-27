@@ -1,0 +1,11 @@
+version: '3.4'
+
+services:
+  productmanagement.presentation:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=5001
+    ports:
+      - "5001:5001"
+  
+

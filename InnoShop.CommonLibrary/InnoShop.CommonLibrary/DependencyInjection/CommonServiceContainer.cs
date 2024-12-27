@@ -20,7 +20,7 @@ namespace InnoShop.CommonLibrary.DependencyInjection
         {
             // DB 
             services.AddDbContext<TContext>(option => option.UseSqlServer(
-                configuration.GetConnectionString("Home"), sqlserverOption => sqlserverOption.EnableRetryOnFailure()));
+                configuration.GetConnectionString("InnoShop"), sqlserverOption => sqlserverOption.EnableRetryOnFailure()));
 
         
             //Serilog

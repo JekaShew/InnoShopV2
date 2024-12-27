@@ -12,9 +12,14 @@ builder.Services.AddInfrastructureService(builder.Configuration);
 //                            .RegisterServicesFromAssembly(typeof(TakeSubCategoryDTOListHandler)
 //                            .Assembly));
 
+
+
 var app = builder.Build();
 
-app.UseInfrqastructurePolicy();
+if (app.Environment.IsDevelopment())
+    app.ApplyMigrations();
+
+    app.UseInfrqastructurePolicy();
 
 app.UseSwagger();
 app.UseSwaggerUI();

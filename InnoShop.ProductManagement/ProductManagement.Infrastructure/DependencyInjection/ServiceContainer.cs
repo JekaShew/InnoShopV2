@@ -1,5 +1,6 @@
 ﻿using InnoShop.CommonLibrary.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ProductManagement.Infrastructure.Data;
@@ -30,6 +31,16 @@ namespace ProductManagement.Infrastructure.DependencyInjection
             CommonServiceContainer.UseCommonPolicies(app);
 
             return app;
+        }
+
+        public static void ApplyMigrations(this IApplicationBuilder app)
+        {
+            using IServiceScope scope = app.ApplicationServices.CreateScope();
+
+            using ProductManagementDBContext pmDBContext = 
+                              scope.ServiceProvider.GetRequiredService<ProductManagementDBContext>();
+
+            pmDBContext.Database.Migrate();
         }
     }
 }
