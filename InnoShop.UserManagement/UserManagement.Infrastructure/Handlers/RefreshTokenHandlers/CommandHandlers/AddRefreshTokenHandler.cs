@@ -24,7 +24,7 @@ namespace UserManagement.Infrastructure.Handlers.RefreshTokenHandlers.CommandHan
             var checkUser = await _umDBContext.Users.AsNoTracking().AnyAsync(u => u.Id == request.RefreshTokenDTO.UserId);
 
             if (!checkUser)
-                return new Response(false,"Can't add Refresh Token! User not Found!");
+                return new Response(false, "Can't add Refresh Token! User not Found!");
 
             await _umDBContext.RefreshTokens.AddAsync(RefreshTokenMapper.RefreshTokenDTOToRefreshToken(request.RefreshTokenDTO));
             await _umDBContext.SaveChangesAsync(cancellationToken);

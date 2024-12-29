@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "zSndIT/laf0VZnTpsYFmRQim98uP7szy7zchkQVbSip65oKHjF4wScxgLziqXqr9I/LeBxc5Pbjk+pYy/0mmDw==",
+  "dgSpecHash": "3cdfPDspqvc=",
   "success": true,
-  "projectFilePath": "G:\\С#_new\\Innowise\\InnoShopV2\\InnoShopV2\\InnoShop.UserManagement\\UserManagement.Domain\\UserManagement.Domain.csproj",
+  "projectFilePath": "E:\\NEED\\C#\\Innowise\\InnoShop\\InnoShopV2\\InnoShop.UserManagement\\UserManagement.Domain\\UserManagement.Domain.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

@@ -1,11 +1,11 @@
 ﻿using InnoShop.CommonLibrary.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using UserManagement.Infrastructure.Data;
@@ -17,7 +17,7 @@ namespace UserManagement.Infrastructure.DependencyInjection
     {
         public static IServiceCollection AddInfrastructureService(this IServiceCollection services, IConfiguration configuration)
         {
-            CommonServiceContainer.AddCommonServices<UserManagementDBContext>(services, configuration, configuration["Serolog:FileNAme"]);
+            CommonServiceContainer.AddCommonServices<UserManagementDBContext>(services, configuration, configuration["Serolog:FileName"]);
 
             services.AddMediatR(cfg => cfg
                         .RegisterServicesFromAssembly(typeof(TakeRoleDTOListHandler).Assembly));
@@ -30,6 +30,16 @@ namespace UserManagement.Infrastructure.DependencyInjection
             CommonServiceContainer.UseCommonPolicies(app);
 
             return app;
+        }
+
+        public static void ApplyMigrations(this IApplicationBuilder app)
+        {
+            using IServiceScope scope = app.ApplicationServices.CreateScope();
+
+            using UserManagementDBContext pmDBContext =
+                              scope.ServiceProvider.GetRequiredService<UserManagementDBContext>();
+
+            //pmDBContext.Database.Migrate();
         }
     }
 }

@@ -1,38 +1,36 @@
 ﻿using InnoShop.CommonLibrary.CommonDTOs;
 using InnoShop.CommonLibrary.Response;
 using MediatR;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.Timeouts;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Polly.Registry;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http.Json;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading.Tasks;
 using UserManagement.Application.Commands.UserCommands;
 using UserManagement.Application.DTOs;
 using UserManagement.Application.Interfaces;
 using UserManagement.Application.Queries.UserQueries;
 
-namespace UserManagement.Application.Services 
+namespace UserManagement.Application.Services
 {
-
-    // SOLUTION NOT FOUND!!!!
-    public class UserServices(HttpClient httpClient,
-        ResiliencePipelineProvider<string> resiliencePipeline) :IUserServices
+    public class UserServices(HttpClient httpClient
+        /*ResiliencePipelineProvider<string> resiliencePipeline*/) : IUserServices
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IMediator _mediator;
 
         public UserServices(IHttpContextAccessor httpContextAccessor,
         IMediator mediator,
-        HttpClient httpClient,
-        ResiliencePipelineProvider<string> resiliencePipeline) : this(httpClient,resiliencePipeline)
+        HttpClient httpClient
+        /*ResiliencePipelineProvider<string> resiliencePipeline*/) : this(httpClient/*, resiliencePipeline*/)
         {
             _mediator = mediator;
             _httpContextAccessor = httpContextAccessor;
-            
+
         }
 
         public async Task<Response> Register(RegistrationInfoDTO registrationInfoDTO)
@@ -71,20 +69,20 @@ namespace UserManagement.Application.Services
             if (!getProducts.IsSuccessStatusCode)
                 return null;
             var userProducts = await getProducts.Content.ReadFromJsonAsync<List<ProductDTO>>();
-                return userProducts;
+            return userProducts;
         }
 
         // to Controller 
         public async Task<Response> ChangeUserStatusOfUser(Guid userId, Guid userStatusId)
         {
             // Request to PorductManagement to change products statuses!
-            var retryPipline = resiliencePipeline.GetPipeline("retry-pipeline");
-            var changeUserProductsStatus = await retryPipline
-                        .ExecuteAsync(
-                                    async token => await httpClient
-                                                    .GetAsync($"/api/products/changeproductstatusesofproductsbyuserid/{userId}"));
-            if (!changeUserProductsStatus.IsSuccessStatusCode)
-                return new Response(false, "Error occured while changing User's Porduct Statuses!");
+            //var retryPipline = resiliencePipeline.GetPipeline("retry-pipeline");
+            //var changeUserProductsStatus = await retryPipline
+            //            .ExecuteAsync(
+            //                        async token => await httpClient
+            //                                        .GetAsync($"/api/products/changeproductstatusesofproductsbyuserid/{userId}"));
+            //if (!changeUserProductsStatus.IsSuccessStatusCode)
+            //    return new Response(false, "Error occured while changing User's Porduct Statuses!");
 
             return await _mediator.Send(new ChangeUserStatusOfUserCommand() { UserId = userId, UserStatusId = userStatusId });
         }
@@ -93,15 +91,15 @@ namespace UserManagement.Application.Services
         public async Task<List<ProductDTO>> TakeProductsOfCurrentUser()
         {
             var userId = TakeCurrentUserId();
-            if(userId is null)
+            if (userId is null)
                 return null;
-            var retryPipline = resiliencePipeline.GetPipeline("retry-pipeline");
-            var currentUserProducts = await retryPipline
-                        .ExecuteAsync(
-                            async token => await TakeProductsDTOListByUserId(userId.Value));
+            //var retryPipline = resiliencePipeline.GetPipeline("retry-pipeline");
+            //var currentUserProducts = await retryPipline
+            //            .ExecuteAsync(
+            //                async token => await TakeProductsDTOListByUserId(userId.Value));
 
-            return currentUserProducts;
-        }        
+            return /*currentUserProducts;*/ null;
+        }
 
         private async Task<string> GetHash(string stringToHash)
         {
@@ -189,7 +187,7 @@ namespace UserManagement.Application.Services
 
         public async Task<Response> ChangeRoleOfUser(Guid userId, Guid roleId)
         {
-            return await _mediator.Send(new ChangeRoleOfUserCommand() {UserId = userId, RoleId = roleId });
+            return await _mediator.Send(new ChangeRoleOfUserCommand() { UserId = userId, RoleId = roleId });
         }
     }
 }

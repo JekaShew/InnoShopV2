@@ -1,8 +1,11 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Polly;
-using Polly.Retry;
-using Serilog;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using UserManagement.Application.Interfaces;
 using UserManagement.Application.Services;
 
@@ -20,25 +23,25 @@ namespace UserManagement.Application.DependencyInjection
                 options.Timeout = TimeSpan.FromSeconds(2);
             });
 
-            var retryStartegy = new RetryStrategyOptions()
-            {
-                ShouldHandle = new PredicateBuilder().Handle<TaskCanceledException>(),
-                BackoffType = DelayBackoffType.Constant,
-                UseJitter = true,
-                MaxRetryAttempts = 4,
-                Delay = TimeSpan.FromMilliseconds(500),
-                OnRetry = args =>
-                {
-                    string message = $"OnRetry, Attempt: {args.AttemptNumber} Outcome {args.Outcome}";
-                    Log.Warning(message);
-                    return ValueTask.CompletedTask;
-                }
-            };
+            //var retryStartegy = new RetryStrategyOptions()
+            //{
+            //    ShouldHandle = new PredicateBuilder().Handle<TaskCanceledException>(),
+            //    BackoffType = DelayBackoffType.Constant,
+            //    UseJitter = true,
+            //    MaxRetryAttempts = 4,
+            //    Delay = TimeSpan.FromMilliseconds(500),
+            //    OnRetry = args =>
+            //    {
+            //        string message = $"OnRetry, Attempt: {args.AttemptNumber} Outcome {args.Outcome}";
+            //        Log.Warning(message);
+            //        return ValueTask.CompletedTask;
+            //    }
+            //};
 
-            services.AddResiliencePipeline("retry-pipeline", builder =>
-            {
-                builder.AddRetry(retryStartegy);
-            });
+            //services.AddResiliencePipeline("retry-pipeline", builder =>
+            //{
+            //    builder.AddRetry(retryStartegy);
+            //});
 
             return services;
         }

@@ -11,6 +11,6 @@ namespace UserManagement.Application.Commands.RoleCommands
 {
     public class UpdateRoleCommand : IRequest<Response>
     {
-        public RoleDTO RoleDTO { get; set; }    
+        public RoleDTO RoleDTO { get; set; }
     }
 }

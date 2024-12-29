@@ -12,7 +12,7 @@ namespace UserManagement.Infrastructure.Handlers.UserHandlers.QueryHandlers
 {
     public class TakeUserIdByLoginHandler : IRequestHandler<TakeUserIdByLoginQuery, Guid>
     {
-        private  readonly UserManagementDBContext _umDBContext;
+        private readonly UserManagementDBContext _umDBContext;
         public TakeUserIdByLoginHandler(UserManagementDBContext umDBContext)
         {
             _umDBContext = umDBContext;

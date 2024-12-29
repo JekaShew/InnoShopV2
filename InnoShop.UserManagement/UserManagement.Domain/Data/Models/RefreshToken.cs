@@ -11,7 +11,7 @@ namespace UserManagement.Domain.Data.Models
         public Guid Id { get; set; }
         public bool IsRevoked { get; set; }
         public DateTime ExpireDate { get; set; }
-        public Guid UserId { get;set; }
+        public Guid UserId { get; set; }
 
         public User? User { get; set; }
     }

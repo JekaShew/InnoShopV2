@@ -33,6 +33,6 @@ namespace UserManagement.Application.Mappers
         public static partial RegistrationInfoDTO? UserToRegistrationInfoDTO(User? user);
 
         public static partial UserDetailedDTO? RegistrationInfoDTOToUserDetailedDTO(RegistrationInfoDTO registrationInfoDTO);
-        public static partial User? UserDetailedDTOToUser(UserDetailedDTO? userDetailedDTO); 
+        public static partial User? UserDetailedDTOToUser(UserDetailedDTO? userDetailedDTO);
     }
 }

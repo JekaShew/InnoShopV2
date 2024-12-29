@@ -14,7 +14,7 @@ COPY ["ProductManagement.Presentation/ProductManagement.Presentation.csproj", "P
 COPY ["ProductManagement.Infrastructure/ProductManagement.Infrastructure.csproj", "ProductManagement.Infrastructure/"]
 COPY ["ProductManagement.Application/ProductManagement.Application.csproj", "ProductManagement.Application/"]
 COPY ["ProductManagement.Domain/ProductManagement.Domain.csproj", "ProductManagement.Domain/"]
-COPY ["ProductManagement.CommonLibarary/ProductManagement.CommonLibarary.csproj", "ProductManagement.CommonLibarary/"]
+COPY ["../InnoShop.CommonLibrary/InnoShop.CommonLibrary/InnoShop.CommonLibrary.csproj", "InnoShop.CommonLibrary/InnoShop.CommonLibrary/"]
 RUN dotnet restore "./ProductManagement.Presentation/ProductManagement.Presentation.csproj"
 
 COPY . .

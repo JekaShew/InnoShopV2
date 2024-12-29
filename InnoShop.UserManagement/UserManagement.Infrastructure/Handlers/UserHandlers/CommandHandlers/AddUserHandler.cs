@@ -1,8 +1,12 @@
 ﻿using InnoShop.CommonLibrary.Response;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using UserManagement.Application.Commands.UserCommands;
-using UserManagement.Application.DTOs;
 using UserManagement.Application.Mappers;
 using UserManagement.Infrastructure.Data;
 
@@ -23,7 +27,7 @@ namespace UserManagement.Infrastructure.Handlers.UserHandlers.CommandHandlers
             userDetailedDTO.SecurityStamp = request.SecurityStamp;
             userDetailedDTO.PasswordHash = request.PasswordHash;
             userDetailedDTO.SecretWordHash = request.SecretWordHash;
-           
+
             var roleId = await _umDBContext.Roles
                     .AsNoTracking()
                     .Where(r => r.Title == "User")

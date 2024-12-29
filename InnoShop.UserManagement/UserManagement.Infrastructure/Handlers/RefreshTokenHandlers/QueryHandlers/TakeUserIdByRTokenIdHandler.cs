@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using UserManagement.Application.Queries.RefreshTokenQueries;
+using UserManagement.Application.Queries.RefreshQueries;
 using UserManagement.Infrastructure.Data;
 
 namespace UserManagement.Infrastructure.Handlers.RefreshTokenHandlers.QueryHandlers

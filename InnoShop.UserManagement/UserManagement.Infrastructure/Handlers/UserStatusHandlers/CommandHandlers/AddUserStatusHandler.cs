@@ -1,5 +1,10 @@
 ﻿using InnoShop.CommonLibrary.Response;
 using MediatR;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using UserManagement.Application.Commands.UserStatusCommands;
 using UserManagement.Application.Mappers;
 using UserManagement.Infrastructure.Data;
@@ -11,7 +16,7 @@ namespace UserManagement.Infrastructure.Handlers.UserStatusHandlers.CommandHandl
         private readonly UserManagementDBContext _umDBContext;
         public AddUserStatusHandler(UserManagementDBContext umDBContext)
         {
-            _umDBContext = umDBContext; 
+            _umDBContext = umDBContext;
         }
 
         public async Task<Response> Handle(AddUserStatusCommand request, CancellationToken cancellationToken)

@@ -1,6 +1,11 @@
 ﻿using InnoShop.CommonLibrary.Response;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using UserManagement.Application.Commands.RefreshTokenCommands;
 using UserManagement.Infrastructure.Data;
 
@@ -21,7 +26,7 @@ namespace UserManagement.Infrastructure.Handlers.RefreshTokenHandlers.CommandHan
                                     .FirstOrDefaultAsync(cancellationToken);
             if (refreshToken == null)
                 return new Response(false, "Refresh Token Not Found!");
-            
+
             _umDBContext.RefreshTokens.Remove(refreshToken);
             await _umDBContext.SaveChangesAsync(cancellationToken);
 

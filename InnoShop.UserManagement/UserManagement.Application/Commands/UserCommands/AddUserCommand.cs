@@ -1,5 +1,4 @@
-﻿using InnoShop.CommonLibrary.CommonDTOs;
-using InnoShop.CommonLibrary.Response;
+﻿using InnoShop.CommonLibrary.Response;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -16,6 +15,6 @@ namespace UserManagement.Application.Commands.UserCommands
         public string PasswordHash { get; set; }
         public string SecretWordHash { get; set; }
         public string SecurityStamp { get; set; }
-        
+
     }
 }

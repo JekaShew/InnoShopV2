@@ -1,0 +1,45 @@
+version: '3.4'
+
+services:
+  productmanagement.presentation:
+    image: productmanagement
+    container_name: ProductManagementAPI
+    build:
+      context: .
+      dockerfile: InnoShop.ProductManagement/ProductManagement.Presentation/Dockerfile
+    ports:
+    -  "5001:5001"
+    # depends_on:
+    #     mssql-server:
+    #         condition: service_healthy
+  
+  usermanagement.presentation:
+    image: usermanagement
+    container_name: UserManagementAPI
+    build:
+      context: .
+      dockerfile: InnoShop.UserMangement/UserMangement.Presentation/Dockerfile
+    ports:
+    -  "5002:5002"
+    # depends_on:
+    #     mssql-server:
+    #         condition: service_healthy
+
+  mssql-server:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    container_name: MSSQLServer
+    environment:
+        ACCEPT_EULA: Y
+        SA_PASSWORD: SecretPassword123
+    volumes:
+        - ./sqlserver/data:/var/opt/mssql/data
+        - ./sqlserver/log:/var/opt/mssql/log
+    ports: 
+        - "1433:1433"
+    # healthcheck:
+    #     test: /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P "SecretPassword123" -Q "Select 1" -b -o /dev/null
+    #     interval: 10s
+    #     timeout: 3s
+    #     retries: 10
+    #     start_period: 10s
+

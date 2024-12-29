@@ -20,14 +20,14 @@ namespace InnoShop.CommonLibrary.DependencyInjection
         {
             // DB 
             services.AddDbContext<TContext>(option => option.UseSqlServer(
-                configuration.GetConnectionString("InnoShop"), sqlserverOption => sqlserverOption.EnableRetryOnFailure()));
+                configuration.GetConnectionString("Work"), sqlserverOption => sqlserverOption.EnableRetryOnFailure()));
 
         
             //Serilog
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Override("Microsoft.AspNetCore", LogEventLevel.Information)
                 .Enrich.FromLogContext()
-                .WriteTo.File("InnoShop_ProductManagement.log")
+                .WriteTo.File("InnoShop_UserManagement.log")
                 .CreateBootstrapLogger();
 
             services.AddSerilog((services, lc) => lc
@@ -35,7 +35,7 @@ namespace InnoShop.CommonLibrary.DependencyInjection
                 .ReadFrom.Services(services)
                 .Enrich.FromLogContext()
                 .WriteTo.Console(Serilog.Events.LogEventLevel.Error)
-                .WriteTo.File("InnoShop_ProductManagement.log"));
+                .WriteTo.File("InnoShop_UserManagement.log"));
 
 
             // JWT Authentication Scheme
