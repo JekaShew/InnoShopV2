@@ -18,20 +18,19 @@ using UserManagement.Application.Queries.UserQueries;
 
 namespace UserManagement.Application.Services
 {
-    public class UserServices(HttpClient httpClient,
-        ResiliencePipelineProvider<string> resiliencePipeline) : IUserServices
+    public class UserServices : IUserServices
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IMediator _mediator;
-
+        private readonly IUserExternalServices _userExternalServices;
+ 
         public UserServices(IHttpContextAccessor httpContextAccessor,
-        IMediator mediator,
-        HttpClient httpClient,
-        ResiliencePipelineProvider<string> resiliencePipeline) : this(httpClient, resiliencePipeline)
+                IMediator mediator,
+                IUserExternalServices userExternalServices)
         {
             _mediator = mediator;
             _httpContextAccessor = httpContextAccessor;
-
+            _userExternalServices = userExternalServices;
         }
 
         public async Task<Response> Register(RegistrationInfoDTO registrationInfoDTO)
@@ -49,7 +48,6 @@ namespace UserManagement.Application.Services
             });
         }
 
-        //To Controller ???????"
         public Guid? TakeCurrentUserId()
         {
             if (!_httpContextAccessor.HttpContext.User.Identity.IsAuthenticated)
@@ -61,46 +59,7 @@ namespace UserManagement.Application.Services
                 return null;
 
             return Guid.Parse(claim.Value);
-        }
-
-        // to Controller
-        public async Task<List<ProductDTO>> TakeProductsDTOListByUserId(Guid userId)
-        {
-            var getProducts = await httpClient.GetAsync($"/api/products/takeproductsbyuserid/{userId}");
-            if (!getProducts.IsSuccessStatusCode)
-                return null;
-            var userProducts = await getProducts.Content.ReadFromJsonAsync<List<ProductDTO>>();
-            return userProducts;
-        }
-
-        // to Controller 
-        public async Task<Response> ChangeUserStatusOfUser(Guid userId, Guid userStatusId)
-        {
-            //Request to PorductManagement to change products statuses!
-            var retryPipline = resiliencePipeline.GetPipeline("retry-pipeline");
-            var changeUserProductsStatus = await retryPipline
-                        .ExecuteAsync(
-                                    async token => await httpClient
-                                                    .GetAsync($"/api/products/changeproductstatusesofproductsbyuserid/{userId}"));
-            if (!changeUserProductsStatus.IsSuccessStatusCode)
-                return new Response(false, "Error occured while changing User's Porduct Statuses!");
-
-            return await _mediator.Send(new ChangeUserStatusOfUserCommand() { UserId = userId, UserStatusId = userStatusId });
-        }
-
-        // to Controller
-        public async Task<List<ProductDTO>> TakeProductsOfCurrentUser()
-        {
-            var userId = TakeCurrentUserId();
-            if (userId is null)
-                return null;
-            var retryPipline = resiliencePipeline.GetPipeline("retry-pipeline");
-            var currentUserProducts = await retryPipline
-                        .ExecuteAsync(
-                            async token => await TakeProductsDTOListByUserId(userId.Value));
-
-            return currentUserProducts;
-        }
+        }  
 
         private async Task<string> GetHashString(string stringToHash)
         {
@@ -114,7 +73,6 @@ namespace UserManagement.Application.Services
             }
         }
 
-        // To Controller
         public async Task<Response> CheckIsLoginRegistered(string login)
         {
             return await _mediator.Send(new IsUserLoginRegisteredQuery() { EnteredLogin = login });
@@ -136,7 +94,6 @@ namespace UserManagement.Application.Services
             return await _mediator.Send(new CheckLoginSecretWordPairQuery() { Login = login, SecretWordHash = enteredSecretWordHash });
         }
 
-        //to Controller
         public async Task<Response> ChangeForgottenPasswordBySecretWord(string login, string secretWord, string newPassword)
         {
             var checkIsLoginRegistered = await CheckIsLoginRegistered(login);
@@ -158,13 +115,12 @@ namespace UserManagement.Application.Services
                 return checkIsLoginRegistered;
         }
 
-        //to Controller
+
         public Task<Response> ChangeForgottenPasswordByEmail(string email)
         {
             throw new NotImplementedException();
         }
 
-        //to Controller
         public async Task<Response> ChangePasswordByOldPassword(string oldPassword, string newPassword)
         {
             var userId = TakeCurrentUserId();
@@ -189,6 +145,15 @@ namespace UserManagement.Application.Services
         public async Task<Response> ChangeRoleOfUser(Guid userId, Guid roleId)
         {
             return await _mediator.Send(new ChangeRoleOfUserCommand() { UserId = userId, RoleId = roleId });
+        }
+
+        public async Task<Response> ChangeUserStatusOfUser(Guid userId, Guid userStatusId)
+        {
+            var changeProducts = await _userExternalServices.ChangeUserProductStatusesOfUserById(userId);
+            if (changeProducts.Flag == false)
+                return new Response(false, "Somthing goes Wrong while changing User products statuses!");
+
+            return await _mediator.Send(new ChangeUserStatusOfUserCommand() { UserId = userId, UserStatusId = userStatusId });
         }
     }
 }

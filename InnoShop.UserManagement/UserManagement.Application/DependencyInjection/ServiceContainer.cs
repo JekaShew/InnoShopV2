@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Polly;
@@ -18,13 +20,18 @@ namespace UserManagement.Application.DependencyInjection
     {
         public static IServiceCollection AddApplicationService(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddScoped<IAuthorizationServices, AuthorizationServices>();
-            services.AddScoped<IUserServices, UserServices>();
-            services.AddHttpClient<IUserServices, UserServices>(options =>
+
+            
+
+            services.AddHttpClient<IUserExternalServices, UserExternalServices>(options =>
             {
                 options.BaseAddress = new Uri(configuration["ApiGateway:BaseAdress"]!);
                 options.Timeout = TimeSpan.FromSeconds(2);
             });
+
+            services.AddHttpContextAccessor();
+            services.AddScoped<IAuthorizationServices, AuthorizationServices>();
+            services.AddScoped<IUserServices, UserServices>();
 
             var retryStartegy = new RetryStrategyOptions()
             {

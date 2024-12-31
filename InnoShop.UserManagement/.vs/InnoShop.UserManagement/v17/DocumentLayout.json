@@ -3,39 +3,32 @@
   "WorkspaceRootPath": "G:\\\u0421#_new\\Innowise\\InnoShopV3\\InnoShopV2\\InnoShop.UserManagement\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{4B8AA5C7-5FA6-4340-9CA5-EEC01EBCA2DF}|UserManagement.Infrastructure\\UserManagement.Infrastructure.csproj|g:\\\u0441#_new\\innowise\\innoshopv3\\innoshopv2\\innoshop.usermanagement\\usermanagement.infrastructure\\handlers\\refreshtokenhandlers\\commandhandlers\\deleterefreshtokenbyrtokenidhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4B8AA5C7-5FA6-4340-9CA5-EEC01EBCA2DF}|UserManagement.Infrastructure\\UserManagement.Infrastructure.csproj|solutionrelative:usermanagement.infrastructure\\handlers\\refreshtokenhandlers\\commandhandlers\\deleterefreshtokenbyrtokenidhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{DB1CA155-E923-4778-B047-4A41A1134C50}|UserManagement.Presentation\\UserManagement.Presentation.csproj|g:\\\u0441#_new\\innowise\\innoshopv3\\innoshopv2\\innoshop.usermanagement\\usermanagement.presentation\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DB1CA155-E923-4778-B047-4A41A1134C50}|UserManagement.Presentation\\UserManagement.Presentation.csproj|solutionrelative:usermanagement.presentation\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C48ECCDA-0402-4EFB-988A-0CFF121C0A22}|UserManagement.Handlers.Tests\\UserManagement.Handlers.Tests.csproj|g:\\\u0441#_new\\innowise\\innoshopv3\\innoshopv2\\innoshop.usermanagement\\usermanagement.handlers.tests\\refreshtokenhandlerstests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C48ECCDA-0402-4EFB-988A-0CFF121C0A22}|UserManagement.Handlers.Tests\\UserManagement.Handlers.Tests.csproj|solutionrelative:usermanagement.handlers.tests\\refreshtokenhandlerstests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{4B8AA5C7-5FA6-4340-9CA5-EEC01EBCA2DF}|UserManagement.Infrastructure\\UserManagement.Infrastructure.csproj|g:\\\u0441#_new\\innowise\\innoshopv3\\innoshopv2\\innoshop.usermanagement\\usermanagement.infrastructure\\handlers\\userhandlers\\commandhandlers\\adduserhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4B8AA5C7-5FA6-4340-9CA5-EEC01EBCA2DF}|UserManagement.Infrastructure\\UserManagement.Infrastructure.csproj|solutionrelative:usermanagement.infrastructure\\handlers\\userhandlers\\commandhandlers\\adduserhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DB1CA155-E923-4778-B047-4A41A1134C50}|UserManagement.Presentation\\UserManagement.Presentation.csproj|g:\\\u0441#_new\\innowise\\innoshopv3\\innoshopv2\\innoshop.usermanagement\\usermanagement.presentation\\controllers\\authorizationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DB1CA155-E923-4778-B047-4A41A1134C50}|UserManagement.Presentation\\UserManagement.Presentation.csproj|solutionrelative:usermanagement.presentation\\controllers\\authorizationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E7470209-2C73-4EA1-B055-F6CBFE5FC62C}|UserManagement.Application\\UserManagement.Application.csproj|g:\\\u0441#_new\\innowise\\innoshopv3\\innoshopv2\\innoshop.usermanagement\\usermanagement.application\\dependencyinjection\\servicecontainer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E7470209-2C73-4EA1-B055-F6CBFE5FC62C}|UserManagement.Application\\UserManagement.Application.csproj|solutionrelative:usermanagement.application\\dependencyinjection\\servicecontainer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4B8AA5C7-5FA6-4340-9CA5-EEC01EBCA2DF}|UserManagement.Infrastructure\\UserManagement.Infrastructure.csproj|g:\\\u0441#_new\\innowise\\innoshopv3\\innoshopv2\\innoshop.usermanagement\\usermanagement.infrastructure\\dependencyinjection\\servicecontainer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4B8AA5C7-5FA6-4340-9CA5-EEC01EBCA2DF}|UserManagement.Infrastructure\\UserManagement.Infrastructure.csproj|solutionrelative:usermanagement.infrastructure\\dependencyinjection\\servicecontainer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{DB1CA155-E923-4778-B047-4A41A1134C50}|UserManagement.Presentation\\UserManagement.Presentation.csproj|g:\\\u0441#_new\\innowise\\innoshopv3\\innoshopv2\\innoshop.usermanagement\\usermanagement.presentation\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{DB1CA155-E923-4778-B047-4A41A1134C50}|UserManagement.Presentation\\UserManagement.Presentation.csproj|solutionrelative:usermanagement.presentation\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4B8AA5C7-5FA6-4340-9CA5-EEC01EBCA2DF}|UserManagement.Infrastructure\\UserManagement.Infrastructure.csproj|g:\\\u0441#_new\\innowise\\innoshopv3\\innoshopv2\\innoshop.usermanagement\\usermanagement.infrastructure\\handlers\\refreshtokenhandlers\\commandhandlers\\addrefreshtokenhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4B8AA5C7-5FA6-4340-9CA5-EEC01EBCA2DF}|UserManagement.Infrastructure\\UserManagement.Infrastructure.csproj|solutionrelative:usermanagement.infrastructure\\handlers\\refreshtokenhandlers\\commandhandlers\\addrefreshtokenhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E7470209-2C73-4EA1-B055-F6CBFE5FC62C}|UserManagement.Application\\UserManagement.Application.csproj|g:\\\u0441#_new\\innowise\\innoshopv3\\innoshopv2\\innoshop.usermanagement\\usermanagement.application\\dtos\\refreshtokendto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E7470209-2C73-4EA1-B055-F6CBFE5FC62C}|UserManagement.Application\\UserManagement.Application.csproj|solutionrelative:usermanagement.application\\dtos\\refreshtokendto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E7470209-2C73-4EA1-B055-F6CBFE5FC62C}|UserManagement.Application\\UserManagement.Application.csproj|g:\\\u0441#_new\\innowise\\innoshopv3\\innoshopv2\\innoshop.usermanagement\\usermanagement.application\\services\\userservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E7470209-2C73-4EA1-B055-F6CBFE5FC62C}|UserManagement.Application\\UserManagement.Application.csproj|solutionrelative:usermanagement.application\\services\\userservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E7470209-2C73-4EA1-B055-F6CBFE5FC62C}|UserManagement.Application\\UserManagement.Application.csproj|g:\\\u0441#_new\\innowise\\innoshopv3\\innoshopv2\\innoshop.usermanagement\\usermanagement.application\\mappers\\usermapper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E7470209-2C73-4EA1-B055-F6CBFE5FC62C}|UserManagement.Application\\UserManagement.Application.csproj|solutionrelative:usermanagement.application\\mappers\\usermapper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E7470209-2C73-4EA1-B055-F6CBFE5FC62C}|UserManagement.Application\\UserManagement.Application.csproj|g:\\\u0441#_new\\innowise\\innoshopv3\\innoshopv2\\innoshop.usermanagement\\usermanagement.application\\dtos\\authorizationinfodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E7470209-2C73-4EA1-B055-F6CBFE5FC62C}|UserManagement.Application\\UserManagement.Application.csproj|solutionrelative:usermanagement.application\\dtos\\authorizationinfodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7617B014-842A-4C4B-AF68-4135267716EE}|..\\InnoShop.CommonLibrary\\InnoShop.CommonLibrary\\InnoShop.CommonLibrary.csproj|g:\\\u0441#_new\\innowise\\innoshopv3\\innoshopv2\\innoshop.commonlibrary\\innoshop.commonlibrary\\commondtos\\userdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E7470209-2C73-4EA1-B055-F6CBFE5FC62C}|UserManagement.Application\\UserManagement.Application.csproj|g:\\\u0441#_new\\innowise\\innoshopv3\\innoshopv2\\innoshop.usermanagement\\usermanagement.application\\services\\userexternalservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E7470209-2C73-4EA1-B055-F6CBFE5FC62C}|UserManagement.Application\\UserManagement.Application.csproj|solutionrelative:usermanagement.application\\services\\userexternalservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -44,130 +37,103 @@
       "VerticalTabListWidth": 256,
       "DocumentGroups": [
         {
-          "DockedWidth": 997,
-          "SelectedChildIndex": 3,
+          "DockedWidth": 1269,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "AddRefreshTokenHandler.cs",
-              "DocumentMoniker": "G:\\\u0421#_new\\Innowise\\InnoShopV3\\InnoShopV2\\InnoShop.UserManagement\\UserManagement.Infrastructure\\Handlers\\RefreshTokenHandlers\\CommandHandlers\\AddRefreshTokenHandler.cs",
-              "RelativeDocumentMoniker": "UserManagement.Infrastructure\\Handlers\\RefreshTokenHandlers\\CommandHandlers\\AddRefreshTokenHandler.cs",
-              "ToolTip": "G:\\\u0421#_new\\Innowise\\InnoShopV3\\InnoShopV2\\InnoShop.UserManagement\\UserManagement.Infrastructure\\Handlers\\RefreshTokenHandlers\\CommandHandlers\\AddRefreshTokenHandler.cs",
-              "RelativeToolTip": "UserManagement.Infrastructure\\Handlers\\RefreshTokenHandlers\\CommandHandlers\\AddRefreshTokenHandler.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABoAAABXAAAA",
+              "DocumentIndex": 2,
+              "Title": "AuthorizationController.cs",
+              "DocumentMoniker": "G:\\\u0421#_new\\Innowise\\InnoShopV3\\InnoShopV2\\InnoShop.UserManagement\\UserManagement.Presentation\\Controllers\\AuthorizationController.cs",
+              "RelativeDocumentMoniker": "UserManagement.Presentation\\Controllers\\AuthorizationController.cs",
+              "ToolTip": "G:\\\u0421#_new\\Innowise\\InnoShopV3\\InnoShopV2\\InnoShop.UserManagement\\UserManagement.Presentation\\Controllers\\AuthorizationController.cs",
+              "RelativeToolTip": "UserManagement.Presentation\\Controllers\\AuthorizationController.cs",
+              "ViewState": "AQIAAEkAAAAAAAAAAAAawF8AAAAIAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-31T12:39:39.401Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "AuthorizationInfoDTO.cs",
-              "DocumentMoniker": "G:\\\u0421#_new\\Innowise\\InnoShopV3\\InnoShopV2\\InnoShop.UserManagement\\UserManagement.Application\\DTOs\\AuthorizationInfoDTO.cs",
-              "RelativeDocumentMoniker": "UserManagement.Application\\DTOs\\AuthorizationInfoDTO.cs",
-              "ToolTip": "G:\\\u0421#_new\\Innowise\\InnoShopV3\\InnoShopV2\\InnoShop.UserManagement\\UserManagement.Application\\DTOs\\AuthorizationInfoDTO.cs",
-              "RelativeToolTip": "UserManagement.Application\\DTOs\\AuthorizationInfoDTO.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-31T11:46:00.387Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "UserMapper.cs",
-              "DocumentMoniker": "G:\\\u0421#_new\\Innowise\\InnoShopV3\\InnoShopV2\\InnoShop.UserManagement\\UserManagement.Application\\Mappers\\UserMapper.cs",
-              "RelativeDocumentMoniker": "UserManagement.Application\\Mappers\\UserMapper.cs",
-              "ToolTip": "G:\\\u0421#_new\\Innowise\\InnoShopV3\\InnoShopV2\\InnoShop.UserManagement\\UserManagement.Application\\Mappers\\UserMapper.cs",
-              "RelativeToolTip": "UserManagement.Application\\Mappers\\UserMapper.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAMAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-31T11:54:08.302Z",
+              "WhenOpened": "2024-12-31T14:56:19.14Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "DeleteRefreshTokenByRTokenIdHandler.cs",
-              "DocumentMoniker": "G:\\\u0421#_new\\Innowise\\InnoShopV3\\InnoShopV2\\InnoShop.UserManagement\\UserManagement.Infrastructure\\Handlers\\RefreshTokenHandlers\\CommandHandlers\\DeleteRefreshTokenByRTokenIdHandler.cs",
-              "RelativeDocumentMoniker": "UserManagement.Infrastructure\\Handlers\\RefreshTokenHandlers\\CommandHandlers\\DeleteRefreshTokenByRTokenIdHandler.cs",
-              "ToolTip": "G:\\\u0421#_new\\Innowise\\InnoShopV3\\InnoShopV2\\InnoShop.UserManagement\\UserManagement.Infrastructure\\Handlers\\RefreshTokenHandlers\\CommandHandlers\\DeleteRefreshTokenByRTokenIdHandler.cs",
-              "RelativeToolTip": "UserManagement.Infrastructure\\Handlers\\RefreshTokenHandlers\\CommandHandlers\\DeleteRefreshTokenByRTokenIdHandler.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABYAAAAJAAAA",
+              "Title": "UserController.cs",
+              "DocumentMoniker": "G:\\\u0421#_new\\Innowise\\InnoShopV3\\InnoShopV2\\InnoShop.UserManagement\\UserManagement.Presentation\\Controllers\\UserController.cs",
+              "RelativeDocumentMoniker": "UserManagement.Presentation\\Controllers\\UserController.cs",
+              "ToolTip": "G:\\\u0421#_new\\Innowise\\InnoShopV3\\InnoShopV2\\InnoShop.UserManagement\\UserManagement.Presentation\\Controllers\\UserController.cs",
+              "RelativeToolTip": "UserManagement.Presentation\\Controllers\\UserController.cs",
+              "ViewState": "AQIAAKwAAAAAAAAAAAAYwMQAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-31T13:08:53.997Z",
+              "WhenOpened": "2024-12-31T14:55:00.197Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 5,
-              "Title": "UserServices.cs",
-              "DocumentMoniker": "G:\\\u0421#_new\\Innowise\\InnoShopV3\\InnoShopV2\\InnoShop.UserManagement\\UserManagement.Application\\Services\\UserServices.cs",
-              "RelativeDocumentMoniker": "UserManagement.Application\\Services\\UserServices.cs",
-              "ToolTip": "G:\\\u0421#_new\\Innowise\\InnoShopV3\\InnoShopV2\\InnoShop.UserManagement\\UserManagement.Application\\Services\\UserServices.cs",
-              "RelativeToolTip": "UserManagement.Application\\Services\\UserServices.cs",
-              "ViewState": "AQIAAGcAAAAAAAAAAAAAwHUAAAArAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-31T09:42:18.168Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "RefreshTokenDTO.cs",
-              "DocumentMoniker": "G:\\\u0421#_new\\Innowise\\InnoShopV3\\InnoShopV2\\InnoShop.UserManagement\\UserManagement.Application\\DTOs\\RefreshTokenDTO.cs",
-              "RelativeDocumentMoniker": "UserManagement.Application\\DTOs\\RefreshTokenDTO.cs",
-              "ToolTip": "G:\\\u0421#_new\\Innowise\\InnoShopV3\\InnoShopV2\\InnoShop.UserManagement\\UserManagement.Application\\DTOs\\RefreshTokenDTO.cs",
-              "RelativeToolTip": "UserManagement.Application\\DTOs\\RefreshTokenDTO.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAqwAsAAAATAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-31T08:31:50.527Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "UserDTO.cs",
-              "DocumentMoniker": "G:\\\u0421#_new\\Innowise\\InnoShopV3\\InnoShopV2\\InnoShop.CommonLibrary\\InnoShop.CommonLibrary\\CommonDTOs\\UserDTO.cs",
-              "RelativeDocumentMoniker": "..\\InnoShop.CommonLibrary\\InnoShop.CommonLibrary\\CommonDTOs\\UserDTO.cs",
-              "ToolTip": "G:\\\u0421#_new\\Innowise\\InnoShopV3\\InnoShopV2\\InnoShop.CommonLibrary\\InnoShop.CommonLibrary\\CommonDTOs\\UserDTO.cs",
-              "RelativeToolTip": "..\\InnoShop.CommonLibrary\\InnoShop.CommonLibrary\\CommonDTOs\\UserDTO.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABIAAAAgAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-31T10:10:47.982Z",
-              "EditorCaption": ""
-            }
-          ]
-        },
-        {
-          "DockedWidth": 1089,
-          "SelectedChildIndex": 0,
-          "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "RefreshTokenHandlersTests.cs",
-              "DocumentMoniker": "G:\\\u0421#_new\\Innowise\\InnoShopV3\\InnoShopV2\\InnoShop.UserManagement\\UserManagement.Handlers.Tests\\RefreshTokenHandlersTests.cs",
-              "RelativeDocumentMoniker": "UserManagement.Handlers.Tests\\RefreshTokenHandlersTests.cs",
-              "ToolTip": "G:\\\u0421#_new\\Innowise\\InnoShopV3\\InnoShopV2\\InnoShop.UserManagement\\UserManagement.Handlers.Tests\\RefreshTokenHandlersTests.cs",
-              "RelativeToolTip": "UserManagement.Handlers.Tests\\RefreshTokenHandlersTests.cs",
-              "ViewState": "AQIAAPUAAAAAAAAAAAAcwBcBAAAMAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-31T13:09:17.406Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
               "Title": "Program.cs",
               "DocumentMoniker": "G:\\\u0421#_new\\Innowise\\InnoShopV3\\InnoShopV2\\InnoShop.UserManagement\\UserManagement.Presentation\\Program.cs",
               "RelativeDocumentMoniker": "UserManagement.Presentation\\Program.cs",
               "ToolTip": "G:\\\u0421#_new\\Innowise\\InnoShopV3\\InnoShopV2\\InnoShop.UserManagement\\UserManagement.Presentation\\Program.cs",
               "RelativeToolTip": "UserManagement.Presentation\\Program.cs",
-              "ViewState": "AQIAAAYAAAAAAAAAAAAAABYAAAAeAAAA",
+              "ViewState": "AQIAAAcAAAAAAAAAAAAawBUAAAADAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-28T17:56:46.344Z",
+              "WhenOpened": "2024-12-31T13:48:27.844Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "AddUserHandler.cs",
+              "DocumentMoniker": "G:\\\u0421#_new\\Innowise\\InnoShopV3\\InnoShopV2\\InnoShop.UserManagement\\UserManagement.Infrastructure\\Handlers\\UserHandlers\\CommandHandlers\\AddUserHandler.cs",
+              "RelativeDocumentMoniker": "UserManagement.Infrastructure\\Handlers\\UserHandlers\\CommandHandlers\\AddUserHandler.cs",
+              "ToolTip": "G:\\\u0421#_new\\Innowise\\InnoShopV3\\InnoShopV2\\InnoShop.UserManagement\\UserManagement.Infrastructure\\Handlers\\UserHandlers\\CommandHandlers\\AddUserHandler.cs",
+              "RelativeToolTip": "UserManagement.Infrastructure\\Handlers\\UserHandlers\\CommandHandlers\\AddUserHandler.cs",
+              "ViewState": "AQIAABMAAAAAAAAAAAAgwBYAAAAIAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-31T14:57:58.783Z",
+              "EditorCaption": ""
+            }
+          ]
+        },
+        {
+          "DockedWidth": 725,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ServiceContainer.cs",
+              "DocumentMoniker": "G:\\\u0421#_new\\Innowise\\InnoShopV3\\InnoShopV2\\InnoShop.UserManagement\\UserManagement.Infrastructure\\DependencyInjection\\ServiceContainer.cs",
+              "RelativeDocumentMoniker": "UserManagement.Infrastructure\\DependencyInjection\\ServiceContainer.cs",
+              "ToolTip": "G:\\\u0421#_new\\Innowise\\InnoShopV3\\InnoShopV2\\InnoShop.UserManagement\\UserManagement.Infrastructure\\DependencyInjection\\ServiceContainer.cs",
+              "RelativeToolTip": "UserManagement.Infrastructure\\DependencyInjection\\ServiceContainer.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABUAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-31T14:43:08.447Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "UserExternalServices.cs",
+              "DocumentMoniker": "G:\\\u0421#_new\\Innowise\\InnoShopV3\\InnoShopV2\\InnoShop.UserManagement\\UserManagement.Application\\Services\\UserExternalServices.cs",
+              "RelativeDocumentMoniker": "UserManagement.Application\\Services\\UserExternalServices.cs",
+              "ToolTip": "G:\\\u0421#_new\\Innowise\\InnoShopV3\\InnoShopV2\\InnoShop.UserManagement\\UserManagement.Application\\Services\\UserExternalServices.cs",
+              "RelativeToolTip": "UserManagement.Application\\Services\\UserExternalServices.cs",
+              "ViewState": "AQIAAAUAAAAAAAAAAAAAAA8AAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-31T14:23:49.711Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ServiceContainer.cs",
+              "DocumentMoniker": "G:\\\u0421#_new\\Innowise\\InnoShopV3\\InnoShopV2\\InnoShop.UserManagement\\UserManagement.Application\\DependencyInjection\\ServiceContainer.cs",
+              "RelativeDocumentMoniker": "UserManagement.Application\\DependencyInjection\\ServiceContainer.cs",
+              "ToolTip": "G:\\\u0421#_new\\Innowise\\InnoShopV3\\InnoShopV2\\InnoShop.UserManagement\\UserManagement.Application\\DependencyInjection\\ServiceContainer.cs",
+              "RelativeToolTip": "UserManagement.Application\\DependencyInjection\\ServiceContainer.cs",
+              "ViewState": "AQIAABQAAAAAAAAAAAAiwDsAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-31T13:54:14.577Z",
               "EditorCaption": ""
             }
           ]

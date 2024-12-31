@@ -14,8 +14,8 @@ namespace UserManagement.Application.Interfaces
         public Task<Response> Register(RegistrationInfoDTO registrationInfoDTO);
         public Task<Response> ChangeUserStatusOfUser(Guid userId, Guid userStatusId);
         public Task<Response> ChangeRoleOfUser(Guid userId, Guid roleId);
-        public Task<List<ProductDTO>> TakeProductsDTOListByUserId(Guid userId);
-        public Task<List<ProductDTO>> TakeProductsOfCurrentUser();
+        //public Task<List<ProductDTO>> TakeProductsDTOListByUserId(Guid userId);
+        //public Task<List<ProductDTO>> TakeProductsOfCurrentUser();
         public Task<Response> CheckIsLoginRegistered(string login);
         public Task<Response> ChangePasswordByOldPassword(string oldPassword, string newPassword);
         public Task<Response> ChangeForgottenPasswordBySecretWord(string login, string secretWord, string newPassword);

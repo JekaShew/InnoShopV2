@@ -15,10 +15,12 @@ namespace UserMangement.Presentation.Controllers
     {
         private readonly IMediator _mediator;
         private readonly IUserServices _userServices;
-        public UserController(IMediator mediator, IUserServices userServices)
+        private readonly IUserExternalServices _userExternalServices;
+        public UserController(IMediator mediator, IUserServices userServices, IUserExternalServices userExternalServices)
         {
             _mediator = mediator;
             _userServices = userServices;
+            _userExternalServices = userExternalServices;
         }
 
         [HttpGet]
@@ -85,23 +87,6 @@ namespace UserMangement.Presentation.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
-        // unnecessary
-        //[HttpPost]
-        // public async Task<IActionResult> AddProduct([FromBody] ProductDTO productDTO)
-        // {
-        //     try
-        //     {
-        //         if (ModelState.IsValid)
-        //         {
-        //             return Ok(await _mediator.Send(new AddProductCommand() { ProductDTO = productDTO }));
-        //         }
-        //         else return BadRequest(ModelState);
-        //     }
-        //     catch (Exception ex)
-        //     {
-        //         return StatusCode(500, ex.Message);
-        //     }
-        // }
 
         [HttpPatch("/changeuserstatusofuser")]
         public async Task<IActionResult> ChangeUserStatusOfUser([FromBody] Guid userId, Guid userStatusId)
@@ -121,7 +106,7 @@ namespace UserMangement.Presentation.Controllers
 
         }
 
-        [HttpPatch("/changeroleofuser")]
+        [HttpPost("/changeroleofuser")]
         public async Task<IActionResult> ChangeRoleOfUser([FromBody] Guid userId, Guid roleId)
         {
             try
@@ -144,7 +129,7 @@ namespace UserMangement.Presentation.Controllers
         {
             try
             {
-                var productsDTOs = await _userServices.TakeProductsDTOListByUserId(userId);
+                var productsDTOs = await _userExternalServices.TakeProductsDTOListByUserId(userId);
 
                 if (!productsDTOs.Any())
                     return NotFound("No Products found!");
@@ -157,23 +142,23 @@ namespace UserMangement.Presentation.Controllers
             }
         }
 
-        [HttpGet("/takeproductsofcurrentuser")]
-        public async Task<IActionResult> TakeProductsOfCurrentUser()
-        {
-            try
-            {
-                var productsDTOs = await _userServices.TakeProductsOfCurrentUser();
+        //[HttpGet("/takeproductsofcurrentuser")]
+        //public async Task<IActionResult> TakeProductsOfCurrentUser()
+        //{
+        //    try
+        //    {
+        //        var productsDTOs = await _userServices.TakeProductsOfCurrentUser();
 
-                if (!productsDTOs.Any())
-                    return NotFound("No Product found!");
-                else
-                    return Ok(productsDTOs);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, ex.Message);
-            }
-        }
+        //        if (!productsDTOs.Any())
+        //            return NotFound("No Product found!");
+        //        else
+        //            return Ok(productsDTOs);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return StatusCode(500, ex.Message);
+        //    }
+        //}
 
         [HttpPost("/checkisloginregistered")]
         public async Task<IActionResult> CheckIsLoginRegistered([FromBody] string login)
@@ -191,7 +176,7 @@ namespace UserMangement.Presentation.Controllers
             }
         }
 
-        [HttpPatch("/changepasswordbyoldpassword")]
+        [HttpPost("/changepasswordbyoldpassword")]
         public async Task<IActionResult> ChangePasswordByOldPassword([FromBody] string oldPassword, string newPassword)
         {
             try
@@ -210,7 +195,7 @@ namespace UserMangement.Presentation.Controllers
 
         }
 
-        [HttpPatch("/changeproductstatusofproduct")]
+        [HttpPost("/changeproductstatusofproduct")]
         public async Task<IActionResult> ChangeForgottenPasswordBySecretWord([FromBody] string login, string secretWord, string newPassword)
         {
             try

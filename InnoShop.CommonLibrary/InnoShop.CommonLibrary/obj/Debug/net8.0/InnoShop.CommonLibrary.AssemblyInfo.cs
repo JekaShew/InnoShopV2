@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("JekaShew")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.2.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.2.0+d7017ed36224777c41643d4384002130e811163c")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.2.0+276024a2006586d1c683aadfd7c79f051f95160c")]
 [assembly: System.Reflection.AssemblyProductAttribute("InnoShop.CommonLibrary")]
 [assembly: System.Reflection.AssemblyTitleAttribute("InnoShop.CommonLibrary")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.2.0.0")]

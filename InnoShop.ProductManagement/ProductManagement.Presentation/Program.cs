@@ -24,7 +24,7 @@ builder.Services.AddSwaggerGen( x =>
 });
     
 builder.Services.AddInfrastructureService(builder.Configuration);
-
+builder.Services.AddApplicationService(builder.Configuration);
 //builder.Services.AddMediatR(cfg=> cfg
 //                            .RegisterServicesFromAssembly(typeof(TakeSubCategoryDTOListHandler)
 //                            .Assembly));

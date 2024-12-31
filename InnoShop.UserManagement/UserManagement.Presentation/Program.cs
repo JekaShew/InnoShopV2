@@ -2,6 +2,8 @@ using UserManagement.Infrastructure.DependencyInjection;
 using UserManagement.Application.DependencyInjection;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.OpenApi.Models;
+using UserManagement.Application.Interfaces;
+using UserManagement.Application.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +20,7 @@ builder.Services.AddSwaggerGen(c =>
     });
     c.CustomSchemaIds(type => type.FullName);
 });
+
 
 builder.Services.AddApplicationService(builder.Configuration);
 builder.Services.AddInfrastructureService(builder.Configuration);

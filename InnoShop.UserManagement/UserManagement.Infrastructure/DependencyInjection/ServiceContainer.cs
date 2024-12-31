@@ -18,6 +18,8 @@ namespace UserManagement.Infrastructure.DependencyInjection
         public static IServiceCollection AddInfrastructureService(this IServiceCollection services, IConfiguration configuration)
         {
             // last variable is for DB Connection String Key that in configuration
+
+
             CommonServiceContainer.AddCommonServices<UserManagementDBContext>(services, configuration, configuration["UMSerolog:FileName"]!,"Home");
 
             services.AddMediatR(cfg => cfg
@@ -28,7 +30,7 @@ namespace UserManagement.Infrastructure.DependencyInjection
 
         public static IApplicationBuilder UseInfrastructurePolicy(this IApplicationBuilder app)
         {
-            CommonServiceContainer.UseCommonPolicies(app);
+            //CommonServiceContainer.UseCommonPolicies(app);
 
             return app;
         }
