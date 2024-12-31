@@ -36,9 +36,9 @@ namespace UserManagement.Application.Services
 
         public async Task<Response> Register(RegistrationInfoDTO registrationInfoDTO)
         {
-            var securityStamp = await GetHash(registrationInfoDTO.SecretWord);
-            var secretWordHash = await GetHash($"{registrationInfoDTO.SecretWord}{securityStamp}");
-            var passwordHash = await GetHash($"{registrationInfoDTO.Password}{securityStamp}");
+            var securityStamp = await GetHashString(registrationInfoDTO.SecretWord);
+            var secretWordHash = await GetHashString($"{registrationInfoDTO.SecretWord}{securityStamp}");
+            var passwordHash = await GetHashString($"{registrationInfoDTO.Password}{securityStamp}");
 
             return await _mediator.Send(new AddUserCommand()
             {
@@ -102,7 +102,7 @@ namespace UserManagement.Application.Services
             return currentUserProducts;
         }
 
-        private async Task<string> GetHash(string stringToHash)
+        private async Task<string> GetHashString(string stringToHash)
         {
             using (var md5 = MD5.Create())
             {
@@ -123,7 +123,7 @@ namespace UserManagement.Application.Services
         public async Task<Response> CheckLoginPasswordPair(string login, string password)
         {
             var authorizationInfoDTO = await _mediator.Send(new TakeAuthorizationInfoDTOByLoginQuery() { EnteredLogin = login });
-            var enteredPasswordHash = await GetHash($"{password}{authorizationInfoDTO.SecurityStamp}");
+            var enteredPasswordHash = await GetHashString($"{password}{authorizationInfoDTO.SecurityStamp}");
 
             return await _mediator.Send(new CheckLoginPasswordPairQuery() { Login = login, PasswordHash = enteredPasswordHash });
         }
@@ -131,7 +131,7 @@ namespace UserManagement.Application.Services
         public async Task<Response> CheckLoginSecretWordPair(string login, string secretWord)
         {
             var authorizationInfoDTO = await _mediator.Send(new TakeAuthorizationInfoDTOByLoginQuery() { EnteredLogin = login });
-            var enteredSecretWordHash = await GetHash($"{secretWord}{authorizationInfoDTO.SecurityStamp}");
+            var enteredSecretWordHash = await GetHashString($"{secretWord}{authorizationInfoDTO.SecurityStamp}");
 
             return await _mediator.Send(new CheckLoginSecretWordPairQuery() { Login = login, SecretWordHash = enteredSecretWordHash });
         }
@@ -148,7 +148,7 @@ namespace UserManagement.Application.Services
 
                 if (checkLoginSecretWordPair.Flag == true)
                 {
-                    var newPasswordHash = await GetHash($"{newPassword}{authorizationInfoDTO.SecurityStamp}");
+                    var newPasswordHash = await GetHashString($"{newPassword}{authorizationInfoDTO.SecurityStamp}");
                     return await ChangePassword(authorizationInfoDTO.Id, newPasswordHash);
                 }
                 else
@@ -174,7 +174,7 @@ namespace UserManagement.Application.Services
 
             if (checkLoginPasswordPair.Flag == true)
             {
-                var newPasswordHash = await GetHash($"{newPassword}{authorizationInfoDTO.SecurityStamp}");
+                var newPasswordHash = await GetHashString($"{newPassword}{authorizationInfoDTO.SecurityStamp}");
                 return await ChangePassword(authorizationInfoDTO.Id, newPasswordHash);
             }
             else

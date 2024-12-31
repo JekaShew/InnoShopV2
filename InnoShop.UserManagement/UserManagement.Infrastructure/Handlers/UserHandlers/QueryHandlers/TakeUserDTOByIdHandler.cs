@@ -21,11 +21,10 @@ namespace UserManagement.Infrastructure.Handlers.UserHandlers.QueryHandlers
         }
         public async Task<UserDTO> Handle(TakeUserDTOByIdQuery request, CancellationToken cancellationToken)
         {
-            var userDTO = UserMapper.UserToUserDTO(await _umDBContext.Users
-                        .Include(us => us.UserStatus)
-                        .Include(r => r.Role)
+            var user = await _umDBContext.Users
                         .AsNoTracking()
-                        .FirstOrDefaultAsync(u => u.Id == request.Id));
+                        .FirstOrDefaultAsync(u => u.Id.Equals(request.Id)); 
+            var userDTO = UserMapper.UserToUserDTO(user);
 
             return userDTO;
         }

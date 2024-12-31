@@ -36,14 +36,14 @@ namespace UserManagement.Infrastructure.Handlers.UserHandlers.CommandHandlers
             if (roleId == null)
                 return new Response(false, "There is no Default Role named User in DB!");
             userDetailedDTO.RoleId = roleId;
-
+            //var userStatuses = await _umDBContext.UserStatuses.ToListAsync();
             var userStatusId = await _umDBContext.UserStatuses
                     .AsNoTracking()
-                    .Where(us => us.Title == "InActive")
+                    .Where(us => us.Title == "Acitvated")
                     .Select(us => us.Id)
                     .FirstOrDefaultAsync();
             if (userStatusId == null)
-                return new Response(false, "There is no Default Role named InActive in DB!");
+                return new Response(false, "There is no Default User Status named Acitvated in DB!");
             userDetailedDTO.UserStatusId = userStatusId;
 
             await _umDBContext.Users.AddAsync(UserMapper.UserDetailedDTOToUser(userDetailedDTO));

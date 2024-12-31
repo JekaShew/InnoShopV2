@@ -22,8 +22,6 @@ namespace UserManagement.Infrastructure.Handlers.UserHandlers.QueryHandlers
         public async Task<List<UserDTO>> Handle(TakeUserDTOListQuery request, CancellationToken cancellationToken)
         {
             var userDTOs = await _umDBContext.Users
-                    .Include(us => us.UserStatus)
-                    .Include(r => r.Role)
                     .AsNoTracking()
                     .Select(u => UserMapper.UserToUserDTO(u))
                     .ToListAsync(cancellationToken);

@@ -1,5 +1,6 @@
 ﻿using InnoShop.CommonLibrary.Response;
 using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -20,10 +21,8 @@ namespace UserManagement.Infrastructure.Handlers.RefreshTokenHandlers.CommandHan
         }
         public async Task<Response> Handle(DeleteRefreshTokenByRTokenIdCommand request, CancellationToken cancellationToken)
         {
-            var refreshToken = await _umDBContext.RefreshTokens
-                                    .AsNoTracking()
-                                    .Where(rt => rt.Id == request.RTokenId)
-                                    .FirstOrDefaultAsync(cancellationToken);
+            var refreshToken =  await _umDBContext.RefreshTokens.FindAsync(request.RTokenId);
+           
             if (refreshToken == null)
                 return new Response(false, "Refresh Token Not Found!");
 

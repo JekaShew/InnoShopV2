@@ -3,15 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.34916.146
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserManagement.Application", "UserManagement.Application\UserManagement.Application.csproj", "{E7470209-2C73-4EA1-B055-F6CBFE5FC62C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserManagement.Application", "UserManagement.Application\UserManagement.Application.csproj", "{E7470209-2C73-4EA1-B055-F6CBFE5FC62C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserManagement.Domain", "UserManagement.Domain\UserManagement.Domain.csproj", "{56CCF54F-E901-4FE0-8762-AE7A7ED6E5E8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserManagement.Domain", "UserManagement.Domain\UserManagement.Domain.csproj", "{56CCF54F-E901-4FE0-8762-AE7A7ED6E5E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserManagement.Infrastructure", "UserManagement.Infrastructure\UserManagement.Infrastructure.csproj", "{4B8AA5C7-5FA6-4340-9CA5-EEC01EBCA2DF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserManagement.Infrastructure", "UserManagement.Infrastructure\UserManagement.Infrastructure.csproj", "{4B8AA5C7-5FA6-4340-9CA5-EEC01EBCA2DF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserManagement.Presentation", "UserManagement.Presentation\UserManagement.Presentation.csproj", "{DB1CA155-E923-4778-B047-4A41A1134C50}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserManagement.Presentation", "UserManagement.Presentation\UserManagement.Presentation.csproj", "{DB1CA155-E923-4778-B047-4A41A1134C50}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InnoShop.CommonLibrary", "..\InnoShop.CommonLibrary\InnoShop.CommonLibrary\InnoShop.CommonLibrary.csproj", "{7617B014-842A-4C4B-AF68-4135267716EE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{CF726D27-1185-4942-BA46-C19650CD9DCB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserManagement.Handlers.Tests", "UserManagement.Handlers.Tests\UserManagement.Handlers.Tests.csproj", "{C48ECCDA-0402-4EFB-988A-0CFF121C0A22}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,9 +43,16 @@ Global
 		{7617B014-842A-4C4B-AF68-4135267716EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7617B014-842A-4C4B-AF68-4135267716EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7617B014-842A-4C4B-AF68-4135267716EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C48ECCDA-0402-4EFB-988A-0CFF121C0A22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C48ECCDA-0402-4EFB-988A-0CFF121C0A22}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C48ECCDA-0402-4EFB-988A-0CFF121C0A22}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C48ECCDA-0402-4EFB-988A-0CFF121C0A22}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C48ECCDA-0402-4EFB-988A-0CFF121C0A22} = {CF726D27-1185-4942-BA46-C19650CD9DCB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D97851B5-46DB-4C36-A2A1-86A895550028}
