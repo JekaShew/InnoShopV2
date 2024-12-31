@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using UserManagement.Application.Commands.UserStatusCommands;
 using UserManagement.Application.DTOs;
@@ -17,6 +18,7 @@ namespace UserMangement.Presentation.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> TakeUserStatuses()
         {
             try
@@ -35,6 +37,7 @@ namespace UserMangement.Presentation.Controllers
         }
 
         [HttpGet("{userStatusId}")]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> TakeUserStatusById(Guid userStatusId)
         {
             try
@@ -52,6 +55,7 @@ namespace UserMangement.Presentation.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> AddUserStatus([FromBody] UserStatusDTO userStatusDTO)
         {
             try
@@ -69,6 +73,7 @@ namespace UserMangement.Presentation.Controllers
         }
 
         [HttpDelete("{userStatusId}")]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> DeleteUserStatusById(Guid userStatusId)
         {
             try
@@ -82,6 +87,7 @@ namespace UserMangement.Presentation.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> UpdateUserStatus([FromBody] UserStatusDTO userStatusDTO)
         {
             try

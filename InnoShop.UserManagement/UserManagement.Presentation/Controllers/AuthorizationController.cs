@@ -96,6 +96,7 @@ namespace UserMangement.Presentation.Controllers
         }
 
         [HttpPost("logout")]
+        [Authorize]
         public async Task<IActionResult> Logout([FromBody] Guid rTokenId)
         {
             try
@@ -119,6 +120,7 @@ namespace UserMangement.Presentation.Controllers
         }
 
         [HttpPost("/refresh")]
+
         public async Task<IActionResult> Refresh([FromBody] Guid rTokenId)
         {
             var isRefreshTokenCorrect = await _authorizationServices.IsRefreshTokenCorrectByRTokenId(rTokenId);
@@ -143,6 +145,7 @@ namespace UserMangement.Presentation.Controllers
         }
 
         [HttpPatch("/revoke")]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> RevokeTokenById([FromBody] Guid rTokenId)
         {
             var isRefreshTokenCorrect = await _authorizationServices.IsRefreshTokenCorrectByRTokenId(rTokenId);

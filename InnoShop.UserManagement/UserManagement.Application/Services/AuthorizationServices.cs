@@ -13,6 +13,7 @@ using UserManagement.Application.Commands.RefreshTokenCommands;
 using UserManagement.Application.DTOs;
 using UserManagement.Application.Interfaces;
 using UserManagement.Application.Queries.RefreshQueries;
+using UserManagement.Application.Queries.RoleQueries;
 using UserManagement.Application.Queries.UserQueries;
 
 namespace UserManagement.Application.Services
@@ -31,13 +32,14 @@ namespace UserManagement.Application.Services
         public async Task<string> GenerateJwtTokenStringByUserId(Guid userId)
         {
             var userDTO = await _mediator.Send(new TakeUserDTOByIdQuery() { Id = userId });
+            var role = await _mediator.Send(new TakeRoleDTOByIdQuery() { Id = userDTO.RoleId });
 
             var claims = new List<Claim>()
             {
                 new Claim(ClaimTypes.Email, userDTO.Email),
                 new Claim(ClaimTypes.Name, userDTO.FIO),
                 new Claim(ClaimTypes.NameIdentifier, userId.ToString()),
-                new Claim(ClaimTypes.Role, userDTO.Role.Text),
+                new Claim(ClaimTypes.Role, role.Title),
             };
 
             var jwtHandler = new JwtSecurityTokenHandler();

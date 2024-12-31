@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ProductManagement.Application.Commands.ProductStatusCommands;
 using ProductManagement.Application.Commands.SubCategoryCommands;
@@ -20,6 +21,7 @@ namespace ProductManagement.Presentation.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles ="Administrator")]
         public async Task<IActionResult> TakeProductStatuses()
         {
             try
@@ -38,6 +40,7 @@ namespace ProductManagement.Presentation.Controllers
         }
 
         [HttpGet("{productStatusId}")]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> TakeProductStatusById(Guid productStatusId)
         {
             try
@@ -55,6 +58,7 @@ namespace ProductManagement.Presentation.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> AddProductStatus([FromBody] ProductStatusDTO productStatusDTO)
         {
             try
@@ -72,6 +76,7 @@ namespace ProductManagement.Presentation.Controllers
         }
 
         [HttpDelete("{productStatusId}")]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> DeleteProductStatusById(Guid productStatusId)
         {
             try
@@ -85,6 +90,7 @@ namespace ProductManagement.Presentation.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> UpdateProductStatus([FromBody] ProductStatusDTO productStatusDTO)
         {
             try

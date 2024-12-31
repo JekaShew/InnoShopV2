@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using UserManagement.Application.Commands.RoleCommands;
 using UserManagement.Application.DTOs;
@@ -17,6 +18,7 @@ namespace UserMangement.Presentation.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> TakeRoles()
         {
             try
@@ -35,6 +37,7 @@ namespace UserMangement.Presentation.Controllers
         }
 
         [HttpGet("{roleId}")]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> TakeRoleById(Guid roleId)
         {
             try
@@ -52,6 +55,7 @@ namespace UserMangement.Presentation.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> AddRole([FromBody] RoleDTO roleDTO)
         {
             try
@@ -69,6 +73,7 @@ namespace UserMangement.Presentation.Controllers
         }
 
         [HttpDelete("{roleId}")]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> DeleteRoleById(Guid roleId)
         {
             try
@@ -82,6 +87,7 @@ namespace UserMangement.Presentation.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> UpdateRole([FromBody] RoleDTO roleDTO)
         {
             try

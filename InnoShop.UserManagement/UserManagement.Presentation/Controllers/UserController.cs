@@ -1,5 +1,6 @@
 ﻿using InnoShop.CommonLibrary.CommonDTOs;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using UserManagement.Application.Commands.UserCommands;
 using UserManagement.Application.DTOs;
@@ -24,6 +25,7 @@ namespace UserMangement.Presentation.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> TakeUsers()
         {
             try
@@ -42,6 +44,7 @@ namespace UserMangement.Presentation.Controllers
         }
 
         [HttpGet("{userId}")]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> TakeUserById(Guid userId)
         {
             try
@@ -59,6 +62,7 @@ namespace UserMangement.Presentation.Controllers
         }
 
         [HttpDelete("{userId}")]
+        [Authorize]
         public async Task<IActionResult> DeleteUserById(Guid userId)
         {
             try
@@ -72,6 +76,7 @@ namespace UserMangement.Presentation.Controllers
         }
 
         [HttpPut]
+        [Authorize]
         public async Task<IActionResult> UpdateUser([FromBody] UserDTO userDTO)
         {
             try
@@ -88,7 +93,8 @@ namespace UserMangement.Presentation.Controllers
             }
         }
 
-        [HttpPatch("/changeuserstatusofuser")]
+        [HttpPost("/changeuserstatusofuser")]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> ChangeUserStatusOfUser([FromBody] Guid userId, Guid userStatusId)
         {
             try
@@ -107,6 +113,7 @@ namespace UserMangement.Presentation.Controllers
         }
 
         [HttpPost("/changeroleofuser")]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> ChangeRoleOfUser([FromBody] Guid userId, Guid roleId)
         {
             try
@@ -125,6 +132,7 @@ namespace UserMangement.Presentation.Controllers
         }
 
         [HttpGet("/takeproductsdtolistbyuserid/{userId}")]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> TakeProductsDTOListByUserId(Guid userId)
         {
             try
@@ -177,7 +185,8 @@ namespace UserMangement.Presentation.Controllers
         }
 
         [HttpPost("/changepasswordbyoldpassword")]
-        public async Task<IActionResult> ChangePasswordByOldPassword([FromBody] string oldPassword, string newPassword)
+        [Authorize]
+        public async Task<IActionResult> ChangePasswordByOldPassword([FromBody]string oldPassword,string newPassword)
         {
             try
             {
@@ -195,7 +204,8 @@ namespace UserMangement.Presentation.Controllers
 
         }
 
-        [HttpPost("/changeproductstatusofproduct")]
+        [HttpPost("/changeforgottenpasswordbysecretword")]
+        
         public async Task<IActionResult> ChangeForgottenPasswordBySecretWord([FromBody] string login, string secretWord, string newPassword)
         {
             try

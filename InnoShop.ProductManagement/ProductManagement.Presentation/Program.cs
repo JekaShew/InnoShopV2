@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.OpenApi.Models;
 using ProductManagement.Infrastructure.DependencyInjection;
+using ProductManagement.Application.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 

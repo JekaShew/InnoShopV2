@@ -2,7 +2,7 @@
   "openapi": "3.0.1",
   "info": {
     "title": "UserManagement Web API",
-    "description": "UserManagement Web API",
+    "description": "Usermanagement Web API",
     "version": "v1"
   },
   "paths": {
@@ -370,7 +370,7 @@
       }
     },
     "/changeuserstatusofuser": {
-      "patch": {
+      "post": {
         "tags": [
           "User"
         ],
@@ -414,7 +414,7 @@
       }
     },
     "/changeroleofuser": {
-      "patch": {
+      "post": {
         "tags": [
           "User"
         ],
@@ -480,18 +480,6 @@
         }
       }
     },
-    "/takeproductsofcurrentuser": {
-      "get": {
-        "tags": [
-          "User"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
     "/checkisloginregistered": {
       "post": {
         "tags": [
@@ -524,7 +512,7 @@
       }
     },
     "/changepasswordbyoldpassword": {
-      "patch": {
+      "post": {
         "tags": [
           "User"
         ],
@@ -563,12 +551,19 @@
         }
       }
     },
-    "/changeproductstatusofproduct": {
-      "patch": {
+    "/changeforgottenpasswordbysecretword": {
+      "psot": {
         "tags": [
           "User"
         ],
         "parameters": [
+          {
+            "name": "login",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
           {
             "name": "secretWord",
             "in": "query",
@@ -850,7 +845,8 @@
         "properties": {
           "id": {
             "type": "string",
-            "format": "uuid"
+            "format": "uuid",
+            "nullable": true
           },
           "title": {
             "minLength": 1,
@@ -871,7 +867,8 @@
         "properties": {
           "id": {
             "type": "string",
-            "format": "uuid"
+            "format": "uuid",
+            "nullable": true
           },
           "title": {
             "minLength": 1,

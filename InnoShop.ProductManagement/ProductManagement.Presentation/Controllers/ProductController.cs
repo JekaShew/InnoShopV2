@@ -1,5 +1,6 @@
 ﻿using InnoShop.CommonLibrary.CommonDTOs;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ProductManagement.Application.Commands.ProductCommands;
 using ProductManagement.Application.DTOs;
@@ -58,6 +59,7 @@ namespace ProductManagement.Presentation.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> CreateProduct([FromBody] ProductDTO productDTO)
         {
             try
@@ -79,6 +81,7 @@ namespace ProductManagement.Presentation.Controllers
         }
 
         [HttpDelete("{productId}")]
+        [Authorize]
         public async Task<IActionResult> DeleteProductById(Guid productId)
         {
             try
@@ -101,6 +104,7 @@ namespace ProductManagement.Presentation.Controllers
         }
 
         [HttpPut]
+        [Authorize]
         public async Task<IActionResult> UpdateProduct([FromBody] ProductDTO productDTO)
         {
             try
@@ -123,6 +127,7 @@ namespace ProductManagement.Presentation.Controllers
         }
 
         [HttpGet("/takefilteredproducts")]
+        [Authorize]
         public async Task<IActionResult> TakeFilteredProducts([FromBody]ProductFilterDTO productFilterDTO)
         {
             try
@@ -157,6 +162,7 @@ namespace ProductManagement.Presentation.Controllers
         }
 
         [HttpGet("/takeproductsbyuserid/{userId}")]
+        [Authorize]
         public async Task<IActionResult> TakeProductsByUserId(Guid userId)
         {
             try
@@ -174,6 +180,7 @@ namespace ProductManagement.Presentation.Controllers
         }
 
         [HttpPatch("/changeproductstatusofproduct")]
+        [Authorize]
         public async Task<IActionResult> ChangeProductStatusOfProduct([FromBody] Guid productId, Guid productStatusId)
         {
             try
@@ -203,6 +210,7 @@ namespace ProductManagement.Presentation.Controllers
         }
 
         [HttpPatch("/changeproductstatusofbadproduct")]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> ChangeProductStatusOfBadProduct([FromBody] Guid productId, Guid productStatusId)
         {
             try
@@ -221,6 +229,7 @@ namespace ProductManagement.Presentation.Controllers
         }
 
         [HttpPatch("/changeproductstatusesofproductsbyuserid/{userId}")]
+        [Authorize]
         public async Task<IActionResult> ChangeProductStatusesOfProductsByUserId(Guid userId)
         {
             try

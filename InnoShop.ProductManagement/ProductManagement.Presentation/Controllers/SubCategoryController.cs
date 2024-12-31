@@ -1,5 +1,6 @@
 ﻿using InnoShop.CommonLibrary.Response;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ProductManagement.Application.Commands.SubCategoryCommands;
 using ProductManagement.Application.DTOs;
@@ -19,6 +20,7 @@ namespace ProductManagement.Presentation.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> TakeSubCatigories()
         {
             try
@@ -37,6 +39,7 @@ namespace ProductManagement.Presentation.Controllers
         }
 
         [HttpGet("{subCategoryId}")]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> TakeSubCatigoryById(Guid subCategoryId)
         {
             try
@@ -54,6 +57,7 @@ namespace ProductManagement.Presentation.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> AddSubCatigory([FromBody] SubCategoryDTO subCategoryDTO)
         {
             try
@@ -71,6 +75,7 @@ namespace ProductManagement.Presentation.Controllers
         }
 
         [HttpDelete("{subCategoryId}")]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> DeleteSubCatigoryById(Guid subCategoryId)
         {
             try
@@ -84,6 +89,7 @@ namespace ProductManagement.Presentation.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> UpdateSubCatigory([FromBody] SubCategoryDTO subCategoryDTO)
         {
             try

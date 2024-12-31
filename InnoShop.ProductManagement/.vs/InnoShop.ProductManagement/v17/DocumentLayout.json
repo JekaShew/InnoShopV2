@@ -3,6 +3,30 @@
   "WorkspaceRootPath": "G:\\\u0421#_new\\Innowise\\InnoShopV3\\InnoShopV2\\InnoShop.ProductManagement\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{D764B297-A0A3-45AD-A4A7-36B8D8574FA9}|ProductManagement.Application\\ProductManagement.Application.csproj|g:\\\u0441#_new\\innowise\\innoshopv3\\innoshopv2\\innoshop.productmanagement\\productmanagement.application\\dependencyinjection\\servicecontainer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D764B297-A0A3-45AD-A4A7-36B8D8574FA9}|ProductManagement.Application\\ProductManagement.Application.csproj|solutionrelative:productmanagement.application\\dependencyinjection\\servicecontainer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{71BD18DC-8720-4A94-9BA3-ABED981E1750}|ProductManagement.Presentation\\ProductManagement.Presentation.csproj|g:\\\u0441#_new\\innowise\\innoshopv3\\innoshopv2\\innoshop.productmanagement\\productmanagement.presentation\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{71BD18DC-8720-4A94-9BA3-ABED981E1750}|ProductManagement.Presentation\\ProductManagement.Presentation.csproj|solutionrelative:productmanagement.presentation\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{71BD18DC-8720-4A94-9BA3-ABED981E1750}|ProductManagement.Presentation\\ProductManagement.Presentation.csproj|g:\\\u0441#_new\\innowise\\innoshopv3\\innoshopv2\\innoshop.productmanagement\\productmanagement.presentation\\controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{71BD18DC-8720-4A94-9BA3-ABED981E1750}|ProductManagement.Presentation\\ProductManagement.Presentation.csproj|solutionrelative:productmanagement.presentation\\controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{71BD18DC-8720-4A94-9BA3-ABED981E1750}|ProductManagement.Presentation\\ProductManagement.Presentation.csproj|g:\\\u0441#_new\\innowise\\innoshopv3\\innoshopv2\\innoshop.productmanagement\\productmanagement.presentation\\controllers\\productstatuscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{71BD18DC-8720-4A94-9BA3-ABED981E1750}|ProductManagement.Presentation\\ProductManagement.Presentation.csproj|solutionrelative:productmanagement.presentation\\controllers\\productstatuscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{71BD18DC-8720-4A94-9BA3-ABED981E1750}|ProductManagement.Presentation\\ProductManagement.Presentation.csproj|g:\\\u0441#_new\\innowise\\innoshopv3\\innoshopv2\\innoshop.productmanagement\\productmanagement.presentation\\controllers\\categorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{71BD18DC-8720-4A94-9BA3-ABED981E1750}|ProductManagement.Presentation\\ProductManagement.Presentation.csproj|solutionrelative:productmanagement.presentation\\controllers\\categorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{71BD18DC-8720-4A94-9BA3-ABED981E1750}|ProductManagement.Presentation\\ProductManagement.Presentation.csproj|g:\\\u0441#_new\\innowise\\innoshopv3\\innoshopv2\\innoshop.productmanagement\\productmanagement.presentation\\controllers\\subcategorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{71BD18DC-8720-4A94-9BA3-ABED981E1750}|ProductManagement.Presentation\\ProductManagement.Presentation.csproj|solutionrelative:productmanagement.presentation\\controllers\\subcategorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{70D56717-A4E6-4102-92C6-8D52D6CB7385}|ProductManagement.Infrastructure\\ProductManagement.Infrastructure.csproj|g:\\\u0441#_new\\innowise\\innoshopv3\\innoshopv2\\innoshop.productmanagement\\productmanagement.infrastructure\\handlers\\producthandlers\\commandhandlers\\addproducthandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{70D56717-A4E6-4102-92C6-8D52D6CB7385}|ProductManagement.Infrastructure\\ProductManagement.Infrastructure.csproj|solutionrelative:productmanagement.infrastructure\\handlers\\producthandlers\\commandhandlers\\addproducthandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -21,10 +45,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{C9D426AF-2A20-46EE-86F0-9B451AF89DC2}|ProductManagement.Services.Tests\\ProductManagement.Services.Tests.csproj|g:\\\u0441#_new\\innowise\\innoshopv3\\innoshopv2\\innoshop.productmanagement\\productmanagement.services.tests\\categoryhandlerstests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C9D426AF-2A20-46EE-86F0-9B451AF89DC2}|ProductManagement.Services.Tests\\ProductManagement.Services.Tests.csproj|solutionrelative:productmanagement.services.tests\\categoryhandlerstests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{71BD18DC-8720-4A94-9BA3-ABED981E1750}|ProductManagement.Presentation\\ProductManagement.Presentation.csproj|g:\\\u0441#_new\\innowise\\innoshopv3\\innoshopv2\\innoshop.productmanagement\\productmanagement.presentation\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{71BD18DC-8720-4A94-9BA3-ABED981E1750}|ProductManagement.Presentation\\ProductManagement.Presentation.csproj|solutionrelative:productmanagement.presentation\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{D764B297-A0A3-45AD-A4A7-36B8D8574FA9}|ProductManagement.Application\\ProductManagement.Application.csproj|g:\\\u0441#_new\\innowise\\innoshopv3\\innoshopv2\\innoshop.productmanagement\\productmanagement.application\\dtos\\productfilterdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -50,6 +70,67 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "ServiceContainer.cs",
+              "DocumentMoniker": "G:\\\u0421#_new\\Innowise\\InnoShopV3\\InnoShopV2\\InnoShop.ProductManagement\\ProductManagement.Application\\DependencyInjection\\ServiceContainer.cs",
+              "RelativeDocumentMoniker": "ProductManagement.Application\\DependencyInjection\\ServiceContainer.cs",
+              "ToolTip": "G:\\\u0421#_new\\Innowise\\InnoShopV3\\InnoShopV2\\InnoShop.ProductManagement\\ProductManagement.Application\\DependencyInjection\\ServiceContainer.cs",
+              "RelativeToolTip": "ProductManagement.Application\\DependencyInjection\\ServiceContainer.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAANAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-31T16:50:28.573Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ProductController.cs",
+              "DocumentMoniker": "G:\\\u0421#_new\\Innowise\\InnoShopV3\\InnoShopV2\\InnoShop.ProductManagement\\ProductManagement.Presentation\\Controllers\\ProductController.cs",
+              "RelativeDocumentMoniker": "ProductManagement.Presentation\\Controllers\\ProductController.cs",
+              "ToolTip": "G:\\\u0421#_new\\Innowise\\InnoShopV3\\InnoShopV2\\InnoShop.ProductManagement\\ProductManagement.Presentation\\Controllers\\ProductController.cs",
+              "RelativeToolTip": "ProductManagement.Presentation\\Controllers\\ProductController.cs",
+              "ViewState": "AQIAAA0AAAAAAAAAAAAAACsAAAAgAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-31T16:46:16.544Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ProductStatusController.cs",
+              "DocumentMoniker": "G:\\\u0421#_new\\Innowise\\InnoShopV3\\InnoShopV2\\InnoShop.ProductManagement\\ProductManagement.Presentation\\Controllers\\ProductStatusController.cs",
+              "RelativeDocumentMoniker": "ProductManagement.Presentation\\Controllers\\ProductStatusController.cs",
+              "ToolTip": "G:\\\u0421#_new\\Innowise\\InnoShopV3\\InnoShopV2\\InnoShop.ProductManagement\\ProductManagement.Presentation\\Controllers\\ProductStatusController.cs",
+              "RelativeToolTip": "ProductManagement.Presentation\\Controllers\\ProductStatusController.cs",
+              "ViewState": "AQIAAEEAAAAAAAAAAAAIwFwAAAAsAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-31T16:45:45.43Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "SubCategoryController.cs",
+              "DocumentMoniker": "G:\\\u0421#_new\\Innowise\\InnoShopV3\\InnoShopV2\\InnoShop.ProductManagement\\ProductManagement.Presentation\\Controllers\\SubCategoryController.cs",
+              "RelativeDocumentMoniker": "ProductManagement.Presentation\\Controllers\\SubCategoryController.cs",
+              "ToolTip": "G:\\\u0421#_new\\Innowise\\InnoShopV3\\InnoShopV2\\InnoShop.ProductManagement\\ProductManagement.Presentation\\Controllers\\SubCategoryController.cs",
+              "RelativeToolTip": "ProductManagement.Presentation\\Controllers\\SubCategoryController.cs",
+              "ViewState": "AQIAAA4AAAAAAAAAAAAQwBYAAAAIAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-31T16:45:10.136Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "CategoryController.cs",
+              "DocumentMoniker": "G:\\\u0421#_new\\Innowise\\InnoShopV3\\InnoShopV2\\InnoShop.ProductManagement\\ProductManagement.Presentation\\Controllers\\CategoryController.cs",
+              "RelativeDocumentMoniker": "ProductManagement.Presentation\\Controllers\\CategoryController.cs",
+              "ToolTip": "G:\\\u0421#_new\\Innowise\\InnoShopV3\\InnoShopV2\\InnoShop.ProductManagement\\ProductManagement.Presentation\\Controllers\\CategoryController.cs",
+              "RelativeToolTip": "ProductManagement.Presentation\\Controllers\\CategoryController.cs",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAAABkAAAATAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-31T16:44:22.335Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
               "Title": "AddProductHandler.cs",
               "DocumentMoniker": "G:\\\u0421#_new\\Innowise\\InnoShopV3\\InnoShopV2\\InnoShop.ProductManagement\\ProductManagement.Infrastructure\\Handlers\\ProductHandlers\\CommandHandlers\\AddProductHandler.cs",
               "RelativeDocumentMoniker": "ProductManagement.Infrastructure\\Handlers\\ProductHandlers\\CommandHandlers\\AddProductHandler.cs",
@@ -57,12 +138,11 @@
               "RelativeToolTip": "ProductManagement.Infrastructure\\Handlers\\ProductHandlers\\CommandHandlers\\AddProductHandler.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAABMAAAAyAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-31T13:32:53.527Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-31T13:32:53.527Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 7,
               "Title": "ProductHandlersTests.cs",
               "DocumentMoniker": "G:\\\u0421#_new\\Innowise\\InnoShopV3\\InnoShopV2\\InnoShop.ProductManagement\\ProductManagement.Services.Tests\\ProductHandlersTests.cs",
               "RelativeDocumentMoniker": "ProductManagement.Services.Tests\\ProductHandlersTests.cs",
@@ -75,7 +155,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 8,
               "Title": "SubCategoryHandlersTests.cs",
               "DocumentMoniker": "G:\\\u0421#_new\\Innowise\\InnoShopV3\\InnoShopV2\\InnoShop.ProductManagement\\ProductManagement.Services.Tests\\SubCategoryHandlersTests.cs",
               "RelativeDocumentMoniker": "ProductManagement.Services.Tests\\SubCategoryHandlersTests.cs",
@@ -83,11 +163,12 @@
               "RelativeToolTip": "ProductManagement.Services.Tests\\SubCategoryHandlersTests.cs",
               "ViewState": "AQIAAK0AAAAAAAAAAAAIwM0AAAALAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-31T12:28:17.231Z"
+              "WhenOpened": "2024-12-31T12:28:17.231Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 9,
               "Title": "ProductStatusHandlersTests.cs",
               "DocumentMoniker": "G:\\\u0421#_new\\Innowise\\InnoShopV3\\InnoShopV2\\InnoShop.ProductManagement\\ProductManagement.Services.Tests\\ProductStatusHandlersTests.cs",
               "RelativeDocumentMoniker": "ProductManagement.Services.Tests\\ProductStatusHandlersTests.cs",
@@ -95,11 +176,12 @@
               "RelativeToolTip": "ProductManagement.Services.Tests\\ProductStatusHandlersTests.cs",
               "ViewState": "AQIAAGYAAAAAAAAAAAAmwIgAAAALAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-31T12:28:05.368Z"
+              "WhenOpened": "2024-12-31T12:28:05.368Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 10,
               "Title": "CategoryHandlersTests.cs",
               "DocumentMoniker": "G:\\\u0421#_new\\Innowise\\InnoShopV3\\InnoShopV2\\InnoShop.ProductManagement\\ProductManagement.Services.Tests\\CategoryHandlersTests.cs",
               "RelativeDocumentMoniker": "ProductManagement.Services.Tests\\CategoryHandlersTests.cs",
@@ -111,7 +193,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 13,
               "Title": "ProductServices.cs",
               "DocumentMoniker": "G:\\\u0421#_new\\Innowise\\InnoShopV3\\InnoShopV2\\InnoShop.ProductManagement\\ProductManagement.Application\\Services\\ProductServices.cs",
               "RelativeDocumentMoniker": "ProductManagement.Application\\Services\\ProductServices.cs",
@@ -123,19 +205,19 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 1,
               "Title": "Program.cs",
               "DocumentMoniker": "G:\\\u0421#_new\\Innowise\\InnoShopV3\\InnoShopV2\\InnoShop.ProductManagement\\ProductManagement.Presentation\\Program.cs",
               "RelativeDocumentMoniker": "ProductManagement.Presentation\\Program.cs",
               "ToolTip": "G:\\\u0421#_new\\Innowise\\InnoShopV3\\InnoShopV2\\InnoShop.ProductManagement\\ProductManagement.Presentation\\Program.cs",
               "RelativeToolTip": "ProductManagement.Presentation\\Program.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAAAAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABYAAAAHAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-12-30T10:23:52.66Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 12,
               "Title": "ProductDTO.cs",
               "DocumentMoniker": "G:\\\u0421#_new\\Innowise\\InnoShopV3\\InnoShopV2\\InnoShop.CommonLibrary\\InnoShop.CommonLibrary\\CommonDTOs\\ProductDTO.cs",
               "RelativeDocumentMoniker": "..\\InnoShop.CommonLibrary\\InnoShop.CommonLibrary\\CommonDTOs\\ProductDTO.cs",
@@ -147,7 +229,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 11,
               "Title": "ProductFilterDTO.cs",
               "DocumentMoniker": "G:\\\u0421#_new\\Innowise\\InnoShopV3\\InnoShopV2\\InnoShop.ProductManagement\\ProductManagement.Application\\DTOs\\ProductFilterDTO.cs",
               "RelativeDocumentMoniker": "ProductManagement.Application\\DTOs\\ProductFilterDTO.cs",

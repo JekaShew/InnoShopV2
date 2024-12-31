@@ -10,8 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 
-builder.Services.AddSwaggerGen(c =>
-{
+builder.Services.AddSwaggerGen(c => {
     c.SwaggerDoc("v1", new OpenApiInfo
     {
         Version = "v1",
@@ -19,6 +18,26 @@ builder.Services.AddSwaggerGen(c =>
         Description = "Usermanagement Web API",
     });
     c.CustomSchemaIds(type => type.FullName);
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
+    {
+        Name = "Authorization",
+        Type = SecuritySchemeType.ApiKey,
+        Scheme = "Bearer",
+        BearerFormat = "JWT",
+        In = ParameterLocation.Header,
+        Description = "JWT Authorization header using the Bearer scheme. \r\n\r\n Enter 'Bearer' [space] and then your token in the text input below.\r\n\r\nExample: \"Bearer 1safsfsdfdfd\"",
+    });
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement {
+        {
+            new OpenApiSecurityScheme {
+                Reference = new OpenApiReference {
+                    Type = ReferenceType.SecurityScheme,
+                        Id = "Bearer"
+                }
+            },
+            new string[] {}
+        }
+    });
 });
 
 
@@ -39,7 +58,7 @@ app.UseSwaggerUI(c =>
     //c.SwaggerEndpoint("/swagger/v1/swagger.json", "UserManagement Web API");
 
     // Read from file including static Files
-    c.SwaggerEndpoint("/swagger-original.json", "UserManagement Web API");
+    c.SwaggerEndpoint("/swagger-original2.json", "UserManagement Web API");
 });
 
 app.UseHttpsRedirection();

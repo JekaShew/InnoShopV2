@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 using ProductManagement.Application.Interfaces;
 using ProductManagement.Application.Services;
 
-namespace UserManagement.Application.DependencyInjection
+namespace ProductManagement.Application.DependencyInjection
 {
     public static class ServiceContainer
     {
