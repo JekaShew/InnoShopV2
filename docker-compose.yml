@@ -1,33 +1,43 @@
 version: '3.4'
 
 services:
-  productmanagement.presentation:
-    image: productmanagement
-    container_name: ProductManagementAPI
-    build:
-      context: .
-      dockerfile: InnoShop.ProductManagement/ProductManagement.Presentation/Dockerfile
-    ports:
-    -  "5001:5001"
+  # productmanagement.presentation:
+  #   environment:
+  #     - ASPNETCORE_ENVIRONMENT=Development
+  #     - ASPNETCORE_HTTP_PORTS=5001
+  #   image: productmanagement
+  #   container_name: ProductManagementAPI
+  #   build:
+  #     context: .
+  #     args:
+  #     - BUILD_CONFIGURATION=Development
+  #     dockerfile: InnoShop.ProductManagement/ProductManagement.Presentation/Dockerfile
+  #   ports:
+  #   -  "5001:5001"
     # depends_on:
     #     mssql-server:
     #         condition: service_healthy
   
-  usermanagement.presentation:
-    image: usermanagement
-    container_name: UserManagementAPI
-    build:
-      context: .
-      dockerfile: InnoShop.UserMangement/UserMangement.Presentation/Dockerfile
-    ports:
-    -  "5002:5002"
+  # usermanagement.presentation:
+  #   environment:
+  #     - ASPNETCORE_ENVIRONMENT=Development
+  #     - ASPNETCORE_HTTP_PORTS=5002
+  #   image: usermanagement
+  #   container_name: UserManagementAPI
+  #   build:
+  #     context: .
+  #     args:
+  #     - BUILD_CONFIGURATION=Development
+  #     dockerfile: InnoShop.UserManagement/Dockerfile
+  #   ports:
+  #   -  "5002:5002"
     # depends_on:
     #     mssql-server:
     #         condition: service_healthy
 
   mssql-server:
     image: mcr.microsoft.com/mssql/server:2019-latest
-    container_name: MSSQLServer
+    container_name: mssql-server
     environment:
         ACCEPT_EULA: Y
         SA_PASSWORD: SecretPassword123

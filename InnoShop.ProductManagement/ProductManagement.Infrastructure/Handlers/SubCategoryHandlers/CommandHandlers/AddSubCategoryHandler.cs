@@ -1,5 +1,6 @@
 ﻿using InnoShop.CommonLibrary.Response;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using ProductManagement.Application.Commands.SubCategoryCommands;
 using ProductManagement.Application.Mappers;
@@ -22,6 +23,8 @@ namespace ProductManagement.Infrastructure.Handlers.SubCategoryHandlers.CommandH
         public async Task<Response> Handle(AddSubCategoryCommand request, CancellationToken cancellationToken)
         {
             request.SubCategoryDTO.Id = Guid.NewGuid();
+            if (!await _pmDBContext.Categories.AnyAsync(c => c.Id == request.SubCategoryDTO.CategoryId))
+                return new Response(false, "No Categories Id matches Your SubCategory!");
             await _pmDBContext.SubCategories.AddAsync(SubCategoryMapper.SubCategoryDTOToSubCategory(request.SubCategoryDTO));
             await _pmDBContext.SaveChangesAsync();
          

@@ -18,7 +18,11 @@ namespace ProductManagement.Infrastructure.Handlers.ProductHandlers.QueryHandler
         {
             var searchedProductDTOList = await _pmDBContext.Products
                         .Where(p => p.Title
-                            .Contains(request.QueryString) || p.Description.Contains(request.QueryString))
+                            .ToLower()
+                            .Contains(request.QueryString) 
+                            || p.Description
+                                .ToLower()
+                                .Contains(request.QueryString))
                         .Select(p => ProductMapper.ProductToProductDTO(p))
                         .ToListAsync(cancellationToken);
 

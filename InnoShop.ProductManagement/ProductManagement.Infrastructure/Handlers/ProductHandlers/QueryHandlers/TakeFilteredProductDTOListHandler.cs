@@ -16,14 +16,29 @@ namespace ProductManagement.Infrastructure.Handlers.ProductHandlers.QueryHandler
         }
         public async Task<List<ProductDTO>> Handle(TakeFilteredProductDTOListQuery request, CancellationToken cancellationToken)
         {
+            decimal minValue = request.ProductFilterDTO.MinPrice != null ? (decimal)request.ProductFilterDTO.MinPrice : 0.01M;
+            decimal maxValue = request.ProductFilterDTO.MaxPrice != null ? (decimal)request.ProductFilterDTO.MaxPrice : decimal.MaxValue;
+
+            var subCategoryIds = request.ProductFilterDTO.SubCategory != null ? request.ProductFilterDTO.SubCategory.Select(sc=> sc.Id).ToList()
+                : (await _pmDBContext.SubCategories.AsNoTracking().Select(sc => sc.Id).ToListAsync());
+            var categoryIds = request.ProductFilterDTO.Category != null ? request.ProductFilterDTO.Category.Select(sc => sc.Id).ToList()
+                : (await _pmDBContext.Categories.AsNoTracking().Select(sc => sc.Id).ToListAsync());
+
             var filteredProductDTOList = await _pmDBContext.Products
-                    .Where(p => p.Price >= (request.ProductFilterDTO.MinPrice != null ? request.ProductFilterDTO.MinPrice : 0.01M)
-                        || p.Price <= (request.ProductFilterDTO.MaxPrice != null ? request.ProductFilterDTO.MaxPrice : decimal.MaxValue)
-                        || request.ProductFilterDTO.SubCategory.Any(sc => sc.Id == p.SubCategoryId)
-                        || request.ProductFilterDTO.Category.Any(c => c.Id == p.SubCategory.CategoryId))
+                    .AsNoTracking()    
+                    .Where(p => 
+                    decimal.Compare(p.Price, minValue) > 0
+                    && 
+                    decimal.Compare(p.Price, maxValue) < 0
+                    && 
+                    subCategoryIds.Contains(p.SubCategoryId)
+                    && 
+                    categoryIds.Contains(p.SubCategory.CategoryId))
                     .Select(p => ProductMapper.ProductToProductDTO(p))
                     .ToListAsync(cancellationToken);
 
+            var products = _pmDBContext.Products.Select(fp => new { Title = fp.Title, Price = fp.Price }).ToList();
+            var filteredPrices = filteredProductDTOList.Select(fp => new { Title = fp.Title, Price = fp.Price }).ToList();
             return filteredProductDTOList;
         }
     }

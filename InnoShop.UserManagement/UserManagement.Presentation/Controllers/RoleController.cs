@@ -4,7 +4,7 @@ using UserManagement.Application.Commands.RoleCommands;
 using UserManagement.Application.DTOs;
 using UserManagement.Application.Queries.RoleQueries;
 
-namespace UserManagement.Presentation.Controllers
+namespace UserMangement.Presentation.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

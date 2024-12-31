@@ -2,6 +2,7 @@
 using InnoShop.CommonLibrary.Response;
 using MediatR;
 using Microsoft.AspNetCore.Http;
+using Polly.Registry;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,16 +18,16 @@ using UserManagement.Application.Queries.UserQueries;
 
 namespace UserManagement.Application.Services
 {
-    public class UserServices(HttpClient httpClient
-        /*ResiliencePipelineProvider<string> resiliencePipeline*/) : IUserServices
+    public class UserServices(HttpClient httpClient,
+        ResiliencePipelineProvider<string> resiliencePipeline) : IUserServices
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IMediator _mediator;
 
         public UserServices(IHttpContextAccessor httpContextAccessor,
         IMediator mediator,
-        HttpClient httpClient
-        /*ResiliencePipelineProvider<string> resiliencePipeline*/) : this(httpClient/*, resiliencePipeline*/)
+        HttpClient httpClient,
+        ResiliencePipelineProvider<string> resiliencePipeline) : this(httpClient, resiliencePipeline)
         {
             _mediator = mediator;
             _httpContextAccessor = httpContextAccessor;
@@ -75,14 +76,14 @@ namespace UserManagement.Application.Services
         // to Controller 
         public async Task<Response> ChangeUserStatusOfUser(Guid userId, Guid userStatusId)
         {
-            // Request to PorductManagement to change products statuses!
-            //var retryPipline = resiliencePipeline.GetPipeline("retry-pipeline");
-            //var changeUserProductsStatus = await retryPipline
-            //            .ExecuteAsync(
-            //                        async token => await httpClient
-            //                                        .GetAsync($"/api/products/changeproductstatusesofproductsbyuserid/{userId}"));
-            //if (!changeUserProductsStatus.IsSuccessStatusCode)
-            //    return new Response(false, "Error occured while changing User's Porduct Statuses!");
+            //Request to PorductManagement to change products statuses!
+            var retryPipline = resiliencePipeline.GetPipeline("retry-pipeline");
+            var changeUserProductsStatus = await retryPipline
+                        .ExecuteAsync(
+                                    async token => await httpClient
+                                                    .GetAsync($"/api/products/changeproductstatusesofproductsbyuserid/{userId}"));
+            if (!changeUserProductsStatus.IsSuccessStatusCode)
+                return new Response(false, "Error occured while changing User's Porduct Statuses!");
 
             return await _mediator.Send(new ChangeUserStatusOfUserCommand() { UserId = userId, UserStatusId = userStatusId });
         }
@@ -93,12 +94,12 @@ namespace UserManagement.Application.Services
             var userId = TakeCurrentUserId();
             if (userId is null)
                 return null;
-            //var retryPipline = resiliencePipeline.GetPipeline("retry-pipeline");
-            //var currentUserProducts = await retryPipline
-            //            .ExecuteAsync(
-            //                async token => await TakeProductsDTOListByUserId(userId.Value));
+            var retryPipline = resiliencePipeline.GetPipeline("retry-pipeline");
+            var currentUserProducts = await retryPipline
+                        .ExecuteAsync(
+                            async token => await TakeProductsDTOListByUserId(userId.Value));
 
-            return /*currentUserProducts;*/ null;
+            return currentUserProducts;
         }
 
         private async Task<string> GetHash(string stringToHash)

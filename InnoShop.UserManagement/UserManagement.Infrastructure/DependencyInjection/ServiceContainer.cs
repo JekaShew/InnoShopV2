@@ -17,7 +17,8 @@ namespace UserManagement.Infrastructure.DependencyInjection
     {
         public static IServiceCollection AddInfrastructureService(this IServiceCollection services, IConfiguration configuration)
         {
-            CommonServiceContainer.AddCommonServices<UserManagementDBContext>(services, configuration, configuration["Serolog:FileName"]);
+            // last variable is for DB Connection String Key that in configuration
+            CommonServiceContainer.AddCommonServices<UserManagementDBContext>(services, configuration, configuration["UMSerolog:FileName"]!,"Home");
 
             services.AddMediatR(cfg => cfg
                         .RegisterServicesFromAssembly(typeof(TakeRoleDTOListHandler).Assembly));

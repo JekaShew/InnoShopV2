@@ -2,33 +2,16 @@ version: '3.4'
 
 services:
   productmanagement.presentation:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=5001
     image: productmanagement
-    container_name: ProductManagement
+    container_name: ProductManagementAPI
     build:
       context: .
+      args:
+      - BUILD_CONFIGURATION=Development
       dockerfile: ProductManagement.Presentation/Dockerfile
+      # dockerfile: UMDockerfile
     ports:
     -  "5001:5001"
-    # depends_on:
-    #     mssql-server:
-    #         condition: service_healthy
-
-  mssql-server:
-    image: mcr.microsoft.com/mssql/server:2019-latest
-    container_name: MSSQLServer
-    environment:
-        ACCEPT_EULA: Y
-        SA_PASSWORD: SecretPassword123
-    volumes:
-        - ./sqlserver/data:/var/opt/mssql/data
-        - ./sqlserver/log:/var/opt/mssql/log
-        # - ./.containers/InnoShopDB:/var/lib/SA/data
-    ports: 
-        - "1433:1433"
-    # healthcheck:
-    #     test: /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P "SecretPassword123" -Q "Select 1" -b -o /dev/null
-    #     interval: 10s
-    #     timeout: 3s
-    #     retries: 10
-    #     start_period: 10s
-

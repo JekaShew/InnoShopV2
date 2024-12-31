@@ -2,10 +2,12 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using UserManagement.Application.Commands.UserCommands;
+using UserManagement.Application.DTOs;
 using UserManagement.Application.Interfaces;
 using UserManagement.Application.Queries.UserQueries;
+using UserManagement.Domain.Data.Models;
 
-namespace UserManagement.Presentation.Controllers
+namespace UserMangement.Presentation.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -85,21 +87,21 @@ namespace UserManagement.Presentation.Controllers
         }
         // unnecessary
         //[HttpPost]
-        //public async Task<IActionResult> AddProduct([FromBody] ProductDTO productDTO)
-        //{
-        //    try
-        //    {
-        //        if (ModelState.IsValid)
-        //        {
-        //            return Ok(await _mediator.Send(new AddProductCommand() { ProductDTO = productDTO }));
-        //        }
-        //        else return BadRequest(ModelState);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return StatusCode(500, ex.Message);
-        //    }
-        //}
+        // public async Task<IActionResult> AddProduct([FromBody] ProductDTO productDTO)
+        // {
+        //     try
+        //     {
+        //         if (ModelState.IsValid)
+        //         {
+        //             return Ok(await _mediator.Send(new AddProductCommand() { ProductDTO = productDTO }));
+        //         }
+        //         else return BadRequest(ModelState);
+        //     }
+        //     catch (Exception ex)
+        //     {
+        //         return StatusCode(500, ex.Message);
+        //     }
+        // }
 
         [HttpPatch("/changeuserstatusofuser")]
         public async Task<IActionResult> ChangeUserStatusOfUser([FromBody] Guid userId, Guid userStatusId)
@@ -173,7 +175,7 @@ namespace UserManagement.Presentation.Controllers
             }
         }
 
-        [HttpPost("/CheckIsLoginRegistered")]
+        [HttpPost("/checkisloginregistered")]
         public async Task<IActionResult> CheckIsLoginRegistered([FromBody] string login)
         {
             try
@@ -189,7 +191,7 @@ namespace UserManagement.Presentation.Controllers
             }
         }
 
-        [HttpPatch("/changeproductstatusofproduct")]
+        [HttpPatch("/changepasswordbyoldpassword")]
         public async Task<IActionResult> ChangePasswordByOldPassword([FromBody] string oldPassword, string newPassword)
         {
             try

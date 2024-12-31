@@ -4,7 +4,7 @@ using UserManagement.Application.Commands.UserStatusCommands;
 using UserManagement.Application.DTOs;
 using UserManagement.Application.Queries.UserStatusQueries;
 
-namespace UserManagement.Presentation.Controllers
+namespace UserMangement.Presentation.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -98,4 +98,6 @@ namespace UserManagement.Presentation.Controllers
             }
         }
     }
+
+
 }

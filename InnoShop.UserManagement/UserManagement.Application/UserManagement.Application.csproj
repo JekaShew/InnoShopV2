@@ -6,13 +6,17 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
+
+
+  <ItemGroup>    
+    <PackageReference Include="InnoShop.CommonLibrary" Version="1.2.0" />    
     <PackageReference Include="MediatR" Version="12.4.1" />
+    <PackageReference Include="Polly.Core" Version="8.5.0" />
+    <PackageReference Include="Polly.Extensions" Version="8.5.0" />
     <PackageReference Include="Riok.Mapperly" Version="4.1.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\InnoShop.CommonLibrary\InnoShop.CommonLibrary\InnoShop.CommonLibrary.csproj" />
     <ProjectReference Include="..\UserManagement.Domain\UserManagement.Domain.csproj" />
   </ItemGroup>
 

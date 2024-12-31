@@ -7,21 +7,16 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(x =>
+
+builder.Services.AddSwaggerGen(c =>
 {
-    x.SwaggerDoc("v1", new OpenApiInfo { Title = "User Management Web API", Version = "v1" });
-    x.TagActionsBy(api =>
+    c.SwaggerDoc("v1", new OpenApiInfo
     {
-        var controllerActionDescriptor = api.ActionDescriptor as ControllerActionDescriptor;
-        if (controllerActionDescriptor == null)
-            throw new InvalidOperationException("Unable to determine tag for endpoint.");
-
-        if (api.GroupName != null)
-            return new[] { $"{api.GroupName} {controllerActionDescriptor.ControllerName}" };
-
-        return new[] { controllerActionDescriptor.ControllerName };
+        Version = "v1",
+        Title = "UserManagement Web API",
+        Description = "Usermanagement Web API",
     });
-    x.DocInclusionPredicate((name, api) => true);
+    c.CustomSchemaIds(type => type.FullName);
 });
 
 builder.Services.AddApplicationService(builder.Configuration);
@@ -30,13 +25,19 @@ builder.Services.AddInfrastructureService(builder.Configuration);
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-    app.ApplyMigrations();
-
 app.UseInfrastructurePolicy();
 
+app.UseStaticFiles();
+
 app.UseSwagger();
-app.UseSwaggerUI();
+app.UseSwaggerUI(c =>
+{
+    //TODO: Either use the SwaggerGen generated Swagger contract (generated from C# classes)
+    //c.SwaggerEndpoint("/swagger/v1/swagger.json", "UserManagement Web API");
+
+    // Read from file including static Files
+    c.SwaggerEndpoint("/swagger-original.json", "UserManagement Web API");
+});
 
 app.UseHttpsRedirection();
 

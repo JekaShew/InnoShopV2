@@ -1,19 +1,23 @@
-﻿using MediatR;
+﻿using InnoShop.CommonLibrary.CommonDTOs;
+using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using UserManagement.Application.Commands.UserCommands;
 using UserManagement.Application.DTOs;
 using UserManagement.Application.Interfaces;
 using UserManagement.Application.Queries.UserQueries;
+using UserManagement.Domain.Data.Models;
 
-namespace UserManagement.Presentation.Controllers
+namespace UserMangement.Presentation.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AuthorizationonController : ControllerBase
+    public class AuthorizationController : ControllerBase
     {
         private readonly IMediator _mediator;
         private readonly IUserServices _userServices;
         private readonly IAuthorizationServices _authorizationServices;
-        public AuthorizationonController(IMediator mediator, IUserServices userServices, IAuthorizationServices authorizationServices)
+        public AuthorizationController(IMediator mediator, IUserServices userServices, IAuthorizationServices authorizationServices)
         {
             _mediator = mediator;
             _userServices = userServices;
@@ -138,8 +142,8 @@ namespace UserManagement.Presentation.Controllers
             return BadRequest(isRefreshTokenCorrect.Message);
         }
 
-        [HttpPatch("/revoke/{id}")]
-        public async Task<IActionResult> RevokeTokenById(Guid rTokenId)
+        [HttpPatch("/revoke")]
+        public async Task<IActionResult> RevokeTokenById([FromBody] Guid rTokenId)
         {
             var isRefreshTokenCorrect = await _authorizationServices.IsRefreshTokenCorrectByRTokenId(rTokenId);
             if (isRefreshTokenCorrect.Flag == true)

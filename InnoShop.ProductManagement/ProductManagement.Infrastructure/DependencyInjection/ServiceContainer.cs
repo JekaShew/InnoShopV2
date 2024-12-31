@@ -17,7 +17,8 @@ namespace ProductManagement.Infrastructure.DependencyInjection
     {
         public static IServiceCollection AddInfrastructureService(this IServiceCollection services, IConfiguration configuration)
         {
-            CommonServiceContainer.AddCommonServices<ProductManagementDBContext>(services, configuration, configuration["Serilog:FileName"]!);
+            // last variable is for DB Connection String Key that in configuraation
+            CommonServiceContainer.AddCommonServices<ProductManagementDBContext>(services, configuration, configuration["PMSerilog:FileName"]!, "Home" );
 
             services.AddMediatR(cfg => cfg
                             .RegisterServicesFromAssembly(typeof(TakeSubCategoryDTOListHandler)
@@ -40,7 +41,7 @@ namespace ProductManagement.Infrastructure.DependencyInjection
             using ProductManagementDBContext pmDBContext = 
                               scope.ServiceProvider.GetRequiredService<ProductManagementDBContext>();
 
-            pmDBContext.Database.Migrate();
+            //pmDBContext.Database.Migrate();
         }
     }
 }

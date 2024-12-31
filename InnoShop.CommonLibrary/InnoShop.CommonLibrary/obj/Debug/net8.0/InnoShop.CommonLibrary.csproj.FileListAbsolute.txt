@@ -36,3 +36,16 @@ G:\С#_new\Innowise\InnoShopV2\InnoShopV2\InnoShop.CommonLibrary\InnoShop.Common
 G:\С#_new\Innowise\InnoShopV2\InnoShopV2\InnoShop.CommonLibrary\InnoShop.CommonLibrary\obj\Debug\net8.0\refint\InnoShop.CommonLibrary.dll
 G:\С#_new\Innowise\InnoShopV2\InnoShopV2\InnoShop.CommonLibrary\InnoShop.CommonLibrary\obj\Debug\net8.0\InnoShop.CommonLibrary.pdb
 G:\С#_new\Innowise\InnoShopV2\InnoShopV2\InnoShop.CommonLibrary\InnoShop.CommonLibrary\obj\Debug\net8.0\ref\InnoShop.CommonLibrary.dll
+G:\С#_new\Innowise\InnoShopV3\InnoShopV2\InnoShop.CommonLibrary\InnoShop.CommonLibrary\bin\Debug\net8.0\InnoShop.CommonLibrary.deps.json
+G:\С#_new\Innowise\InnoShopV3\InnoShopV2\InnoShop.CommonLibrary\InnoShop.CommonLibrary\bin\Debug\net8.0\InnoShop.CommonLibrary.dll
+G:\С#_new\Innowise\InnoShopV3\InnoShopV2\InnoShop.CommonLibrary\InnoShop.CommonLibrary\bin\Debug\net8.0\InnoShop.CommonLibrary.pdb
+G:\С#_new\Innowise\InnoShopV3\InnoShopV2\InnoShop.CommonLibrary\InnoShop.CommonLibrary\obj\Debug\net8.0\InnoShop.CommonLibrary.csproj.AssemblyReference.cache
+G:\С#_new\Innowise\InnoShopV3\InnoShopV2\InnoShop.CommonLibrary\InnoShop.CommonLibrary\obj\Debug\net8.0\InnoShop.CommonLibrary.GeneratedMSBuildEditorConfig.editorconfig
+G:\С#_new\Innowise\InnoShopV3\InnoShopV2\InnoShop.CommonLibrary\InnoShop.CommonLibrary\obj\Debug\net8.0\InnoShop.CommonLibrary.AssemblyInfoInputs.cache
+G:\С#_new\Innowise\InnoShopV3\InnoShopV2\InnoShop.CommonLibrary\InnoShop.CommonLibrary\obj\Debug\net8.0\InnoShop.CommonLibrary.AssemblyInfo.cs
+G:\С#_new\Innowise\InnoShopV3\InnoShopV2\InnoShop.CommonLibrary\InnoShop.CommonLibrary\obj\Debug\net8.0\InnoShop.CommonLibrary.csproj.CoreCompileInputs.cache
+G:\С#_new\Innowise\InnoShopV3\InnoShopV2\InnoShop.CommonLibrary\InnoShop.CommonLibrary\obj\Debug\net8.0\InnoShop.CommonLibrary.sourcelink.json
+G:\С#_new\Innowise\InnoShopV3\InnoShopV2\InnoShop.CommonLibrary\InnoShop.CommonLibrary\obj\Debug\net8.0\InnoShop.CommonLibrary.dll
+G:\С#_new\Innowise\InnoShopV3\InnoShopV2\InnoShop.CommonLibrary\InnoShop.CommonLibrary\obj\Debug\net8.0\refint\InnoShop.CommonLibrary.dll
+G:\С#_new\Innowise\InnoShopV3\InnoShopV2\InnoShop.CommonLibrary\InnoShop.CommonLibrary\obj\Debug\net8.0\InnoShop.CommonLibrary.pdb
+G:\С#_new\Innowise\InnoShopV3\InnoShopV2\InnoShop.CommonLibrary\InnoShop.CommonLibrary\obj\Debug\net8.0\ref\InnoShop.CommonLibrary.dll

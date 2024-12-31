@@ -61,6 +61,24 @@
           }
         }
       },
+      "InnoShop.CommonLibrary/1.2.0": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Authentication.JwtBearer": "8.0.8",
+          "Microsoft.EntityFrameworkCore": "9.0.0",
+          "Microsoft.EntityFrameworkCore.SqlServer": "9.0.0",
+          "Serilog": "4.2.0",
+          "Serilog.AspNetCore": "9.0.0",
+          "Serilog.Extensions.Logging": "9.0.0",
+          "Serilog.Sinks.Console": "6.0.0",
+          "Serilog.Sinks.File": "6.0.0"
+        },
+        "runtime": {
+          "lib/net8.0/InnoShop.CommonLibrary.dll": {
+            "assemblyVersion": "1.2.0.0",
+            "fileVersion": "1.2.0.0"
+          }
+        }
+      },
       "MediatR/12.4.1": {
         "dependencies": {
           "MediatR.Contracts": "2.0.1",
@@ -818,6 +836,27 @@
           }
         }
       },
+      "Polly.Core/8.5.0": {
+        "runtime": {
+          "lib/net8.0/Polly.Core.dll": {
+            "assemblyVersion": "8.0.0.0",
+            "fileVersion": "8.5.0.4130"
+          }
+        }
+      },
+      "Polly.Extensions/8.5.0": {
+        "dependencies": {
+          "Microsoft.Extensions.Logging.Abstractions": "9.0.0",
+          "Microsoft.Extensions.Options": "9.0.0",
+          "Polly.Core": "8.5.0"
+        },
+        "runtime": {
+          "lib/net8.0/Polly.Extensions.dll": {
+            "assemblyVersion": "8.0.0.0",
+            "fileVersion": "8.5.0.4130"
+          }
+        }
+      },
       "Riok.Mapperly/4.1.1": {
         "runtime": {
           "lib/netstandard2.0/Riok.Mapperly.Abstractions.dll": {
@@ -1217,25 +1256,12 @@
           }
         }
       },
-      "InnoShop.CommonLibrary/1.0.0": {
-        "dependencies": {
-          "Microsoft.AspNetCore.Authentication.JwtBearer": "8.0.8",
-          "Microsoft.EntityFrameworkCore": "9.0.0",
-          "Microsoft.EntityFrameworkCore.SqlServer": "9.0.0",
-          "Serilog": "4.2.0",
-          "Serilog.AspNetCore": "9.0.0",
-          "Serilog.Extensions.Logging": "9.0.0",
-          "Serilog.Sinks.Console": "6.0.0",
-          "Serilog.Sinks.File": "6.0.0"
-        },
-        "runtime": {
-          "InnoShop.CommonLibrary.dll": {}
-        }
-      },
       "UserManagement.Application/1.0.0": {
         "dependencies": {
-          "InnoShop.CommonLibrary": "1.0.0",
+          "InnoShop.CommonLibrary": "1.2.0",
           "MediatR": "12.4.1",
+          "Polly.Core": "8.5.0",
+          "Polly.Extensions": "8.5.0",
           "Riok.Mapperly": "4.1.1",
           "UserManagement.Domain": "1.0.0"
         },
@@ -1276,6 +1302,13 @@
       "sha512": "sha512-lQKvtaTDOXnoVJ20ibTuSIOf2i0uO0MPbDhd1jm238I+U/2ZnRENj0cktKZhtchBMtCUSRQ5v4xBCUbKNmyVMw==",
       "path": "humanizer.core/2.14.1",
       "hashPath": "humanizer.core.2.14.1.nupkg.sha512"
+    },
+    "InnoShop.CommonLibrary/1.2.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-pCIHTc6snM9rKdVdZH+BjUG+lkW6FmbgpzgX7nGUMWELYTm/GJqjwd2LnPv79GKZFz34a3xRxaawCu1p/k+Qwg==",
+      "path": "innoshop.commonlibrary/1.2.0",
+      "hashPath": "innoshop.commonlibrary.1.2.0.nupkg.sha512"
     },
     "MediatR/12.4.1": {
       "type": "package",
@@ -1599,6 +1632,20 @@
       "path": "mono.texttemplating/3.0.0",
       "hashPath": "mono.texttemplating.3.0.0.nupkg.sha512"
     },
+    "Polly.Core/8.5.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-VYYMZNitZ85UEhwOKkTQI63WEMvzUqwQc74I2mm8h/DBVAMcBBxqYPni4DmuRtbCwngmuONuK2yBJfWNRKzI+A==",
+      "path": "polly.core/8.5.0",
+      "hashPath": "polly.core.8.5.0.nupkg.sha512"
+    },
+    "Polly.Extensions/8.5.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-3MynE5ZshBT0bbbLV34OUj81agyWDAmqv8qP4tHZRVlKIw33sqMlYOKFVL0QgjV4sdSkLWS2uNjslCq/s+EhMw==",
+      "path": "polly.extensions/8.5.0",
+      "hashPath": "polly.extensions.8.5.0.nupkg.sha512"
+    },
     "Riok.Mapperly/4.1.1": {
       "type": "package",
       "serviceable": true,
@@ -1892,11 +1939,6 @@
       "sha512": "sha512-IXoJOXIqc39AIe+CIR7koBtRGMiCt/LPM3lI+PELtDIy9XdyeSrwXFdWV9dzJ2Awl0paLWUaknLxFQ5HpHZUog==",
       "path": "system.windows.extensions/6.0.0",
       "hashPath": "system.windows.extensions.6.0.0.nupkg.sha512"
-    },
-    "InnoShop.CommonLibrary/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
     },
     "UserManagement.Application/1.0.0": {
       "type": "project",

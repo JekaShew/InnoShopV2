@@ -50,6 +50,24 @@
           }
         }
       },
+      "InnoShop.CommonLibrary/1.2.0": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Authentication.JwtBearer": "8.0.8",
+          "Microsoft.EntityFrameworkCore": "9.0.0",
+          "Microsoft.EntityFrameworkCore.SqlServer": "9.0.0",
+          "Serilog": "4.2.0",
+          "Serilog.AspNetCore": "9.0.0",
+          "Serilog.Extensions.Logging": "9.0.0",
+          "Serilog.Sinks.Console": "6.0.0",
+          "Serilog.Sinks.File": "6.0.0"
+        },
+        "runtime": {
+          "lib/net8.0/InnoShop.CommonLibrary.dll": {
+            "assemblyVersion": "1.2.0.0",
+            "fileVersion": "1.2.0.0"
+          }
+        }
+      },
       "MediatR/12.4.1": {
         "dependencies": {
           "MediatR.Contracts": "2.0.1",
@@ -804,24 +822,9 @@
           }
         }
       },
-      "InnoShop.CommonLibrary/1.0.0": {
-        "dependencies": {
-          "Microsoft.AspNetCore.Authentication.JwtBearer": "8.0.8",
-          "Microsoft.EntityFrameworkCore": "9.0.0",
-          "Microsoft.EntityFrameworkCore.SqlServer": "9.0.0",
-          "Serilog": "4.2.0",
-          "Serilog.AspNetCore": "9.0.0",
-          "Serilog.Extensions.Logging": "9.0.0",
-          "Serilog.Sinks.Console": "6.0.0",
-          "Serilog.Sinks.File": "6.0.0"
-        },
-        "runtime": {
-          "InnoShop.CommonLibrary.dll": {}
-        }
-      },
       "ProductManagement.Application/1.0.0": {
         "dependencies": {
-          "InnoShop.CommonLibrary": "1.0.0",
+          "InnoShop.CommonLibrary": "1.2.0",
           "MediatR": "12.4.1",
           "ProductManagement.Domain": "1.0.0",
           "Riok.Mapperly": "4.1.1"
@@ -856,6 +859,13 @@
       "sha512": "sha512-Sf4BoE6Q3jTgFkgBkx7qztYOFELBCo+wQgpYDwal/qJ1unBH73ywPztIJKXBXORRzAeNijsuxhk94h0TIMvfYg==",
       "path": "azure.identity/1.11.4",
       "hashPath": "azure.identity.1.11.4.nupkg.sha512"
+    },
+    "InnoShop.CommonLibrary/1.2.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-pCIHTc6snM9rKdVdZH+BjUG+lkW6FmbgpzgX7nGUMWELYTm/GJqjwd2LnPv79GKZFz34a3xRxaawCu1p/k+Qwg==",
+      "path": "innoshop.commonlibrary/1.2.0",
+      "hashPath": "innoshop.commonlibrary.1.2.0.nupkg.sha512"
     },
     "MediatR/12.4.1": {
       "type": "package",
@@ -1325,11 +1335,6 @@
       "sha512": "sha512-IXoJOXIqc39AIe+CIR7koBtRGMiCt/LPM3lI+PELtDIy9XdyeSrwXFdWV9dzJ2Awl0paLWUaknLxFQ5HpHZUog==",
       "path": "system.windows.extensions/6.0.0",
       "hashPath": "system.windows.extensions.6.0.0.nupkg.sha512"
-    },
-    "InnoShop.CommonLibrary/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
     },
     "ProductManagement.Application/1.0.0": {
       "type": "project",

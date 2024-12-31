@@ -16,18 +16,18 @@ namespace InnoShop.CommonLibrary.DependencyInjection
     public static class CommonServiceContainer
     {
         public static IServiceCollection AddCommonServices<TContext>
-            (this IServiceCollection services, IConfiguration configuration, string fileName) where TContext : DbContext
+            (this IServiceCollection services, IConfiguration configuration, string serilogFile, string dbConnectionStringKey) where TContext : DbContext
         {
-            // DB 
-            services.AddDbContext<TContext>(option => option.UseSqlServer(
-                configuration.GetConnectionString("Work"), sqlserverOption => sqlserverOption.EnableRetryOnFailure()));
+            
+            services.AddDbContext<TContext>(option =>
+                option.UseSqlServer(
+                    configuration.GetConnectionString(dbConnectionStringKey), sqlserverOption => sqlserverOption.EnableRetryOnFailure()));
 
-        
             //Serilog
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Override("Microsoft.AspNetCore", LogEventLevel.Information)
                 .Enrich.FromLogContext()
-                .WriteTo.File("InnoShop_UserManagement.log")
+                .WriteTo.File($"{serilogFile}.log")
                 .CreateBootstrapLogger();
 
             services.AddSerilog((services, lc) => lc
@@ -35,7 +35,7 @@ namespace InnoShop.CommonLibrary.DependencyInjection
                 .ReadFrom.Services(services)
                 .Enrich.FromLogContext()
                 .WriteTo.Console(Serilog.Events.LogEventLevel.Error)
-                .WriteTo.File("InnoShop_UserManagement.log"));
+                .WriteTo.File($"{serilogFile}.log"));
 
 
             // JWT Authentication Scheme

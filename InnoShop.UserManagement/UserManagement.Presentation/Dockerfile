@@ -9,19 +9,19 @@ ARG BUILD_CONFIGURATION=Development
 WORKDIR /src
 COPY ["UserManagement.Presentation/UserManagement.Presentation.csproj", "UserManagement.Presentation/"]
 COPY ["UserManagement.Infrastructure/UserManagement.Infrastructure.csproj", "UserManagement.Infrastructure/"]
-COPY ["UserManagement.Application/UserManagement.Application.csproj", "UserManagement.Application/"]
 COPY ["UserManagement.Domain/UserManagement.Domain.csproj", "UserManagement.Domain/"]
-COPY ["../InnoShop.CommonLibrary/InnoShop.CommonLibrary/InnoShop.CommonLibrary.csproj", "InnoShop.CommonLibrary/InnoShop.CommonLibrary/"]
-RUN dotnet restore "./UserManagement.Presentation/UserManagement.Presentation.csproj"
+COPY ["UserManagement.Application/UserManagement.Application.csproj", "UserManagement.Application/"]
+# COPY ["InnoShop.CommonLibrary/InnoShop.CommonLibrary/InnoShop.CommonLibrary.csproj", "InnoShop.CommonLibrary/InnoShop.CommonLibrary/"]
+RUN dotnet restore "UserManagement.Presentation/UserManagement.Presentation.csproj"
 
 COPY . .
 
 WORKDIR "/src/UserManagement.Presentation"
-RUN dotnet build "./UserManagement.Presentation.csproj" -c %BUILD_CONFIGURATION% -o /app/build
+RUN dotnet build "UserManagement.Presentation.csproj" -c %BUILD_CONFIGURATION% -o /app/build
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Development
-RUN dotnet publish "./UserManagement.Presentation.csproj" -c %BUILD_CONFIGURATION% -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "UserManagement.Presentation.csproj" -c %BUILD_CONFIGURATION% -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app

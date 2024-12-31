@@ -15,11 +15,11 @@ using System.Threading.Tasks;
 
 namespace ProductManagement.Application.Services
 {
-    public class ProductService : IProductServices
+    public class ProductServices : IProductServices
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IMediator _mediator;
-        public ProductService(IHttpContextAccessor httpContextAccessor, IMediator mediator)
+        public ProductServices(IHttpContextAccessor httpContextAccessor, IMediator mediator)
         {
             _httpContextAccessor = httpContextAccessor;
             _mediator = mediator;

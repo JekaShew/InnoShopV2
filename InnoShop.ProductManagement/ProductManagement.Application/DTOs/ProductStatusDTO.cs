@@ -1,4 +1,5 @@
-﻿using ProductManagement.Domain.Data.Models;
+﻿using InnoShop.CommonLibrary.CommonDTOs;
+using ProductManagement.Domain.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -15,6 +16,6 @@ namespace ProductManagement.Application.DTOs
         public string Title { get; set; }
         public string? Description { get; set; }
 
-        public List<Product> Products { get; set; }
+        //public List<ProductDTO> Products { get; set; }
     }
 }
