@@ -1,80 +1,108 @@
 ﻿using InnoShop.CommonLibrary.Logs;
 using InnoShop.CommonLibrary.Response;
+using Microsoft.EntityFrameworkCore;
 using ProductManagement.Application.DTOs;
 using ProductManagement.Application.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using ProductManagement.Application.Mappers;
+using ProductManagement.Infrastructure.Data;
 
 namespace ProductManagement.Infrastructure.Repositories
 {
-    public class CategoryRepository /*: ICategory*/
+    public class CategoryRepository : ICategory
     {
-        //public Task<Response> AddCategory(CategoryDTO categoryDTO)
-        //{
-        //    try
-        //    {
+        private readonly ProductManagementDBContext _pmDBContext;
+        public CategoryRepository(ProductManagementDBContext pmDBContext)
+        {
+            _pmDBContext = pmDBContext;
+        }
 
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        LogException.LogExceptions(ex);
-        //        return new Response(false, "Error while adding new Category!");
-        //    }
-        //}
+        public async Task<Response> AddCategory(CategoryDTO categoryDTO)
+        {
+            try
+            {
+                var category = CategoryMapper.CategoryDTOToCategory(categoryDTO);
 
-        //public Task<Response> DeleteCategoryById(Guid categoryId)
-        //{
-        //    try
-        //    {
+                await _pmDBContext.AddAsync(category!);
+                await _pmDBContext.SaveChangesAsync();
 
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        LogException.LogExceptions(ex);
-        //        return new Response(false, "Error while deleting Category!");
-        //    }
-        //}
+                return new Response(true, "Successfully Added!");
+            }
+            catch (Exception ex)
+            {
+                LogException.LogExceptions(ex);
+                return new Response(false, "Error while adding new Category!");
+            }
+        }
 
-        //public Task<List<CategoryDTO>> TakeAllCategories()
-        //{
-        //    try
-        //    {
+        public async Task<Response> DeleteCategoryById(Guid categoryId)
+        {
+            try
+            {
+                var category = await _pmDBContext.Categories.FindAsync(categoryId);
+                if (category == null)
+                    return new Response(false, "Category not found!");
 
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        LogException.LogExceptions(ex);
-        //        return new Response(false, "Error while taking all Categories!");
-        //    }
-        //}
+                _pmDBContext.Categories.Remove(category);
+                await _pmDBContext.SaveChangesAsync();
+                
+                return new Response(true, "Successfully Deleted!");
+            }
+            catch (Exception ex)
+            {
+                LogException.LogExceptions(ex);
+                return new Response(false, "Error while deleting Category!");
+            }
+        }
 
-        //public Task<CategoryDTO> TakeCategoryById(Guid categoryId)
-        //{
-        //    try
-        //    {
+        public async Task<List<CategoryDTO>> TakeAllCategories()
+        {
+            try
+            {
+                var categoryDTOs = await _pmDBContext.Categories
+                                .AsNoTracking()
+                                .Select(c => CategoryMapper.CategoryToCategoryDTO(c))
+                                .ToListAsync();
+                return categoryDTOs;
+            }
+            catch (Exception ex)
+            {
+                LogException.LogExceptions(ex);
+                return null;
+            }
+        }
 
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        LogException.LogExceptions(ex);
-        //        return new Response(false, "Error while taking Category!");
-        //    }
-        //}
+        public async Task<CategoryDTO> TakeCategoryById(Guid categoryId)
+        {
+            try
+            {
+                var categoryDTO = CategoryMapper.CategoryToCategoryDTO(
+                await _pmDBContext.Categories
+                   .AsNoTracking()
+                   .FirstOrDefaultAsync(c => c.Id == categoryId));
+                return categoryDTO;
+            }
+            catch (Exception ex)
+            {
+                LogException.LogExceptions(ex);
+                return null;
+            }
+        }
 
-        //public Task<Response> UpdateCategory(CategoryDTO categoryDTO)
-        //{
-        //    try
-        //    {
+        public async Task<Response> UpdateCategory(CategoryDTO categoryDTO)
+        {
+            try
+            {
+                var category = CategoryMapper.CategoryDTOToCategory(categoryDTO);
+                _pmDBContext.Categories.Update(category);
+                await _pmDBContext.SaveChangesAsync();
 
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        LogException.LogExceptions(ex);
-        //        return new Response(false, "Error while updating Category !");
-        //    }
-        //}
+                return new Response(true, "Successfully Updated!");
+            }
+            catch (Exception ex)
+            {
+                LogException.LogExceptions(ex);
+                return new Response(false, "Error while updating Category !");
+            }
+        }
     }
 }

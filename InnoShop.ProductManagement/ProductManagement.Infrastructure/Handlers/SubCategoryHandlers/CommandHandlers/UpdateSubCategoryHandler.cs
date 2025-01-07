@@ -1,29 +1,20 @@
 ﻿using InnoShop.CommonLibrary.Response;
 using MediatR;
 using ProductManagement.Application.Commands.SubCategoryCommands;
-using ProductManagement.Application.Mappers;
-using ProductManagement.Infrastructure.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using ProductManagement.Application.Interfaces;
 
 namespace ProductManagement.Infrastructure.Handlers.SubCategoryHandlers.CommandHandlers
 {
     public class UpdateSubCategoryHandler : IRequestHandler<UpdateSubCategoryCommand, Response>
     {
-        private readonly ProductManagementDBContext _pmDBContext;
-        public UpdateSubCategoryHandler(ProductManagementDBContext pmDBContext)
+        private readonly ISubCategory _subCategoryRepository;
+        public UpdateSubCategoryHandler(ISubCategory subCategoryRepository)
         {
-            _pmDBContext = pmDBContext;
+            _subCategoryRepository = subCategoryRepository;
         }
         public async Task<Response> Handle(UpdateSubCategoryCommand request, CancellationToken cancellationToken)
         {
-            _pmDBContext.SubCategories.Update(SubCategoryMapper.SubCategoryDTOToSubCategory(request.SubCategoryDTO));
-            await _pmDBContext.SaveChangesAsync();
-
-            return new Response(true,"Successfully Updated!");
+            return await _subCategoryRepository.UpdateSubCategory(request.SubCategoryDTO);
         }
     }
 }

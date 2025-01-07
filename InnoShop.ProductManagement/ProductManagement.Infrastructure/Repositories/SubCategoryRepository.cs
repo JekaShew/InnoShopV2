@@ -1,80 +1,122 @@
-﻿using InnoShop.CommonLibrary.Logs;
+﻿using Azure.Core;
+using InnoShop.CommonLibrary.Logs;
 using InnoShop.CommonLibrary.Response;
+using MediatR;
+using Microsoft.EntityFrameworkCore;
 using ProductManagement.Application.DTOs;
 using ProductManagement.Application.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using ProductManagement.Application.Mappers;
+using ProductManagement.Infrastructure.Data;
+using System.Threading;
 
 namespace ProductManagement.Infrastructure.Repositories
 {
-    public class SubCategoryRepository /*: ISubCategory*/
+    public class SubCategoryRepository : ISubCategory
     {
-        //public Task<Response> AddSubCategory(SubCategoryDTO subCategoryDTO)
-        //{
-        //    try
-        //    {
+        private readonly ProductManagementDBContext _pmDBContext;
 
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        LogException.LogExceptions(ex);
-        //        return new Response(false, "Error while adding new SubCategory!");
-        //    }
-        //}
+        public SubCategoryRepository(ProductManagementDBContext pmDBContext)
+        {
+            _pmDBContext = pmDBContext;
+        }
 
-        //public Task<Response> DeleteSubCategoryById(Guid subCategoryId)
-        //{
-        //    try
-        //    {
+        public async Task<Response> AddSubCategory(SubCategoryDTO subCategoryDTO)
+        {
+            try
+            {
+                if (!await _pmDBContext.Categories.AnyAsync(c => c.Id == subCategoryDTO.CategoryId))
+                    return new Response(false, "No Categories Id matches Your SubCategory!");
 
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        LogException.LogExceptions(ex);
-        //        return new Response(false, "Error while deleting SubCategory!");
-        //    }
-        //}
+                var subCategory = SubCategoryMapper.SubCategoryDTOToSubCategory(subCategoryDTO);
 
-        //public Task<List<SubCategoryDTO>> TakeAllSubCategories()
-        //{
-        //    try
-        //    {
+                await _pmDBContext.SubCategories.AddAsync(subCategory);
+                await _pmDBContext.SaveChangesAsync();
 
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        LogException.LogExceptions(ex);
-        //        return new Response(false, "Error while taking all SubCategories!");
-        //    }
-        //}
+                return new Response(true, "Successfully Added!");
+            }
+            catch (Exception ex)
+            {
+                LogException.LogExceptions(ex);
+                return new Response(false, "Error while adding new SubCategory!");
+            }
+        }
 
-        //public Task<SubCategoryDTO> TakeSubCategoryById(Guid subCategoryId)
-        //{
-        //    try
-        //    {
+        public async Task<Response> DeleteSubCategoryById(Guid subCategoryId)
+        {
+            try
+            {
+                var subCategory = await _pmDBContext.SubCategories.FindAsync(subCategoryId);
+                if (subCategory == null)
+                    return new Response(false, "SubCategory not found!");
 
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        LogException.LogExceptions(ex);
-        //        return new Response(false, "Error while taking SubCategory!");
-        //    }
-        //}
+                _pmDBContext.SubCategories.Remove(subCategory);
+                await _pmDBContext.SaveChangesAsync();
 
-        //public Task<Response> UpdateSubCategory(SubCategoryDTO subCategoryDTO)
-        //{
-        //    try
-        //    {
+                return new Response(true, "Successfully Deleted!");
+            }
+            catch (Exception ex)
+            {
+                LogException.LogExceptions(ex);
+                return new Response(false, "Error while deleting SubCategory!");
+            }
+        }
 
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        LogException.LogExceptions(ex);
-        //        return new Response(false, "Error while updating SubCategory!");
-        //    }
-        //}
+        public async Task<List<SubCategoryDTO>> TakeAllSubCategories()
+        {
+            try
+            {
+                var subCategoryDTOs = 
+                    await _pmDBContext.SubCategories
+                            .Include(c => c.Category)
+                            .AsNoTracking()
+                            .Select(sc => SubCategoryMapper.SubCategoryToSubCategoryDTO(sc))
+                            .ToListAsync();
+
+                return subCategoryDTOs;
+            }
+            catch (Exception ex)
+            {
+                LogException.LogExceptions(ex);
+                return null;
+            }
+        }
+
+        public async Task<SubCategoryDTO> TakeSubCategoryById(Guid subCategoryId)
+        {
+            try
+            {
+                var subCategoryDTO = SubCategoryMapper.SubCategoryToSubCategoryDTO(
+                                await _pmDBContext.SubCategories
+                                            .Include(c => c.Category)
+                                            .AsNoTracking()
+                                            .FirstOrDefaultAsync(sc =>
+                                                sc.Id == subCategoryId));
+                
+                return subCategoryDTO;
+            }
+            catch (Exception ex)
+            {
+                LogException.LogExceptions(ex);
+                return null;
+            }
+        }
+
+        public async Task<Response> UpdateSubCategory(SubCategoryDTO subCategoryDTO)
+        {
+            try
+            {
+                var subCategory = SubCategoryMapper.SubCategoryDTOToSubCategory(subCategoryDTO);
+
+                _pmDBContext.SubCategories.Update(subCategory);
+                await _pmDBContext.SaveChangesAsync();
+
+                return new Response(true, "Successfully Updated!");
+            }
+            catch (Exception ex)
+            {
+                LogException.LogExceptions(ex);
+                return new Response(false, "Error while updating SubCategory!");
+            }
+        }
     }
 }

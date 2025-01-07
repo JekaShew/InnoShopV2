@@ -1,30 +1,21 @@
 ﻿using InnoShop.CommonLibrary.Response;
 using MediatR;
 using ProductManagement.Application.Commands.CategoryCommands;
-using ProductManagement.Infrastructure.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using ProductManagement.Application.Interfaces;
 
 namespace ProductManagement.Infrastructure.Handlers.CategoryHandlers.CommandHandlers
 {
     public class DeleteCategoryByIdHandler : IRequestHandler<DeleteCategoryByIdCommand, Response>
     {
-        private readonly ProductManagementDBContext _pmDBContext;
-        public DeleteCategoryByIdHandler(ProductManagementDBContext pmDBContext)
+        private readonly ICategory _categoryRepository;
+        
+        public DeleteCategoryByIdHandler(ICategory categoryRepository)
         {
-            _pmDBContext = pmDBContext;
+            _categoryRepository = categoryRepository;
         }
         public async Task<Response> Handle(DeleteCategoryByIdCommand request, CancellationToken cancellationToken)
         {
-            var category = await _pmDBContext.Categories.FindAsync(request.Id);
-            if (category == null)
-                return new Response(false, "Category not found!");
-            _pmDBContext.Categories.Remove(category);
-            await _pmDBContext.SaveChangesAsync();
-            return new Response(true, "Successfully Deleted!");
+            return await _categoryRepository.DeleteCategoryById(request.Id);
         }
     }
 }

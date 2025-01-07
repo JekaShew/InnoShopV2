@@ -12,8 +12,7 @@ namespace InnoShop.CommonLibrary.CommonDTOs
         public decimal Price { get; set; }
         public DateTime CreateDate { get; set; } = DateTime.UtcNow;
         public string? Description { get; set; }
-        [Required]
-        public Guid UserId { get; set; }
+        public Guid? UserId { get; set; }
         public ParameterDTO? User { get; set; }
         [Required]
         public Guid ProductStatusId { get; set; }

@@ -363,4 +363,12 @@ MigrationBackup/
 FodyWeavers.xsd
 
 # Ignore all folders .vs in all subfolders
+**/.vs
 **/.vs/
+InnoShop.CommonLibrary/.vs/
+
+# Ignore all folders .bin and .obj in all subfolders
+**/bin
+**/bin/
+**/obj
+**/obj/

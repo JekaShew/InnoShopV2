@@ -1,10 +1,7 @@
 ﻿using InnoShop.CommonLibrary.Response;
 using ProductManagement.Application.DTOs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using ProductManagement.Domain.Data.Models;
+using System.Linq.Expressions;
 
 namespace ProductManagement.Application.Interfaces
 {
@@ -15,5 +12,6 @@ namespace ProductManagement.Application.Interfaces
         public Task<ProductStatusDTO> TakeProductStatusById(Guid productStatusId);
         public Task<Response> UpdateProductStatus(ProductStatusDTO productStatusDTO);
         public Task<Response> DeleteProductStatusById(Guid productStatusId);
+        public Task<ProductStatusDTO> TakeProductStatusWithPredicate(Expression<Func<ProductStatus, bool>> predicate);
     }
 }

@@ -1,29 +1,20 @@
 ﻿using InnoShop.CommonLibrary.CommonDTOs;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
-using ProductManagement.Application.Mappers;
+using ProductManagement.Application.Interfaces;
 using ProductManagement.Application.Queries.ProductQueries;
-using ProductManagement.Infrastructure.Data;
 
 namespace ProductManagement.Infrastructure.Handlers.ProductHandlers.QueryHandlers
 {
     public class TakeProductDTOByIdHandler : IRequestHandler<TakeProductDTOByIdQuery, ProductDTO>
     {
-        private readonly ProductManagementDBContext _pmDBContext;
-        public TakeProductDTOByIdHandler(ProductManagementDBContext pmDBContext)
+        private readonly IProduct _productRepository;
+        public TakeProductDTOByIdHandler(IProduct productRepository)
         {
-            _pmDBContext = pmDBContext;
+            _productRepository = productRepository;
         }
         public async Task<ProductDTO> Handle(TakeProductDTOByIdQuery request, CancellationToken cancellationToken)
         {
-            var productDTO = ProductMapper.ProductToProductDTO(await _pmDBContext.Products
-                    .Include(ps => ps.ProductStatus)
-                    .Include(sc => sc.SubCategory)
-                        .ThenInclude(sc => sc.Category)
-                    .AsNoTracking()
-                    .FirstOrDefaultAsync(p => p.Id == request.Id));
-
-            return productDTO;
+            return await _productRepository.TakeProductById(request.Id);
         }
     }
 }

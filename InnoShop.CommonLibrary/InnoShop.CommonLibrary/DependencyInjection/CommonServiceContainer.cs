@@ -1,4 +1,6 @@
-﻿using InnoShop.CommonLibrary.Middleware;
+﻿//using Hellang.Middleware.ProblemDetails;
+using InnoShop.CommonLibrary.Middleware;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -18,7 +20,7 @@ namespace InnoShop.CommonLibrary.DependencyInjection
         public static IServiceCollection AddCommonServices<TContext>
             (this IServiceCollection services, IConfiguration configuration, string serilogFile, string dbConnectionStringKey) where TContext : DbContext
         {
-            
+            // DB
             services.AddDbContext<TContext>(option =>
                 option.UseSqlServer(
                     configuration.GetConnectionString(dbConnectionStringKey), sqlserverOption => sqlserverOption.EnableRetryOnFailure()));
@@ -37,6 +39,9 @@ namespace InnoShop.CommonLibrary.DependencyInjection
                 .WriteTo.Console(Serilog.Events.LogEventLevel.Error)
                 .WriteTo.File($"{serilogFile}.log"));
 
+            // Global Exception Handler
+            services.AddProblemDetails();
+            services.AddExceptionHandler<GlobalExceptionHandler>();
 
             // JWT Authentication Scheme
             JWTAuthenticationScheme.AddJWTAuthenticationScheme(services, configuration);
@@ -45,8 +50,11 @@ namespace InnoShop.CommonLibrary.DependencyInjection
         }
         public static IApplicationBuilder UseCommonPolicies(this IApplicationBuilder app)
         {
-            app.UseMiddleware<GlobalException>();
+            app.UseExceptionHandler(opt => { });
+            // Global Response Handler
+            app.UseMiddleware<GlobalResponseHandler>();
 
+            // Only for using ApiGateway 
             //app.UseMiddleware<ListenToOnlyApiGatewayRule>();
 
             return app;

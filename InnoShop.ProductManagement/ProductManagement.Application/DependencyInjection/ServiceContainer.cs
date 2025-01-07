@@ -21,6 +21,8 @@ namespace ProductManagement.Application.DependencyInjection
             services.AddHttpContextAccessor();
             services.AddScoped<IProductServices, ProductServices>();
 
+            
+
             return services;
         }
     }

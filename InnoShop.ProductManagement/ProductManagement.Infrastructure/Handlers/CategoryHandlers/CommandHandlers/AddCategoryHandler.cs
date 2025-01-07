@@ -1,25 +1,22 @@
 ﻿using InnoShop.CommonLibrary.Response;
 using MediatR;
 using ProductManagement.Application.Commands.CategoryCommands;
-using ProductManagement.Application.Mappers;
-using ProductManagement.Infrastructure.Data;
+using ProductManagement.Application.Interfaces;
 
 namespace ProductManagement.Infrastructure.Handlers.CategoryHandlers.CommandHandlers
 {
     public class AddCategoryHandler : IRequestHandler<AddCategoryCommand, Response>
     {
-        private readonly ProductManagementDBContext _pmDBContext;
-        public AddCategoryHandler(ProductManagementDBContext pmDBContext)
+        private readonly ICategory _categoryRepository;
+        public AddCategoryHandler(ICategory categoryRepository)
         {
-            _pmDBContext = pmDBContext;
+            _categoryRepository = categoryRepository;
         }
         public async Task<Response> Handle(AddCategoryCommand request, CancellationToken cancellationToken)
         {
             request.CategoryDTO.Id = Guid.NewGuid();
-            await _pmDBContext.Categories.AddAsync(CategoryMapper.CategoryDTOToCategory(request.CategoryDTO));
-            await _pmDBContext.SaveChangesAsync(cancellationToken);
-
-            return (new Response(true, "Successfully Added!"));
+            
+            return await _categoryRepository.AddCategory(request.CategoryDTO);
         }
     }
 }

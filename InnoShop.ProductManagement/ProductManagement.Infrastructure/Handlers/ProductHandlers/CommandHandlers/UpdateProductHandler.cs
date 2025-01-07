@@ -1,25 +1,21 @@
 ﻿using InnoShop.CommonLibrary.Response;
 using MediatR;
 using ProductManagement.Application.Commands.ProductCommands;
-using ProductManagement.Application.Mappers;
-using ProductManagement.Infrastructure.Data;
+using ProductManagement.Application.Interfaces;
 
 namespace ProductManagement.Infrastructure.Handlers.ProductHandlers.CommandHandlers
 {
     public class UpdateProductHandler : IRequestHandler<UpdateProductCommand, Response>
     {
-        private readonly ProductManagementDBContext _pmDBContext;
-        public UpdateProductHandler(ProductManagementDBContext pmDBContext)
+        private readonly IProduct _productRepository;
+        public UpdateProductHandler(IProduct productRepository)
         {
-            _pmDBContext = pmDBContext;
+            _productRepository = productRepository;
         }
 
         public async Task<Response> Handle(UpdateProductCommand request, CancellationToken cancellationToken)
         {
-            _pmDBContext.Products.Update(ProductMapper.ProductDTOToProduct(request.ProductDTO));
-            await _pmDBContext.SaveChangesAsync();
-
-            return new Response(true, "Successfully Updated!");
+            return await _productRepository.UpdateProduct(request.ProductDTO);
         }
     }
 }

@@ -1,31 +1,20 @@
 ﻿using InnoShop.CommonLibrary.Response;
 using MediatR;
 using ProductManagement.Application.Commands.SubCategoryCommands;
-using ProductManagement.Infrastructure.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using ProductManagement.Application.Interfaces;
 
 namespace ProductManagement.Infrastructure.Handlers.SubCategoryHandlers.CommandHandlers
 {
     public class DeleteSubCategoryByIdHandler : IRequestHandler<DeleteSubCategoryByIdCommand, Response>
     {
-        private readonly ProductManagementDBContext _pmDBContext;
-        public DeleteSubCategoryByIdHandler(ProductManagementDBContext pmDBContext)
+        private readonly ISubCategory _subCategoryRepository;
+        public DeleteSubCategoryByIdHandler(ISubCategory subCategoryRepository)
         {
-            _pmDBContext = pmDBContext;
+            _subCategoryRepository = subCategoryRepository;
         }
         public async Task<Response> Handle(DeleteSubCategoryByIdCommand request, CancellationToken cancellationToken)
         {
-            var subCategory = await _pmDBContext.SubCategories.FindAsync(request.Id);
-            if (subCategory == null)
-                return new Response(false, "SubCategory not found!");
-            _pmDBContext.SubCategories.Remove(subCategory);
-            await _pmDBContext.SaveChangesAsync();
-
-            return new Response(true, "Successfully Deleted!");
+            return await _subCategoryRepository.DeleteSubCategoryById(request.Id);
         }
     }
 }

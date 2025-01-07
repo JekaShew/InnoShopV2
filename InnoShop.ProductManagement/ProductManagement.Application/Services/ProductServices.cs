@@ -6,12 +6,7 @@ using ProductManagement.Application.Commands.ProductCommands;
 using ProductManagement.Application.DTOs;
 using ProductManagement.Application.Interfaces;
 using ProductManagement.Application.Queries.ProductQueries;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProductManagement.Application.Services
 {

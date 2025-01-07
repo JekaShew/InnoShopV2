@@ -1,14 +1,9 @@
-﻿using InnoShop.CommonLibrary.Response;
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ProductManagement.Application.Commands.CategoryCommands;
-using ProductManagement.Application.Commands.SubCategoryCommands;
 using ProductManagement.Application.DTOs;
 using ProductManagement.Application.Queries.CategoryQueries;
-using ProductManagement.Application.Queries.SubCategoryQueries;
-using ProductManagement.Domain.Data.Models;
-
 
 namespace ProductManagement.Presentation.Controllers
 {
@@ -23,92 +18,46 @@ namespace ProductManagement.Presentation.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        //[Authorize]
         public async Task<IActionResult> TakeCatigories()
-        {
-            try
-            {
-                var categoryDTOs = await _mediator.Send(new TakeCategoryDTOListQuery());
-
-                if (!categoryDTOs.Any())
-                    return NotFound("No Category found!");
-                else
-                    return Ok(categoryDTOs);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, ex.Message);
-            }
+        {     
+            var categoryDTOs = await _mediator.Send(new TakeCategoryDTOListQuery());
+            if (!categoryDTOs.Any())
+                return NotFound("No Category found!");
+            else
+                return Ok(categoryDTOs);      
         }
 
         [HttpGet("{categoryId}")]
-        [Authorize(Roles = "Administrator")]
+        //[Authorize(Roles = "Administrator")]
         public async Task<IActionResult> TakeCatigoryById(Guid categoryId)
         {
-            try
-            {
-                var categoryDTO = await _mediator.Send(new TakeCategoryDTOByIdQuery() { Id = categoryId });
-                if (categoryDTO is null)
-                    return NotFound("No Category found!");
-                else
-                    return Ok(categoryDTO);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, ex.Message);
-            }     
+            var categoryDTO = await _mediator.Send(new TakeCategoryDTOByIdQuery() { Id = categoryId });
+            if (categoryDTO is null)
+                return NotFound("The Category Not Found!");
+            return Ok(categoryDTO);
         }
 
         [HttpPost]
-        [Authorize(Roles = "Administrator")]
+        //[Authorize(Roles = "Administrator")]
         public async Task<IActionResult> AddCatigory([FromBody] CategoryDTO categoryDTO)
         {
-            try
-            {
-                if (ModelState.IsValid)
-                {
-                    var result = await _mediator.Send(new AddCategoryCommand() { CategoryDTO = categoryDTO });
-                    return Ok(result);
-                }
-                else return BadRequest(ModelState);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, ex.Message);
-            }
+            var result = await _mediator.Send(new AddCategoryCommand() { CategoryDTO = categoryDTO });
+            return Ok(result);
         }
 
         [HttpDelete("{categoryId}")]
         [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> DeleteCatigoryById(Guid categoryId)
         {
-            try
-            {
-                return Ok(await _mediator.Send(new DeleteCategoryByIdCommand() { Id = categoryId }));
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, ex.Message);
-            }            
+            return Ok(await _mediator.Send(new DeleteCategoryByIdCommand() { Id = categoryId }));             
         }
 
         [HttpPut]
         [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> UpdateCatigory([FromBody] CategoryDTO categoryDTO)
         {
-            try
-            {
-                if (ModelState.IsValid)
-                {
-                    return Ok(await _mediator.Send(new UpdateCategoryCommand() { CategoryDTO = categoryDTO }));
-                }
-                else return BadRequest(ModelState);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, ex.Message);
-            }
-            
+            return Ok(await _mediator.Send(new UpdateCategoryCommand() { CategoryDTO = categoryDTO }));
         }
     }
 }

@@ -1,10 +1,14 @@
-﻿using InnoShop.CommonLibrary.DependencyInjection;
+﻿using FluentValidation;
+using InnoShop.CommonLibrary.DependencyInjection;
+using InnoShop.CommonLibrary.Middleware;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ProductManagement.Infrastructure.Data;
 using ProductManagement.Infrastructure.Handlers.SubCategoryHandlers.QueryHandlers;
+using ProductManagement.Infrastructure.Validators.CategoryValidators;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +27,10 @@ namespace ProductManagement.Infrastructure.DependencyInjection
             services.AddMediatR(cfg => cfg
                             .RegisterServicesFromAssembly(typeof(TakeSubCategoryDTOListHandler)
                             .Assembly));
+
+            services.AddValidatorsFromAssembly(typeof(AddCategoryCommandValidator).Assembly);
+
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 
             return services;
         }

@@ -1,38 +1,34 @@
 ﻿using InnoShop.CommonLibrary.Response;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using ProductManagement.Application.Commands.ProductCommands;
-using ProductManagement.Infrastructure.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using ProductManagement.Application.Interfaces;
 
 namespace ProductManagement.Infrastructure.Handlers.ProductHandlers.CommandHandlers
 {
     public class ChangeProductStatusOfProductHandler : IRequestHandler<ChangeProductStatusOfProductCommand, Response>
     {
-        private readonly ProductManagementDBContext _pmDBContext;
-        public ChangeProductStatusOfProductHandler(ProductManagementDBContext pmDBContext)
+        private readonly IProduct _productRepository;
+        private readonly IProductStatus _productStatusRepository;
+        public ChangeProductStatusOfProductHandler(
+                    IProduct productRepository, 
+                    IProductStatus productStatusRepository)
         {
-            _pmDBContext = pmDBContext;
+            _productRepository = productRepository;
+            _productStatusRepository = productStatusRepository;
         }
         public async Task<Response> Handle(ChangeProductStatusOfProductCommand request, CancellationToken cancellationToken)
         {
-            if (await _pmDBContext.ProductStatuses.FirstOrDefaultAsync(ps => ps.Id == request.ProductStatusId) is null)
-                return new Response(false, "User Statuse not found");
+            if(await _productStatusRepository.TakeProductStatusById(request.ProductStatusId) is null)
+                return new Response(false, "Product Status not found");
 
-            var product = await _pmDBContext.Products.FirstOrDefaultAsync(p => p.Id == request.ProductId);
+            var productDTO = await _productRepository.TakeProductById(request.ProductId);
 
-            if (product is null)
-                return new Response(false, "Product not found");
+            if (productDTO is null)
+                return new Response(false, "Product not found!");
 
-            product.ProductStatusId = request.ProductStatusId;
+            productDTO.ProductStatusId = request.ProductStatusId;
 
-            await _pmDBContext.SaveChangesAsync();
-
-            return new Response(true, "Product's Status successfully updated!");
+            return await _productRepository.UpdateProduct(productDTO);
         }
     }
 }

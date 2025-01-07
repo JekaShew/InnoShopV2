@@ -1,27 +1,21 @@
 ﻿using InnoShop.CommonLibrary.Response;
 using MediatR;
 using ProductManagement.Application.Commands.ProductCommands;
-using ProductManagement.Infrastructure.Data;
+using ProductManagement.Application.Interfaces;
 
 namespace ProductManagement.Infrastructure.Handlers.ProductHandlers.CommandHandlers
 {
     public class DeleteProductByIdHandler : IRequestHandler<DeleteProductByIdCommand, Response>
     {
-        private readonly ProductManagementDBContext _pmDBContext;
-        public DeleteProductByIdHandler(ProductManagementDBContext pmDBContext)
+        private readonly IProduct _productRepository;
+        public DeleteProductByIdHandler(IProduct productRepository)
         {
-            _pmDBContext = pmDBContext;
+            _productRepository = productRepository;
         }
 
         public async Task<Response> Handle(DeleteProductByIdCommand request, CancellationToken cancellationToken)
         {
-            var product = await _pmDBContext.Products.FindAsync(request.Id);
-            if (product == null)
-                return new Response(false, "Product not found!");
-            _pmDBContext.Products.Remove(product);
-            await _pmDBContext.SaveChangesAsync();
-
-            return new Response(true, "Successfully Deleted!");
+            return await _productRepository.DeleteProductById(request.Id);
         }
     }
 }

@@ -1,41 +1,35 @@
 ﻿using InnoShop.CommonLibrary.Response;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using ProductManagement.Application.Commands.ProductCommands;
-using ProductManagement.Infrastructure.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using ProductManagement.Application.Interfaces;
 
 namespace ProductManagement.Infrastructure.Handlers.ProductHandlers.CommandHandlers
 {
     public class ChangeProductStatusesOfProductsByUserIdHandler : IRequestHandler<ChangeProductStatusesOfProductsByUserIdCommand, Response>
     {
-        private readonly ProductManagementDBContext _pmDBContext;
-        public ChangeProductStatusesOfProductsByUserIdHandler(ProductManagementDBContext pmDDBContext)
+        private readonly IProduct _productRepository;
+        private readonly IProductStatus _productStatusRepository;
+        public ChangeProductStatusesOfProductsByUserIdHandler(
+                IProduct productRepository, 
+                IProductStatus productStatusRepository)
         {
-            _pmDBContext = pmDDBContext;
+            _productRepository = productRepository;
+            _productStatusRepository = productStatusRepository;
         }
         public async Task<Response> Handle(ChangeProductStatusesOfProductsByUserIdCommand request, CancellationToken cancellationToken)
         {
-            var disabledProductStatusId = await _pmDBContext.ProductStatuses
-                                                .AsNoTracking()
-                                                .Where(us => us.Title == "Disabled")
-                                                .Select(us => us.Id)
-                                                .FirstOrDefaultAsync();
+            var disabledProductStatusId = (await _productStatusRepository
+                    .TakeProductStatusWithPredicate(ps => ps.Title == "Disabled")).Id;
+
             if (disabledProductStatusId == null)
                 return new Response(false, "There is No Default Product Status \"Disabled\" detected!");
 
-            var products = await _pmDBContext.Products
-                                    .Where(p => p.UserId == request.UserId)
-                                    .ToListAsync();
-            products.Select(p => p.ProductStatusId = disabledProductStatusId);
+            var productDTOs = await _productRepository.TakeProductsWithPredicate(p => p.UserId == request.UserId);
+            productDTOs.Select(p => p.ProductStatusId = disabledProductStatusId.Value);
 
-            await _pmDBContext.SaveChangesAsync(cancellationToken);
+            productDTOs.ForEach(async p => await _productRepository.UpdateProduct(p));
 
-            return new Response(true, "Product's Statuses successfully changed!");
+            return new Response(true, "Product's Statuses of User successfully changed to \"Disabled\"!");
         }
     }
 }
