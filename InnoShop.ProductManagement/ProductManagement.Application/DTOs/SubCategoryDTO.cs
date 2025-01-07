@@ -1,5 +1,4 @@
 ﻿using InnoShop.CommonLibrary.CommonDTOs;
-using System.ComponentModel.DataAnnotations;
 
 
 namespace ProductManagement.Application.DTOs
