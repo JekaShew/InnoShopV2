@@ -1,16 +1,9 @@
-﻿using InnoShop.CommonLibrary.CommonDTOs;
-using InnoShop.CommonLibrary.Response;
+﻿using InnoShop.CommonLibrary.Response;
 using MediatR;
 using Microsoft.AspNetCore.Http;
-using Polly.Registry;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http.Json;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 using UserManagement.Application.Commands.UserCommands;
 using UserManagement.Application.DTOs;
 using UserManagement.Application.Interfaces;
@@ -75,7 +68,7 @@ namespace UserManagement.Application.Services
 
         public async Task<Response> CheckIsLoginRegistered(string login)
         {
-            return await _mediator.Send(new IsUserLoginRegisteredQuery() { EnteredLogin = login });
+            return await _mediator.Send(new IsLoginRegisteredQuery() { EnteredLogin = login });
         }
 
         public async Task<Response> CheckLoginPasswordPair(string login, string password)

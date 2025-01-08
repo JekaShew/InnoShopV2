@@ -572,22 +572,22 @@ namespace UserManagement.Handlers.Tests
             var login4 = "Boxer89";
 
 
-            var command1 = new IsUserLoginRegisteredQuery()
+            var command1 = new IsLoginRegisteredQuery()
             {
                 EnteredLogin = login1
             };
 
-            var command2 = new IsUserLoginRegisteredQuery()
+            var command2 = new IsLoginRegisteredQuery()
             {
                 EnteredLogin = login2
             };
 
-            var command3 = new IsUserLoginRegisteredQuery()
+            var command3 = new IsLoginRegisteredQuery()
             {
                 EnteredLogin = login3
             };
 
-            var command4 = new IsUserLoginRegisteredQuery()
+            var command4 = new IsLoginRegisteredQuery()
             {
                 EnteredLogin = login4
             };

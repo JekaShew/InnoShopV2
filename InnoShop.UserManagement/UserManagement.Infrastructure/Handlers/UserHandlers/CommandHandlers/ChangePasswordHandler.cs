@@ -1,34 +1,28 @@
 ﻿using InnoShop.CommonLibrary.Response;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UserManagement.Application.Commands.UserCommands;
-using UserManagement.Infrastructure.Data;
+using UserManagement.Application.Interfaces;
 
 namespace UserManagement.Infrastructure.Handlers.UserHandlers.CommandHandlers
 {
     public class ChangePasswordHandler : IRequestHandler<ChangePasswordCommand, Response>
     {
-        private readonly UserManagementDBContext _umDBContext;
-        public ChangePasswordHandler(UserManagementDBContext umDBContext)
+        private readonly IUser _userRepository;
+        public ChangePasswordHandler(IUser userRepository)
         {
-            _umDBContext = umDBContext;
+            _userRepository = userRepository;
         }
         public async Task<Response> Handle(ChangePasswordCommand request, CancellationToken cancellationToken)
         {
-            var user = await _umDBContext.Users.FirstOrDefaultAsync(u => u.Id == request.UserId);
+            var authorizationInfoDTO = 
+                await _userRepository.TakeAuthorizationInfoDTOWithPredicate(u => u.Id == request.UserId);
 
-            if (user is null)
+            if (authorizationInfoDTO is null)
                 return new Response(false, "Error occured while changing password! User not found!");
-            user.PasswordHash = request.NewPasswordHash;
 
-            await _umDBContext.SaveChangesAsync(cancellationToken);
+            authorizationInfoDTO.PasswordHash = request.NewPasswordHash;
 
-            return new Response(true, "Password changed successfully!");
+            return await _userRepository.UpdateAuthorizationInfoOfUser(authorizationInfoDTO);
         }
     }
 }

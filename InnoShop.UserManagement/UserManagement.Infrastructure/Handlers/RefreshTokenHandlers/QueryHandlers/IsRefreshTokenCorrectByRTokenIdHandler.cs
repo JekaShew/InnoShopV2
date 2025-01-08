@@ -1,36 +1,28 @@
 ﻿using InnoShop.CommonLibrary.Response;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using UserManagement.Application.Interfaces;
 using UserManagement.Application.Queries.RefreshQueries;
-using UserManagement.Infrastructure.Data;
 
 namespace UserManagement.Infrastructure.Handlers.RefreshTokenHandlers.QueryHandlers
 {
     public class IsRefreshTokenCorrectByRTokenIdHandler : IRequestHandler<IsRefreshTokenCorrectByRTokenIdQuery, Response>
     {
-        private readonly UserManagementDBContext _umDBContext;
-        public IsRefreshTokenCorrectByRTokenIdHandler(UserManagementDBContext umDBContext)
+        private readonly IRefreshToken _refreshTokenRepository;
+        public IsRefreshTokenCorrectByRTokenIdHandler(IRefreshToken refreshTokenRepository)
         {
-            _umDBContext = umDBContext;
+            _refreshTokenRepository = refreshTokenRepository;
         }
         public async Task<Response> Handle(IsRefreshTokenCorrectByRTokenIdQuery request, CancellationToken cancellationToken)
         {
-            var refreshToken = await _umDBContext.RefreshTokens
-                                    .AsNoTracking()
-                                    .Where(rt => rt.Id == request.RTokenId)
-                                    .FirstOrDefaultAsync(cancellationToken);
-            if (refreshToken == null)
+            var refreshTokenDTO = await _refreshTokenRepository.TakeRefreshTokenById(request.RTokenId);
+                
+            if (refreshTokenDTO == null)
                 return new Response(false, "Refresh Token Not Found!");
 
-            if (refreshToken.IsRevoked == true)
+            if (refreshTokenDTO.IsRevoked == true)
                 return new Response(false, "Refresh Token is Revoked!");
 
-            if (refreshToken.ExpireDate <= DateTime.UtcNow || refreshToken.ExpireDate == null)
+            if (refreshTokenDTO.ExpireDate <= DateTime.UtcNow || refreshTokenDTO.ExpireDate == null)
                 return new Response(false, "Refresh Token Expired!");
 
             return new Response(true, "Refresh Token is Correct!");

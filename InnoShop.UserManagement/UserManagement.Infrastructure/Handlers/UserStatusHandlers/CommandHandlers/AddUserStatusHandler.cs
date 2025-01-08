@@ -1,31 +1,23 @@
 ﻿using InnoShop.CommonLibrary.Response;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UserManagement.Application.Commands.UserStatusCommands;
-using UserManagement.Application.Mappers;
-using UserManagement.Infrastructure.Data;
+using UserManagement.Application.Interfaces;
 
 namespace UserManagement.Infrastructure.Handlers.UserStatusHandlers.CommandHandlers
 {
     public class AddUserStatusHandler : IRequestHandler<AddUserStatusCommand, Response>
     {
-        private readonly UserManagementDBContext _umDBContext;
-        public AddUserStatusHandler(UserManagementDBContext umDBContext)
+        private readonly IUserStatus _userStatusRepository;
+        public AddUserStatusHandler(IUserStatus userStatusRepository)
         {
-            _umDBContext = umDBContext;
+            _userStatusRepository = userStatusRepository;
         }
 
         public async Task<Response> Handle(AddUserStatusCommand request, CancellationToken cancellationToken)
         {
             request.UserStatusDTO.Id = Guid.NewGuid();
-            await _umDBContext.UserStatuses.AddAsync(UserStatusMapper.UserStatusDTOToUserStatus(request.UserStatusDTO));
-            await _umDBContext.SaveChangesAsync();
 
-            return new Response(true, "Successfully Added!");
+            return await _userStatusRepository.AddUserStatus(request.UserStatusDTO);
         }
     }
 }

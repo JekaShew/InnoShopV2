@@ -1,28 +1,25 @@
 ﻿using InnoShop.CommonLibrary.Response;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using UserManagement.Application.Interfaces;
 using UserManagement.Application.Queries.UserQueries;
-using UserManagement.Infrastructure.Data;
 
 namespace UserManagement.Infrastructure.Handlers.UserHandlers.QueryHandlers
 {
     public class CheckLoginPasswordPairHandler : IRequestHandler<CheckLoginPasswordPairQuery, Response>
     {
-        private readonly UserManagementDBContext _umDBContext;
-        public CheckLoginPasswordPairHandler(UserManagementDBContext umDBContext)
+        private readonly IUser _userRepository;
+        public CheckLoginPasswordPairHandler(IUser userRepository)
         {
-            _umDBContext = umDBContext;
+            _userRepository = userRepository;
         }
         public async Task<Response> Handle(CheckLoginPasswordPairQuery request, CancellationToken cancellationToken)
         {
-            if (await _umDBContext.Users.AnyAsync(u => u.Login.Equals(request.Login) && u.PasswordHash.Equals(request.PasswordHash)))
+            if (await _userRepository.TakeUserWithPredicate(u => 
+                            u.Login.Equals(request.Login) && 
+                            u.PasswordHash.Equals(request.PasswordHash)) != null)
                 return new Response(true, "Entered Credentials are correct!");
-            return new Response(false, "Check credetials you have entered! Wrong Login or Password!");
+            else
+                return new Response(false, "Check credetials you have entered! Wrong Login or Password!");
         }
     }
 }

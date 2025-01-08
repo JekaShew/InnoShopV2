@@ -1,28 +1,25 @@
 ﻿using InnoShop.CommonLibrary.Response;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using UserManagement.Application.Interfaces;
 using UserManagement.Application.Queries.UserQueries;
-using UserManagement.Infrastructure.Data;
 
 namespace UserManagement.Infrastructure.Handlers.UserHandlers.QueryHandlers
 {
     public class CheckLoginSecretWordPairHandler : IRequestHandler<CheckLoginSecretWordPairQuery, Response>
     {
-        private readonly UserManagementDBContext _umDBContext;
-        public CheckLoginSecretWordPairHandler(UserManagementDBContext umDBContext)
+        private readonly IUser _userRepository;
+        public CheckLoginSecretWordPairHandler(IUser userRepository)
         {
-            _umDBContext = umDBContext;
+            _userRepository = userRepository;
         }
         public async Task<Response> Handle(CheckLoginSecretWordPairQuery request, CancellationToken cancellationToken)
         {
-            if (await _umDBContext.Users.AnyAsync(u => u.Login.Equals(request.Login) && u.SecretWordHash.Equals(request.SecretWordHash)))
+            if (await _userRepository.TakeUserWithPredicate(u => 
+                                u.Login.Equals(request.Login) && 
+                                u.SecretWordHash.Equals(request.SecretWordHash)) != null)
                 return new Response(true, "Entered data is correct!");
-            return new Response(false, "Check data you have entered! Wrong Login or SecretWord!");
+            else
+                return new Response(false, "Check data you have entered! Wrong Login or SecretWord!");
         }
     }
 }

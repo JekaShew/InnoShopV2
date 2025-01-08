@@ -22,7 +22,7 @@ namespace ProductManagement.Infrastructure.Repositories
             {
                 var category = CategoryMapper.CategoryDTOToCategory(categoryDTO);
 
-                await _pmDBContext.AddAsync(category!);
+                await _pmDBContext.Categories.AddAsync(category!);
                 await _pmDBContext.SaveChangesAsync();
 
                 return new Response(true, "Successfully Added!");

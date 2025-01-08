@@ -70,7 +70,7 @@ namespace UserMangement.Presentation.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var checkIsLoginRegistered = await _mediator.Send(new IsUserLoginRegisteredQuery()
+                    var checkIsLoginRegistered = await _mediator.Send(new IsLoginRegisteredQuery()
                     {
                         EnteredLogin = registrationInfoDTO.Login,
                     });

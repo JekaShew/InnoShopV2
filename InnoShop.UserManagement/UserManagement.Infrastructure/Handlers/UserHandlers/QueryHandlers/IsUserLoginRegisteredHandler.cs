@@ -1,26 +1,20 @@
 ﻿using InnoShop.CommonLibrary.Response;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using UserManagement.Application.Interfaces;
 using UserManagement.Application.Queries.UserQueries;
-using UserManagement.Infrastructure.Data;
 
 namespace UserManagement.Infrastructure.Handlers.UserHandlers.QueryHandlers
 {
-    public class IsUserLoginRegisteredHandler : IRequestHandler<IsUserLoginRegisteredQuery, Response>
+    public class IsUserLoginRegisteredHandler : IRequestHandler<IsLoginRegisteredQuery, Response>
     {
-        private readonly UserManagementDBContext _umDBContext;
-        public IsUserLoginRegisteredHandler(UserManagementDBContext umDBContext)
+        private readonly IUser _userRepository;
+        public IsUserLoginRegisteredHandler(IUser userRepository)
         {
-            _umDBContext = umDBContext;
+            _userRepository = userRepository;
         }
-        public async Task<Response> Handle(IsUserLoginRegisteredQuery request, CancellationToken cancellationToken)
+        public async Task<Response> Handle(IsLoginRegisteredQuery request, CancellationToken cancellationToken)
         {
-            if (await _umDBContext.Users.AnyAsync(u => u.Login == request.EnteredLogin))
+            if (await _userRepository.TakeUserWithPredicate(u => u.Login == request.EnteredLogin) != null)
                 return new Response(true, "This Login is Registered!");
             else
                 return new Response(false, "This Login is available for registration!");

@@ -23,16 +23,12 @@ namespace UserManagement.Application.Mappers
         [MapProperty([nameof(User.Role), nameof(User.Role.Title)],
             [nameof(UserDTO.Role), nameof(UserDTO.Role.Text)])]
         public static partial UserDTO? UserToUserDTO(User? user);
-
         public static partial User? UserDTOToUser(UserDTO? userDTO);
-
         public static partial AuthorizationInfoDTO? UserToAuthorizationInfoDTO(User? user);
-
         public static partial LoginInfoDTO? UserToLoginInfoDTO(User? user);
-
         public static partial RegistrationInfoDTO? UserToRegistrationInfoDTO(User? user);
-
         public static partial UserDetailedDTO? RegistrationInfoDTOToUserDetailedDTO(RegistrationInfoDTO registrationInfoDTO);
+        public static partial UserDetailedDTO? UserDTOToUserDetailedDTO(UserDTO userDTO);
         public static partial User? UserDetailedDTOToUser(UserDetailedDTO? userDetailedDTO);
     }
 }

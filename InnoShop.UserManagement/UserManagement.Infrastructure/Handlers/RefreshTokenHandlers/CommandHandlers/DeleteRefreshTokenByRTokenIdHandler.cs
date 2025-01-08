@@ -1,35 +1,20 @@
 ﻿using InnoShop.CommonLibrary.Response;
 using MediatR;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UserManagement.Application.Commands.RefreshTokenCommands;
-using UserManagement.Infrastructure.Data;
+using UserManagement.Application.Interfaces;
 
 namespace UserManagement.Infrastructure.Handlers.RefreshTokenHandlers.CommandHandlers
 {
     public class DeleteRefreshTokenByRTokenIdHandler : IRequestHandler<DeleteRefreshTokenByRTokenIdCommand, Response>
     {
-        private readonly UserManagementDBContext _umDBContext;
-        public DeleteRefreshTokenByRTokenIdHandler(UserManagementDBContext umDBContext)
+        private readonly IRefreshToken _refreshTokenRepository;
+        public DeleteRefreshTokenByRTokenIdHandler(IRefreshToken refreshTokenRepository)
         {
-            _umDBContext = umDBContext;
+            _refreshTokenRepository = refreshTokenRepository;
         }
         public async Task<Response> Handle(DeleteRefreshTokenByRTokenIdCommand request, CancellationToken cancellationToken)
         {
-            var refreshToken =  await _umDBContext.RefreshTokens.FindAsync(request.RTokenId);
-           
-            if (refreshToken == null)
-                return new Response(false, "Refresh Token Not Found!");
-
-            _umDBContext.RefreshTokens.Remove(refreshToken);
-            await _umDBContext.SaveChangesAsync(cancellationToken);
-
-            return new Response(true, "Refresh Token has been successfully Removed!");
+            return await _refreshTokenRepository.DeleteRefreshTokenById(request.RTokenId);
         }
     }
 }

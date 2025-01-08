@@ -10,7 +10,6 @@ namespace UserManagement.Application.DTOs
     public class RoleDTO
     {
         public Guid? Id { get; set; }
-        [Required]
         public string Title { get; set; }
         public string? Description { get; set; }
     }

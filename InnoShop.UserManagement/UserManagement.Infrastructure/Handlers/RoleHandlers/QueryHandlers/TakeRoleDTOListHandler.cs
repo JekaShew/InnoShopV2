@@ -1,32 +1,20 @@
 ﻿using MediatR;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UserManagement.Application.DTOs;
-using UserManagement.Application.Mappers;
+using UserManagement.Application.Interfaces;
 using UserManagement.Application.Queries.RoleQueries;
-using UserManagement.Infrastructure.Data;
 
 namespace UserManagement.Infrastructure.Handlers.RoleHandlers.QueryHandlers
 {
     public class TakeRoleDTOListHandler : IRequestHandler<TakeRoleDTOListQuery, List<RoleDTO>>
     {
-        private readonly UserManagementDBContext _umDBContext;
-        public TakeRoleDTOListHandler(UserManagementDBContext umDBContext)
+        private readonly IRole _roleRepository;
+        public TakeRoleDTOListHandler(IRole roleRepository)
         {
-            _umDBContext = umDBContext;
+            _roleRepository = roleRepository;
         }
         public async Task<List<RoleDTO>> Handle(TakeRoleDTOListQuery request, CancellationToken cancellationToken)
         {
-            var roleDTOs = await _umDBContext.Roles
-                     .AsNoTracking()
-                     .Select(r => RoleMapper.RoleToRoleDTO(r))
-                     .ToListAsync(cancellationToken);
-
-            return roleDTOs;
+            return await _roleRepository.TakeAllRoles();
         }
     }
 }

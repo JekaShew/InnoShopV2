@@ -1,35 +1,27 @@
 ﻿using InnoShop.CommonLibrary.Response;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UserManagement.Application.Commands.RefreshTokenCommands;
-using UserManagement.Infrastructure.Data;
+using UserManagement.Application.Interfaces;
 
 namespace UserManagement.Infrastructure.Handlers.RefreshTokenHandlers.CommandHandlers
 {
     public class RevokeRefreshTokenByRTokenIdHandler : IRequestHandler<RevokeRefreshTokenByRTokenIdCommand, Response>
     {
-        private readonly UserManagementDBContext _umDBContext;
-        public RevokeRefreshTokenByRTokenIdHandler(UserManagementDBContext umDBContext)
+        private readonly IRefreshToken _refreshTokenRepository;
+        public RevokeRefreshTokenByRTokenIdHandler(IRefreshToken refreshTokenRepository)
         {
-            _umDBContext = umDBContext;
+            _refreshTokenRepository = refreshTokenRepository;
         }
         public async Task<Response> Handle(RevokeRefreshTokenByRTokenIdCommand request, CancellationToken cancellationToken)
         {
-            var refreshToken = await _umDBContext.RefreshTokens
-                                    .Where(rt => rt.Id == request.RTokenId)
-                                    .FirstOrDefaultAsync();
-            if (refreshToken == null)
+            var refreshTokenDTO = await _refreshTokenRepository.TakeRefreshTokenById(request.RTokenId);
+                
+            if (refreshTokenDTO == null)
                 return new Response(false, "Refresh Token Not Found!");
-            refreshToken.IsRevoked = true;
 
-            await _umDBContext.SaveChangesAsync(cancellationToken);
+            refreshTokenDTO.IsRevoked = true;
 
-            return new Response(true, "Refresh Token succesfully Revoked!");
+            return await _refreshTokenRepository.UpdateRefreshToken(refreshTokenDTO);
         }
     }
 }

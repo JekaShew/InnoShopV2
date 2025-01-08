@@ -1,30 +1,22 @@
 ﻿using InnoShop.CommonLibrary.Response;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UserManagement.Application.Commands.RoleCommands;
-using UserManagement.Application.Mappers;
-using UserManagement.Infrastructure.Data;
+using UserManagement.Application.Interfaces;
 
 namespace UserManagement.Infrastructure.Handlers.RoleHandlers.CommandHandlers
 {
     public class AddRoleHandler : IRequestHandler<AddRoleCommand, Response>
     {
-        private readonly UserManagementDBContext _umDBContext;
-        public AddRoleHandler(UserManagementDBContext umDBContext)
+        private readonly IRole _roleRepository;
+        public AddRoleHandler(IRole roleRepository)
         {
-            _umDBContext = umDBContext;
+            _roleRepository = roleRepository;
         }
         public async Task<Response> Handle(AddRoleCommand request, CancellationToken cancellationToken)
         {
             request.RoleDTO.Id = Guid.NewGuid();
-            await _umDBContext.Roles.AddAsync(RoleMapper.RoleDTOToRole(request.RoleDTO));
-            await _umDBContext.SaveChangesAsync();
 
-            return new Response(true, "Successfully Added!");
+            return await _roleRepository.AddRole(request.RoleDTO);
         }
     }
 }
