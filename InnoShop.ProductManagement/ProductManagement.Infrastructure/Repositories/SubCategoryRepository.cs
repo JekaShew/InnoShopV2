@@ -6,7 +6,9 @@ using Microsoft.EntityFrameworkCore;
 using ProductManagement.Application.DTOs;
 using ProductManagement.Application.Interfaces;
 using ProductManagement.Application.Mappers;
+using ProductManagement.Domain.Data.Models;
 using ProductManagement.Infrastructure.Data;
+using System.Reflection;
 using System.Threading;
 
 namespace ProductManagement.Infrastructure.Repositories
@@ -105,7 +107,14 @@ namespace ProductManagement.Infrastructure.Repositories
         {
             try
             {
-                var subCategory = SubCategoryMapper.SubCategoryDTOToSubCategory(subCategoryDTO);
+                var subCategory = await _pmDBContext.SubCategories.FindAsync(subCategoryDTO.Id);
+
+                if (subCategory == null)
+                {
+                    return new Response(false, "SubCategory not Found!");
+                }
+
+                ApplyPropertiesFromDTOToModel(subCategoryDTO, subCategory);
 
                 _pmDBContext.SubCategories.Update(subCategory);
                 await _pmDBContext.SaveChangesAsync();
@@ -116,6 +125,21 @@ namespace ProductManagement.Infrastructure.Repositories
             {
                 LogException.LogExceptions(ex);
                 return new Response(false, "Error while updating SubCategory!");
+            }
+        }
+
+        private void ApplyPropertiesFromDTOToModel(SubCategoryDTO subCategoryDTO, SubCategory subCategory)
+        {
+            var dtoProperties = subCategoryDTO.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            var modelProperties = subCategory.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance);
+
+            foreach (var dtoProperty in dtoProperties)
+            {
+                var modelProperty = modelProperties.FirstOrDefault(p => p.Name == dtoProperty.Name && p.PropertyType == dtoProperty.PropertyType);
+                if (modelProperty != null)
+                {
+                    modelProperty.SetValue(subCategory, dtoProperty.GetValue(subCategoryDTO));
+                }
             }
         }
     }

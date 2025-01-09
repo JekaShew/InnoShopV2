@@ -28,7 +28,9 @@ namespace ProductManagement.Infrastructure.Handlers.ProductHandlers.CommandHandl
 
             productDTO.ProductStatusId = request.ProductStatusId;
 
-            return await _productRepository.UpdateProduct(productDTO);
+            var updateProduct =  await _productRepository.UpdateProduct(productDTO);
+
+            return updateProduct;
         }
     }
 }

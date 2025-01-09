@@ -19,10 +19,8 @@ namespace ProductManagement.Services.Tests
             return (dbContext);
         }
 
-        private (CategoryRepository,SubCategoryRepository,ProductStatusRepository, ProductRepository) InitRepositories()
+        private (CategoryRepository,SubCategoryRepository,ProductStatusRepository, ProductRepository) InitRepositories(ProductManagementDBContext dbContext)
         {
-            var dbContext = InitDBContext();
-
             var categoryRepository = new CategoryRepository(dbContext);
             var subCategoryRepository = new SubCategoryRepository(dbContext);
             var productStatusRepository = new ProductStatusRepository(dbContext);
@@ -62,14 +60,13 @@ namespace ProductManagement.Services.Tests
         public async void AddCategoryHandler()
         {
             var dbContext = InitDBContext();
-            var (categoryRepository, subCategoryRepository, productStatusRepository, productRepository) = InitRepositories();
+            var (categoryRepository, subCategoryRepository, productStatusRepository, productRepository) = InitRepositories(dbContext);
             var categoryDTOs = InitCategoryDTOList();
 
             //Arrange
             var command = new AddCategoryCommand() { CategoryDTO = categoryDTOs.FirstOrDefault(ps => ps.Title == "Electronics") };
 
             var handler = new AddCategoryHandler(categoryRepository);
-
 
             //Act
             var result = await handler.Handle(command, default);
@@ -78,50 +75,6 @@ namespace ProductManagement.Services.Tests
             Assert.True(result.Flag == true && await dbContext.Categories.AnyAsync(ps => ps.Title == "Electronics"));
 
         }
-        //Need some fixes
-        //[Fact]
-        //public async void UpdateCategoryHandler()
-        //{
-        //    //Arrange
-
-        //    var dbContext = Init();
-        //    var categoryDTOs = InitCategoryDTOList();
-
-        //    foreach (var categoryDto in categoryDTOs)
-        //    {
-        //        var commandAdd = new AddCategoryCommand() { CategoryDTO = categoryDto };
-
-        //        var handlerAdd = new AddCategoryHandler(dbContext);
-        //        await handlerAdd.Handle(commandAdd, default);
-
-        //    }
-
-        //    Assert.True(dbContext.Categories.Count() == categoryDTOs.Count);
-
-        //    var updatedId = (await dbContext.Categories.FirstOrDefaultAsync(ps => ps.Title == "Electronics")).Id;
-
-        //    var updatedCategoryDTO = new CategoryDTO()
-        //    {
-        //        Id = updatedId,
-        //        Title = "Bricks",
-        //        Description = "Super Bricks"
-        //    };
-
-        //    var command = new UpdateCategoryCommand() { CategoryDTO = updatedCategoryDTO };
-
-        //    var handler = new UpdateCategoryHandler(dbContext);
-
-
-        //    //Act
-        //    var result = await handler.Handle(command, default);
-
-        //    //Assert
-        //    Assert.True(result.Flag == true
-        //                    && await dbContext.Categories
-        //                            .AnyAsync(ps => ps.Title == "Bricks" && ps.Description == "Super Bricks")
-        //                    && !await dbContext.Categories.AnyAsync(ps => ps.Title == "Electronics"));
-
-        //}
 
         [Fact]
         public async void DeleteCategoryByIdHandler()
@@ -130,24 +83,24 @@ namespace ProductManagement.Services.Tests
 
             var dbContext = InitDBContext();
             var categoryDTOs = InitCategoryDTOList();
+            var (categoryRepository, subCategoryRepository, productStatusRepository, productRepository) = InitRepositories(dbContext);
 
             foreach (var categoryDto in categoryDTOs)
             {
                 var commandAdd = new AddCategoryCommand() { CategoryDTO = categoryDto };
 
-                var handlerAdd = new AddCategoryHandler(dbContext);
+                var handlerAdd = new AddCategoryHandler(categoryRepository);
                 await handlerAdd.Handle(commandAdd, default);
 
             }
 
             Assert.True(dbContext.Categories.Count() == categoryDTOs.Count);
 
-
             var deleteId = (await dbContext.Categories.FirstOrDefaultAsync(ps => ps.Title == "Electronics")).Id;
 
             var command = new DeleteCategoryByIdCommand() { Id = deleteId };
 
-            var handler = new DeleteCategoryByIdHandler(dbContext);
+            var handler = new DeleteCategoryByIdHandler(categoryRepository);
 
             //Act
             var result = await handler.Handle(command, default);
@@ -161,28 +114,26 @@ namespace ProductManagement.Services.Tests
         public async void TakeCategoryDTOByIdHandler()
         {
             //Arrange
-
             var dbContext = InitDBContext();
             var categoryDTOs = InitCategoryDTOList();
+            var (categoryRepository, subCategoryRepository, productStatusRepository, productRepository) = InitRepositories(dbContext);
 
             foreach (var categoryDto in categoryDTOs)
             {
                 var commandAdd = new AddCategoryCommand() { CategoryDTO = categoryDto };
 
-                var handlerAdd = new AddCategoryHandler(dbContext);
+                var handlerAdd = new AddCategoryHandler(categoryRepository);
+                
                 await handlerAdd.Handle(commandAdd, default);
-
             }
 
             Assert.True(dbContext.Categories.Count() == categoryDTOs.Count);
-
 
             var selectedId = (await dbContext.Categories.AsNoTracking().FirstOrDefaultAsync(ps => ps.Title == "Electronics")).Id;
 
             var command = new TakeCategoryDTOByIdQuery() { Id = selectedId };
 
-            var handler = new TakeCategoryDTOByIdHandler(dbContext);
-
+            var handler = new TakeCategoryDTOByIdHandler(categoryRepository);
 
             //Act
             var result = await handler.Handle(command, default);
@@ -191,33 +142,30 @@ namespace ProductManagement.Services.Tests
             Assert.True(result.Id == selectedId
                     && result.Title == "Electronics"
                     && result != null);
-
         }
 
         [Fact]
         public async void TakeCategoryDTOListHandler()
         {
             //Arrange
-
             var dbContext = InitDBContext();
             var categoryDTOs = InitCategoryDTOList();
+            var (categoryRepository, subCategoryRepository, productStatusRepository, productRepository) = InitRepositories(dbContext);
 
             foreach (var categoryDto in categoryDTOs)
             {
                 var commandAdd = new AddCategoryCommand() { CategoryDTO = categoryDto };
 
-                var handlerAdd = new AddCategoryHandler(dbContext);
+                var handlerAdd = new AddCategoryHandler(categoryRepository);
+                
                 await handlerAdd.Handle(commandAdd, default);
-
             }
 
             Assert.True(dbContext.Categories.Count() == categoryDTOs.Count);
 
-
             var command = new TakeCategoryDTOListQuery() { };
 
-            var handler = new TakeCategoryDTOListHandler(dbContext);
-
+            var handler = new TakeCategoryDTOListHandler(categoryRepository);
 
             //Act
             var result = await handler.Handle(command, default);
@@ -225,7 +173,49 @@ namespace ProductManagement.Services.Tests
             //Assert
             Assert.True(result.Count == dbContext.Categories.Count()
                         && result.Any(r => r.Title == "Electronics"));
+        }
 
+        [Fact]
+        public async void UpdateCategoryHandler()
+        {
+            //Arrange
+
+            var dbContext = InitDBContext();
+            var (categoryRepository, subCategoryRepository, productStatusRepository, productRepository) = InitRepositories(dbContext);
+            var categoryDTOs = InitCategoryDTOList();
+
+            foreach (var categoryDto in categoryDTOs)
+            {
+                var commandAdd = new AddCategoryCommand() { CategoryDTO = categoryDto };
+
+                var handlerAdd = new AddCategoryHandler(categoryRepository);
+                await handlerAdd.Handle(commandAdd, default);
+
+            }
+
+            Assert.True(dbContext.Categories.Count() == categoryDTOs.Count);
+
+            var updatedId = (await dbContext.Categories.FirstOrDefaultAsync(ps => ps.Title == "Electronics")).Id;
+
+            var updatedCategoryDTO = new CategoryDTO()
+            {
+                Id = updatedId,
+                Title = "Bricks",
+                Description = "Super Bricks"
+            };
+
+            var command = new UpdateCategoryCommand() { CategoryDTO = updatedCategoryDTO };
+
+            var handler = new UpdateCategoryHandler(categoryRepository);
+
+            //Act
+            var result = await handler.Handle(command, default);
+
+            //Assert
+            Assert.True(result.Flag == true
+                            && await dbContext.Categories
+                                    .AnyAsync(ps => ps.Title == "Bricks" && ps.Description == "Super Bricks")
+                            && !await dbContext.Categories.AnyAsync(ps => ps.Title == "Electronics"));
         }
     }
 }

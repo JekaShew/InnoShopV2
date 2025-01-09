@@ -7,6 +7,7 @@ using ProductManagement.Application.Mappers;
 using ProductManagement.Domain.Data.Models;
 using ProductManagement.Infrastructure.Data;
 using System.Linq.Expressions;
+using System.Reflection;
 
 namespace ProductManagement.Infrastructure.Repositories
 {
@@ -116,7 +117,14 @@ namespace ProductManagement.Infrastructure.Repositories
         {
             try
             {
-                var productStatus = ProductStatusMapper.ProductStatusDTOToProductStatus(productStatusDTO);
+                var productStatus = await _pmDBContext.ProductStatuses.FindAsync(productStatusDTO.Id);
+
+                if (productStatus == null)
+                {
+                    return new Response(false, "Product Status not Found!");
+                }
+
+                ApplyPropertiesFromDTOToModel(productStatusDTO, productStatus);
 
                 _pmDBContext.ProductStatuses.Update(productStatus);
                 await _pmDBContext.SaveChangesAsync();
@@ -127,6 +135,21 @@ namespace ProductManagement.Infrastructure.Repositories
             {
                 LogException.LogExceptions(ex);
                 return new Response(false, "Error while updating Product Status!");
+            }
+        }
+
+        private void ApplyPropertiesFromDTOToModel(ProductStatusDTO productStatusDTO, ProductStatus productStatus)
+        {
+            var dtoProperties = productStatusDTO.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            var modelProperties = productStatus.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance);
+
+            foreach (var dtoProperty in dtoProperties)
+            {
+                var modelProperty = modelProperties.FirstOrDefault(p => p.Name == dtoProperty.Name && p.PropertyType == dtoProperty.PropertyType);
+                if (modelProperty != null)
+                {
+                    modelProperty.SetValue(productStatus, dtoProperty.GetValue(productStatusDTO));
+                }
             }
         }
     }

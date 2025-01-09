@@ -4,7 +4,9 @@ using Microsoft.EntityFrameworkCore;
 using ProductManagement.Application.DTOs;
 using ProductManagement.Application.Interfaces;
 using ProductManagement.Application.Mappers;
+using ProductManagement.Domain.Data.Models;
 using ProductManagement.Infrastructure.Data;
+using System.Reflection;
 
 namespace ProductManagement.Infrastructure.Repositories
 {
@@ -92,7 +94,15 @@ namespace ProductManagement.Infrastructure.Repositories
         {
             try
             {
-                var category = CategoryMapper.CategoryDTOToCategory(categoryDTO);
+                var category = await _pmDBContext.Categories.FindAsync(categoryDTO.Id);
+
+                if (category == null)
+                {
+                    return new Response(false, "Category not Found!");
+                }
+
+                ApplyPropertiesFromDTOToModel(categoryDTO, category);
+
                 _pmDBContext.Categories.Update(category);
                 await _pmDBContext.SaveChangesAsync();
 
@@ -101,7 +111,22 @@ namespace ProductManagement.Infrastructure.Repositories
             catch (Exception ex)
             {
                 LogException.LogExceptions(ex);
-                return new Response(false, "Error while updating Category !");
+                return new Response(false, "Error while updating Category!");
+            }
+        }
+
+        private void ApplyPropertiesFromDTOToModel(CategoryDTO categoryDTO, Category category)
+        {
+            var dtoProperties = categoryDTO.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            var modelProperties = category.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance);
+
+            foreach (var dtoProperty in dtoProperties)
+            {
+                var modelProperty = modelProperties.FirstOrDefault(p => p.Name == dtoProperty.Name && p.PropertyType == dtoProperty.PropertyType);
+                if (modelProperty != null)
+                {
+                    modelProperty.SetValue(category, dtoProperty.GetValue(categoryDTO));
+                }
             }
         }
     }

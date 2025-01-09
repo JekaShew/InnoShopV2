@@ -13,6 +13,7 @@ using ProductManagement.Infrastructure.Handlers.ProductStatusHandlers.CommandHan
 using ProductManagement.Infrastructure.Handlers.ProductStatusHandlers.QueryHandlers;
 using ProductManagement.Infrastructure.Handlers.SubCategoryHandlers.CommandHandlers;
 using ProductManagement.Infrastructure.Handlers.SubCategoryHandlers.QueryHandlers;
+using ProductManagement.Infrastructure.Repositories;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -24,21 +25,28 @@ namespace ProductManagement.Services.Tests
 {
     public class SubCategoryHandlersTests
     {
-        private ProductManagementDBContext Init()
+        private ProductManagementDBContext InitDBContext()
         {
-            //var config = new MapperConfiguration(cfg => cfg.AddProfile<Services.AutoMapper>());
-            //var mapper = config.CreateMapper();
             var options = new DbContextOptionsBuilder<ProductManagementDBContext>().UseInMemoryDatabase(Guid.NewGuid().ToString()).Options;
             var dbContext = new ProductManagementDBContext(options);
-            //var service = new ProductServices(dbContext );
+
             return (dbContext);
+        }
+
+        private (CategoryRepository, SubCategoryRepository, ProductStatusRepository, ProductRepository) InitRepositories(ProductManagementDBContext dbContext)
+        {
+            var categoryRepository = new CategoryRepository(dbContext);
+            var subCategoryRepository = new SubCategoryRepository(dbContext);
+            var productStatusRepository = new ProductStatusRepository(dbContext);
+            var productRepository = new ProductRepository(dbContext);
+
+            return (categoryRepository, subCategoryRepository, productStatusRepository, productRepository);
         }
 
         public List<CategoryDTO> InitCategoryDTOList()
         {
             return new List<CategoryDTO>()
             {
-
                 new CategoryDTO
                 {
                     Id = null,
@@ -64,7 +72,6 @@ namespace ProductManagement.Services.Tests
         {
             return new List<SubCategoryDTO>()
             {
-
                 new SubCategoryDTO
                 {
                     Id = null,
@@ -98,7 +105,8 @@ namespace ProductManagement.Services.Tests
 
         public async Task<ProductManagementDBContext> InitMockDB()
         {
-            var dbContext = Init();
+            var dbContext = InitDBContext();
+            var (categoryRepository, subCategoryRepository, productStatusRepository, productRepository) = InitRepositories(dbContext);
             var categoryDTOs = InitCategoryDTOList();
             var subCategoryDTOs = InitSubCategoryDTOList();
 
@@ -106,9 +114,9 @@ namespace ProductManagement.Services.Tests
             {
                 var commandAddCat = new AddCategoryCommand() { CategoryDTO = categoryDto };
 
-                var handlerAddCat = new AddCategoryHandler(dbContext);
+                var handlerAddCat = new AddCategoryHandler(categoryRepository);
+                
                 await handlerAddCat.Handle(commandAddCat, default);
-
             }
 
             var eCategoryId = (await dbContext.Categories.FirstOrDefaultAsync(c => c.Title == "Electronics")).Id;
@@ -124,9 +132,9 @@ namespace ProductManagement.Services.Tests
 
                 var commandAddSubCat = new AddSubCategoryCommand() { SubCategoryDTO = subCategoryDto };
 
-                var handlerAddSubCat = new AddSubCategoryHandler(dbContext);
+                var handlerAddSubCat = new AddSubCategoryHandler(subCategoryRepository);
+                
                 await handlerAddSubCat.Handle(commandAddSubCat, default);
-
             }
 
             return dbContext;
@@ -136,7 +144,8 @@ namespace ProductManagement.Services.Tests
         public async void AddSubCategoryHandler()
         {
             //Arrange 
-            var dbContext = Init();
+            var dbContext = InitDBContext();
+            var (categoryRepository, subCategoryRepository, productStatusRepository, productRepository) = InitRepositories(dbContext);
             var commandAddCat = new AddCategoryCommand() 
             { 
                 CategoryDTO = new CategoryDTO
@@ -147,7 +156,7 @@ namespace ProductManagement.Services.Tests
                 }
             };
 
-            var handlerAddCat = new AddCategoryHandler(dbContext);
+            var handlerAddCat = new AddCategoryHandler(categoryRepository);
             await handlerAddCat.Handle(commandAddCat, default);
 
             var categoryId = (await dbContext.Categories.FirstOrDefaultAsync(c => c.Title == "Electronics")).Id;
@@ -163,8 +172,7 @@ namespace ProductManagement.Services.Tests
                 }
             };
 
-            var handler = new AddSubCategoryHandler(dbContext);
-
+            var handler = new AddSubCategoryHandler(subCategoryRepository);
 
             //Act
             var result = await handler.Handle(command, default);
@@ -173,56 +181,25 @@ namespace ProductManagement.Services.Tests
             Assert.True(result.Flag == true && await dbContext.SubCategories.AnyAsync(ps => ps.Title == "Laptops"));
 
         }
-        //Need some fixes
-        //[Fact]
-        //public async void UpdateSubCategoryHandler()
-        //{
-        //    //Arrange
-
-        //    var dbContext = await InitMockDB();
-
-        //    var updatedId = (await dbContext.SubCategories.FirstOrDefaultAsync(ps => ps.Title == "Laptops")).Id;
-        //    var categoryId = (await dbContext.Categories.FirstOrDefaultAsync(c => c.Title == "Electronics")).Id;
-        //    var updatedProductStatusDTO = new SubCategoryDTO()
-        //    {
-        //        Id = updatedId,
-        //        Title = "Super Laptops",
-        //        Description = "Powerfull Laptops",
-        //        CategoryId = categoryId,                
-        //    };
-
-        //    var command = new UpdateSubCategoryCommand() { SubCategoryDTO = updatedProductStatusDTO };
-
-        //    var handler = new UpdateSubCategoryHandler(dbContext);
-
-        //    //Act
-        //    var result = await handler.Handle(command, default);
-
-        //    //Assert
-        //    Assert.True(result.Flag == true
-        //                    && await dbContext.SubCategories
-        //                            .AnyAsync(ps => ps.Title == "Super Laptops" && ps.Description == "Powerfull Laptops")
-        //                    && !await dbContext.SubCategories.AnyAsync(ps => ps.Title == "Laptops"));
-        //}
 
         [Fact]
         public async void DeleteSubCategoryByIdHandler()
         {
             //Arrange
             var dbContext = await InitMockDB();
+            var (categoryRepository, subCategoryRepository, productStatusRepository, productRepository) = InitRepositories(dbContext);
 
             var deleteId = (await dbContext.SubCategories.FirstOrDefaultAsync(ps => ps.Title == "Laptops")).Id;
 
             var command = new DeleteSubCategoryByIdCommand() { Id = deleteId };
 
-            var handler = new DeleteSubCategoryByIdHandler(dbContext);
+            var handler = new DeleteSubCategoryByIdHandler(subCategoryRepository);
 
             //Act
             var result = await handler.Handle(command, default);
 
             //Assert
             Assert.True(result.Flag == true && !await dbContext.SubCategories.AnyAsync(ps => ps.Title == "Laptops"));
-
         }
 
         [Fact]
@@ -230,14 +207,13 @@ namespace ProductManagement.Services.Tests
         {
             //Arrange
             var dbContext = await InitMockDB();
-
+            var (categoryRepository, subCategoryRepository, productStatusRepository, productRepository) = InitRepositories(dbContext);
 
             var selectedId = (await dbContext.SubCategories.AsNoTracking().FirstOrDefaultAsync(ps => ps.Title == "Laptops")).Id;
 
             var command = new TakeSubCategoryDTOByIdQuery() { Id = selectedId };
 
-            var handler = new TakeSubCategoryDTOByIdHandler(dbContext);
-
+            var handler = new TakeSubCategoryDTOByIdHandler(subCategoryRepository);
 
             //Act
             var result = await handler.Handle(command, default);
@@ -246,7 +222,6 @@ namespace ProductManagement.Services.Tests
             Assert.True(result.Id == selectedId
                     && result.Title == "Laptops"
                     && result != null);
-
         }
 
         [Fact]
@@ -254,11 +229,11 @@ namespace ProductManagement.Services.Tests
         {
             //Arrange
             var dbContext = await InitMockDB();
+            var (categoryRepository, subCategoryRepository, productStatusRepository, productRepository) = InitRepositories(dbContext);
 
             var command = new TakeSubCategoryDTOListQuery() { };
 
-            var handler = new TakeSubCategoryDTOListHandler(dbContext);
-
+            var handler = new TakeSubCategoryDTOListHandler(subCategoryRepository);
 
             //Act
             var result = await handler.Handle(command, default);
@@ -266,7 +241,38 @@ namespace ProductManagement.Services.Tests
             //Assert
             Assert.True(result.Count == dbContext.SubCategories.Count()
                         && result.Any(r => r.Title == "Laptops"));
+        }
 
+        [Fact]
+        public async void UpdateSubCategoryHandler()
+        {
+            //Arrange
+
+            var dbContext = await InitMockDB();
+            var (categoryRepository, subCategoryRepository, productStatusRepository, productRepository) = InitRepositories(dbContext);
+
+            var updatedId = (await dbContext.SubCategories.FirstOrDefaultAsync(ps => ps.Title == "Laptops")).Id;
+            var categoryId = (await dbContext.Categories.FirstOrDefaultAsync(c => c.Title == "Electronics")).Id;
+            var updatedProductStatusDTO = new SubCategoryDTO()
+            {
+                Id = updatedId,
+                Title = "Super Laptops",
+                Description = "Powerfull Laptops",
+                CategoryId = categoryId,
+            };
+
+            var command = new UpdateSubCategoryCommand() { SubCategoryDTO = updatedProductStatusDTO };
+
+            var handler = new UpdateSubCategoryHandler(subCategoryRepository);
+
+            //Act
+            var result = await handler.Handle(command, default);
+
+            //Assert
+            Assert.True(result.Flag == true
+                            && await dbContext.SubCategories
+                                    .AnyAsync(ps => ps.Title == "Super Laptops" && ps.Description == "Powerfull Laptops")
+                            && !await dbContext.SubCategories.AnyAsync(ps => ps.Title == "Laptops"));
         }
     }
 }

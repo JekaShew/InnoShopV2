@@ -1,22 +1,13 @@
-﻿using Azure.Core;
-using InnoShop.CommonLibrary.CommonDTOs;
+﻿using InnoShop.CommonLibrary.CommonDTOs;
 using InnoShop.CommonLibrary.Logs;
 using InnoShop.CommonLibrary.Response;
-using MediatR;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using ProductManagement.Application.DTOs;
 using ProductManagement.Application.Interfaces;
 using ProductManagement.Application.Mappers;
 using ProductManagement.Domain.Data.Models;
 using ProductManagement.Infrastructure.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
+using System.Reflection;
 
 namespace ProductManagement.Infrastructure.Repositories
 {
@@ -116,13 +107,14 @@ namespace ProductManagement.Infrastructure.Repositories
         {
             try
             {
-                var productDTO = ProductMapper.ProductToProductDTO(
-                    await _pmDBContext.Products
+                var product = await _pmDBContext.Products
+                       .AsNoTracking()
                        .Include(ps => ps.ProductStatus)
                        .Include(sc => sc.SubCategory)
                            .ThenInclude(c => c.Category)
-                       .AsNoTracking()
-                       .FirstOrDefaultAsync(p => p.Id == productId));
+                        .Where(p => p.Id == productId)
+                       .FirstOrDefaultAsync();
+                var productDTO = ProductMapper.ProductToProductDTO(product);
 
                 return productDTO;
             }
@@ -137,7 +129,14 @@ namespace ProductManagement.Infrastructure.Repositories
         {
             try
             {
-                var product = ProductMapper.ProductDTOToProduct(productDTO);
+                var product = await _pmDBContext.Products.FindAsync(productDTO.Id);
+
+                if (product == null)
+                {
+                    return new Response(false, "Product not Found!");
+                }
+
+                ApplyPropertiesFromDTOToModel(productDTO, product);
 
                 _pmDBContext.Products.Update(product);
                 await _pmDBContext.SaveChangesAsync();
@@ -148,6 +147,21 @@ namespace ProductManagement.Infrastructure.Repositories
             {
                 LogException.LogExceptions(ex);
                 return new Response(false, "Error while updating Product!");
+            }
+        }
+
+        private void ApplyPropertiesFromDTOToModel(ProductDTO productDTO, Product product)
+        {
+            var dtoProperties = productDTO.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            var modelProperties = product.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance);
+
+            foreach (var dtoProperty in dtoProperties)
+            {
+                var modelProperty = modelProperties.FirstOrDefault(p => p.Name == dtoProperty.Name && p.PropertyType == dtoProperty.PropertyType);
+                if (modelProperty != null)
+                {
+                    modelProperty.SetValue(product, dtoProperty.GetValue(productDTO));
+                }
             }
         }
     }
