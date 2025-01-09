@@ -1,29 +1,20 @@
-﻿using Azure.Core;
-using InnoShop.CommonLibrary.Logs;
+﻿using InnoShop.CommonLibrary.Logs;
 using InnoShop.CommonLibrary.Response;
-using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 using ProductManagement.Application.DTOs;
 using ProductManagement.Application.Interfaces;
 using ProductManagement.Application.Mappers;
 using ProductManagement.Domain.Data.Models;
 using ProductManagement.Infrastructure.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace ProductManagement.Infrastructure.Repositories
 {
-    public class ProductStatusRepositor : IProductStatus
+    public class ProductStatusRepository : IProductStatus
     {
         private readonly ProductManagementDBContext _pmDBContext;
 
-        public ProductStatusRepositor(ProductManagementDBContext pmDBContext)
+        public ProductStatusRepository(ProductManagementDBContext pmDBContext)
         {
             _pmDBContext = pmDBContext;
         }

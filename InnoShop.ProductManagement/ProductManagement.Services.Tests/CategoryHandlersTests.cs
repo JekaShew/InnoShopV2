@@ -1,32 +1,34 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Moq;
 using ProductManagement.Application.Commands.CategoryCommands;
-using ProductManagement.Application.Commands.ProductStatusCommands;
 using ProductManagement.Application.DTOs;
-using ProductManagement.Application.Interfaces;
 using ProductManagement.Application.Queries.CategoryQueries;
-using ProductManagement.Application.Queries.ProductStatusQueries;
 using ProductManagement.Infrastructure.Data;
 using ProductManagement.Infrastructure.Handlers.CategoryHandlers.CommandHandlers;
 using ProductManagement.Infrastructure.Handlers.CategoryHandlers.QueryHandlers;
-using ProductManagement.Infrastructure.Handlers.ProductStatusHandlers.CommandHandlers;
-using ProductManagement.Infrastructure.Handlers.ProductStatusHandlers.QueryHandlers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using ProductManagement.Infrastructure.Repositories;
 
 namespace ProductManagement.Services.Tests
 {
     public class CategoryHandlersTests
     {
-        private ProductManagementDBContext Init()
+        private ProductManagementDBContext InitDBContext()
         {
             var options = new DbContextOptionsBuilder<ProductManagementDBContext>().UseInMemoryDatabase(Guid.NewGuid().ToString()).Options;
             var dbContext = new ProductManagementDBContext(options);
 
             return (dbContext);
+        }
+
+        private (CategoryRepository,SubCategoryRepository,ProductStatusRepository, ProductRepository) InitRepositories()
+        {
+            var dbContext = InitDBContext();
+
+            var categoryRepository = new CategoryRepository(dbContext);
+            var subCategoryRepository = new SubCategoryRepository(dbContext);
+            var productStatusRepository = new ProductStatusRepository(dbContext);
+            var productRepository = new ProductRepository(dbContext);
+
+            return (categoryRepository, subCategoryRepository, productStatusRepository, productRepository);
         }
 
         public List<CategoryDTO> InitCategoryDTOList()
@@ -59,13 +61,14 @@ namespace ProductManagement.Services.Tests
         [Fact]
         public async void AddCategoryHandler()
         {
-            var dbContext = Init();
+            var dbContext = InitDBContext();
+            var (categoryRepository, subCategoryRepository, productStatusRepository, productRepository) = InitRepositories();
             var categoryDTOs = InitCategoryDTOList();
 
             //Arrange
             var command = new AddCategoryCommand() { CategoryDTO = categoryDTOs.FirstOrDefault(ps => ps.Title == "Electronics") };
 
-            var handler = new AddCategoryHandler(dbContext);
+            var handler = new AddCategoryHandler(categoryRepository);
 
 
             //Act
@@ -125,7 +128,7 @@ namespace ProductManagement.Services.Tests
         {
             //Arrange
 
-            var dbContext = Init();
+            var dbContext = InitDBContext();
             var categoryDTOs = InitCategoryDTOList();
 
             foreach (var categoryDto in categoryDTOs)
@@ -159,7 +162,7 @@ namespace ProductManagement.Services.Tests
         {
             //Arrange
 
-            var dbContext = Init();
+            var dbContext = InitDBContext();
             var categoryDTOs = InitCategoryDTOList();
 
             foreach (var categoryDto in categoryDTOs)
@@ -196,7 +199,7 @@ namespace ProductManagement.Services.Tests
         {
             //Arrange
 
-            var dbContext = Init();
+            var dbContext = InitDBContext();
             var categoryDTOs = InitCategoryDTOList();
 
             foreach (var categoryDto in categoryDTOs)
