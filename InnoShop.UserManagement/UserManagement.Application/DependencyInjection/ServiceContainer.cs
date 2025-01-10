@@ -1,16 +1,8 @@
-﻿using MediatR;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Polly;
 using Polly.Retry;
 using Serilog;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UserManagement.Application.Interfaces;
 using UserManagement.Application.Services;
 
@@ -20,9 +12,6 @@ namespace UserManagement.Application.DependencyInjection
     {
         public static IServiceCollection AddApplicationService(this IServiceCollection services, IConfiguration configuration)
         {
-
-            
-
             services.AddHttpClient<IUserExternalServices, UserExternalServices>(options =>
             {
                 options.BaseAddress = new Uri(configuration["ApiGateway:BaseAdress"]!);

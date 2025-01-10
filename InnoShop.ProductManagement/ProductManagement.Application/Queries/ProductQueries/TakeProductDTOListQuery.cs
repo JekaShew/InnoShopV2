@@ -5,5 +5,6 @@ namespace ProductManagement.Application.Queries.ProductQueries
 {
     public class TakeProductDTOListQuery : IRequest<List<ProductDTO>>
     {
+
     }
 }

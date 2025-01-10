@@ -1,40 +1,29 @@
 ﻿using InnoShop.CommonLibrary.CommonDTOs;
-using MediatR;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Moq;
-using Polly.Registry;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UserManagement.Application.Commands.RoleCommands;
 using UserManagement.Application.Commands.UserCommands;
 using UserManagement.Application.Commands.UserStatusCommands;
 using UserManagement.Application.DTOs;
 using UserManagement.Application.Queries.UserQueries;
-using UserManagement.Application.Services;
-using UserManagement.Domain.Data.Models;
 using UserManagement.Infrastructure.Data;
 using UserManagement.Infrastructure.Handlers.RoleHandlers.CommandHandlers;
 using UserManagement.Infrastructure.Handlers.UserHandlers.CommandHandlers;
 using UserManagement.Infrastructure.Handlers.UserHandlers.QueryHandlers;
 using UserManagement.Infrastructure.Handlers.UserStatusHandlers.CommandHandlers;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using UserManagement.Infrastructure.Repositories;
 
 namespace UserManagement.Handlers.Tests
 {
     public class UserHandlersTests
     {
-        private UserManagementDBContext Init()
+        private UserManagementDBContext InitDBContext()
         {
             var options = new DbContextOptionsBuilder<UserManagementDBContext>().UseInMemoryDatabase(Guid.NewGuid().ToString()).Options;
             var dbContext = new UserManagementDBContext(options);
 
             return dbContext;
         }
+
         private List<RoleDTO> InitRoleDTOList()
         {
             return new List<RoleDTO>()
@@ -64,7 +53,6 @@ namespace UserManagement.Handlers.Tests
         {
             return new List<UserStatusDTO>()
             {
-
                 new UserStatusDTO
                 {
                     Id = null,
@@ -86,9 +74,21 @@ namespace UserManagement.Handlers.Tests
             };
         }
 
+        private (RoleRepository, UserStatusRepository, RefreshTokenRepository, UserRepository) InitRepositories(UserManagementDBContext dbContext)
+        {
+            var roleRepository = new RoleRepository(dbContext);
+            var userStatusRepository = new UserStatusRepository(dbContext);
+            var refreshTokenRepository = new RefreshTokenRepository(dbContext);
+            var userRepository = new UserRepository(dbContext);
+
+            return (roleRepository, userStatusRepository, refreshTokenRepository, userRepository);
+        }
+
         public async Task<UserManagementDBContext> InitMockDB()
         {
-            var dbContext = Init();
+            var dbContext = InitDBContext();
+            var (roleRepository, userStatusRepository, refreshTokenRepository, userRepository) = InitRepositories(dbContext);
+
             var userStatusDTOs = InitUserStatusDTOList();
             var roleDTOs = InitRoleDTOList();
 
@@ -96,9 +96,9 @@ namespace UserManagement.Handlers.Tests
             {
                 var commandAddUS = new AddUserStatusCommand() { UserStatusDTO = userStatusDto };
 
-                var handlerAddUS = new AddUserStatusHandler(dbContext);
+                var handlerAddUS = new AddUserStatusHandler(userStatusRepository);
+               
                 await handlerAddUS.Handle(commandAddUS, default);
-
             }
 
             var aUserStatusId = (await dbContext.UserStatuses.FirstOrDefaultAsync(c => c.Title == "Activated")).Id;
@@ -108,9 +108,9 @@ namespace UserManagement.Handlers.Tests
             {
                 var commandAddRole = new AddRoleCommand() { RoleDTO = roleDto };
 
-                var handlerAddRole = new AddRoleHandler(dbContext);
+                var handlerAddRole = new AddRoleHandler(roleRepository);
+                
                 await handlerAddRole.Handle(commandAddRole, default);
-
             }
 
             var uRoleId = (await dbContext.Roles.FirstOrDefaultAsync(c => c.Title == "User")).Id;
@@ -172,7 +172,6 @@ namespace UserManagement.Handlers.Tests
                     Password = "zxczxc",
                     SecretWord = "1oleg1",
                 },
-
             };
 
             foreach (var registrationInfoDto in registrationInfoDTOs)
@@ -182,39 +181,39 @@ namespace UserManagement.Handlers.Tests
                     RegistrationInfoDTO = registrationInfoDto,
                     PasswordHash = registrationInfoDto.Password,
                     SecretWordHash = registrationInfoDto.SecretWord,
-                    SecurityStamp = "SecurityStamp",
-                    
+                    SecurityStamp = "SecurityStamp", 
                 };
 
-                var handler = new AddUserHandler(dbContext);
+                var handler = new AddUserHandler(userRepository);
+                
                 await handler.Handle(command, default);
             }
-
-
 
             return dbContext;
         }
 
-        //Common
+        //Common Handlers
         [Fact]
         public async void AddUserHandler()
         {
             //Arrange 
-            var dbContext = Init();
+            var dbContext = InitDBContext();
+            var (roleRepository, userStatusRepository, refreshTokenRepository, userRepository) = InitRepositories(dbContext);
+            
             var commandAddUS = new AddUserStatusCommand()
             {
                 UserStatusDTO = new UserStatusDTO
                 {
                     Id = null,
-                    Title = "Acitvated",
+                    Title = "Activated",
                     Description = "Activated user"
                 }
             };
 
-            var handlerAddUS = new AddUserStatusHandler(dbContext);
+            var handlerAddUS = new AddUserStatusHandler(userStatusRepository);            
             await handlerAddUS.Handle(commandAddUS, default);
 
-            var userStatusId = (await dbContext.UserStatuses.FirstOrDefaultAsync(c => c.Title == "Acitvated")).Id;
+            var userStatusId = (await dbContext.UserStatuses.FirstOrDefaultAsync(c => c.Title == "Activated")).Id;
 
             var commandAddRole = new AddRoleCommand()
             {
@@ -226,7 +225,7 @@ namespace UserManagement.Handlers.Tests
                 }
             };
 
-            var handlerAddRole= new AddRoleHandler(dbContext);
+            var handlerAddRole= new AddRoleHandler(roleRepository);
             await handlerAddRole.Handle(commandAddRole, default);
 
             var uRoleId = (await dbContext.Roles.FirstOrDefaultAsync(c => c.Title == "User")).Id;
@@ -249,7 +248,7 @@ namespace UserManagement.Handlers.Tests
                 SecurityStamp = "SecurityStamp",
             };
 
-            var handler = new AddUserHandler(dbContext);
+            var handler = new AddUserHandler(userRepository);
 
             //Act
             var result = await handler.Handle(command, default);
@@ -263,58 +262,57 @@ namespace UserManagement.Handlers.Tests
                             && ps.UserStatusId == userStatusId)); 
         }
 
-        //Need some fixes
-        //[Fact]
-        //public async void UpdateUserHandler()
-        //{
-        //    //Arrange
+        [Fact]
+        public async void UpdateUserHandler()
+        {
+            //Arrange
+            var dbContext = await InitMockDB();
+            var (roleRepository, userStatusRepository, refreshTokenRepository, userRepository) = InitRepositories(dbContext);
 
-        //    var dbContext = await InitMockDB();
+            var updatedUser = await dbContext.Users
+                                .FirstOrDefaultAsync(ps => ps.Login == "ivan123");
+            var updatedId = updatedUser.Id;
+            var uRoleId = (await dbContext.Roles
+                            .FirstOrDefaultAsync(r => r.Title == "User")).Id;
+            var userStatusId = (await dbContext.UserStatuses
+                                .FirstOrDefaultAsync(us => us.Title == "Activated")).Id;
+            var updatedUsertDTO = new UserDTO()
+            {
+                Id = updatedId,
+                FIO = "Vanya Popkov",
+                Email = "ivanDDD@yandex.by",
+                Login = "111ivan111",
+                RoleId = uRoleId,
+                UserStatusId = userStatusId,
+            };
 
+            var command = new UpdateUserCommand() { UserDTO = updatedUsertDTO };
 
-        //    var updatedUser = await dbContext.Users
-        //                        .FirstOrDefaultAsync(ps => ps.Login == "ivan123");
-        //    var updatedId = updatedUser.Id;
-        //    var uRoleId = (await dbContext.Roles
-        //                    .FirstOrDefaultAsync(r=> r.Title == "User")).Id;
-        //    var userStatusId = (await dbContext.UserStatuses
-        //                        .FirstOrDefaultAsync(us=> us.Title == "Activated")).Id;
-        //    var updatedUsertDTO = new UserDTO()
-        //    {
-        //        Id = updatedId,
-        //        FIO = "Vanya Popkov",
-        //        Email = "ivanDDD@yandex.by",
-        //        Login = "111ivan111",
-        //        RoleId = uRoleId,
-        //        UserStatusId = userStatusId,
-        //    };
+            var handler = new UpdateUserHandler(userRepository);
 
-        //    var command = new UpdateUserCommand() { UserDTO = updatedUsertDTO};
+            //Act
+            var result = await handler.Handle(command, default);
 
-        //    var handler = new UpdateUserHandler(dbContext);
-
-        //    //Act
-        //    var result = await handler.Handle(command, default);
-
-        //    //Assert
-        //    Assert.True(result.Flag == true
-        //                    && await dbContext.Users
-        //                            .AnyAsync(ps => ps.FIO == "Vanya Popkov" && ps.Login == "111ivan111")
-        //                    && !await dbContext.Users.AnyAsync(ps => ps.Login == "ivan123"));
-        //}
+            //Assert
+            Assert.True(result.Flag == true
+                            && await dbContext.Users
+                                    .AnyAsync(ps => ps.FIO == "Vanya Popkov" && ps.Login == "111ivan111")
+                            && !await dbContext.Users.AnyAsync(ps => ps.Login == "ivan123"));
+        }
 
         [Fact]
         public async void DeleteUserByIdHandler()
         {
             //Arrange
             var dbContext = await InitMockDB();
+            var (roleRepository, userStatusRepository, refreshTokenRepository, userRepository) = InitRepositories(dbContext);
 
             var deleteId = (await dbContext.Users
                         .FirstOrDefaultAsync(ps => ps.Login == "ivan123")).Id;
 
             var command = new DeleteUserByIdCommand() { Id = deleteId };
 
-            var handler = new DeleteUserByIdHandler(dbContext);
+            var handler = new DeleteUserByIdHandler(userRepository);
 
             //Act
             var result = await handler.Handle(command, default);
@@ -322,7 +320,6 @@ namespace UserManagement.Handlers.Tests
             //Assert
             Assert.True(result.Flag == true && !await dbContext.Users
                                                     .AnyAsync(ps => ps.Login == "ivan123"));
-
         }
 
         [Fact]
@@ -330,6 +327,7 @@ namespace UserManagement.Handlers.Tests
         {
             //Arrange
             var dbContext = await InitMockDB();
+            var (roleRepository, userStatusRepository, refreshTokenRepository, userRepository) = InitRepositories(dbContext);
 
             var selectedId = (await dbContext.Users
                                 .AsNoTracking()
@@ -337,7 +335,7 @@ namespace UserManagement.Handlers.Tests
 
             var command = new TakeUserDTOByIdQuery() { Id = selectedId };
 
-            var handler = new TakeUserDTOByIdHandler(dbContext);
+            var handler = new TakeUserDTOByIdHandler(userRepository);
 
             //Act
             var result = await handler.Handle(command, default);
@@ -353,11 +351,11 @@ namespace UserManagement.Handlers.Tests
         {
             //Arrange
             var dbContext = await InitMockDB();
+            var (roleRepository, userStatusRepository, refreshTokenRepository, userRepository) = InitRepositories(dbContext);
 
             var command = new TakeUserDTOListQuery() { };
 
-            var handler = new TakeUserDTOListHandler(dbContext);
-
+            var handler = new TakeUserDTOListHandler(userRepository);
 
             //Act
             var result = await handler.Handle(command, default);
@@ -368,12 +366,14 @@ namespace UserManagement.Handlers.Tests
                         && result.Any(r => r.Login == "oleg123")
                         && result.Any(r => r.Login == "boris123"));
         }
-        //Special
+
+        //Special Handlers
         [Fact]
         public async void ChangePasswordHandler()
         {
             //Arrange
             var dbContext = await InitMockDB();
+            var (roleRepository, userStatusRepository, refreshTokenRepository, userRepository) = InitRepositories(dbContext);
 
             var user = await dbContext.Users
                         .AsNoTracking()
@@ -388,8 +388,7 @@ namespace UserManagement.Handlers.Tests
                 NewPasswordHash = newPasswprdHash,
             };
 
-            var handler = new ChangePasswordHandler(dbContext);
-
+            var handler = new ChangePasswordHandler(userRepository);
 
             //Act
             var result = await handler.Handle(command, default);
@@ -405,6 +404,7 @@ namespace UserManagement.Handlers.Tests
         {
             //Arrange
             var dbContext = await InitMockDB();
+            var (roleRepository, userStatusRepository, refreshTokenRepository, userRepository) = InitRepositories(dbContext);
 
             var user = await dbContext.Users.AsNoTracking().FirstOrDefaultAsync(p => p.Login == "ivan123");
             var aRoleId = (await dbContext.Roles
@@ -419,8 +419,7 @@ namespace UserManagement.Handlers.Tests
                 RoleId = aRoleId
             };
 
-            var handler = new ChangeRoleOfUserHandler(dbContext);
-
+            var handler = new ChangeRoleOfUserHandler(userRepository, roleRepository);
 
             //Act
             var result = await handler.Handle(command, default);
@@ -438,6 +437,8 @@ namespace UserManagement.Handlers.Tests
         {
             //Arrange
             var dbContext = await InitMockDB();
+            var (roleRepository, userStatusRepository, refreshTokenRepository, userRepository) = InitRepositories(dbContext);
+
             var dUserStatusId = (await dbContext.UserStatuses
                         .AsNoTracking()
                         .FirstOrDefaultAsync(us=> us.Title == "Disabled")).Id;
@@ -451,9 +452,7 @@ namespace UserManagement.Handlers.Tests
                 UserStatusId = dUserStatusId
             };
 
-            
-            var handler = new ChangeUserStatusOfUserHandler(dbContext);
-
+            var handler = new ChangeUserStatusOfUserHandler(userRepository, userStatusRepository);
 
             //Act
             var result = await handler.Handle(command, default);
@@ -470,6 +469,7 @@ namespace UserManagement.Handlers.Tests
         {
             //Arrange
             var dbContext = await InitMockDB();
+            var (roleRepository, userStatusRepository, refreshTokenRepository, userRepository) = InitRepositories(dbContext);
 
             var command1 = new CheckLoginPasswordPairQuery()
             {
@@ -495,14 +495,11 @@ namespace UserManagement.Handlers.Tests
                 PasswordHash = "asdasd"
             };
 
-            var handler = new CheckLoginPasswordPairHandler(dbContext);
-
+            var handler = new CheckLoginPasswordPairHandler(userRepository);
 
             //Act
             var result1 = await handler.Handle(command1, default);
-
             var result2 = await handler.Handle(command2, default);
-
             var result3 = await handler.Handle(command3, default);
             var result4 = await handler.Handle(command4, default);
 
@@ -518,6 +515,7 @@ namespace UserManagement.Handlers.Tests
         {
             //Arrange
             var dbContext = await InitMockDB();
+            var (roleRepository, userStatusRepository, refreshTokenRepository, userRepository) = InitRepositories(dbContext);
 
             var command1 = new CheckLoginSecretWordPairQuery()
             {
@@ -543,14 +541,11 @@ namespace UserManagement.Handlers.Tests
                 SecretWordHash = "1boris1"
             };
 
-            var handler = new CheckLoginSecretWordPairHandler(dbContext);
-
+            var handler = new CheckLoginSecretWordPairHandler(userRepository);
 
             //Act
             var result1 = await handler.Handle(command1, default);
-
             var result2 = await handler.Handle(command2, default);
-
             var result3 = await handler.Handle(command3, default);
             var result4 = await handler.Handle(command4, default);
 
@@ -566,11 +561,12 @@ namespace UserManagement.Handlers.Tests
         {
             //Arrange
             var dbContext = await InitMockDB();
+            var (roleRepository, userStatusRepository, refreshTokenRepository, userRepository) = InitRepositories(dbContext);
+
             var login1 = "ivan123";
             var login2 = "boris123";
             var login3 = "Gosha12";
             var login4 = "Boxer89";
-
 
             var command1 = new IsLoginRegisteredQuery()
             {
@@ -592,15 +588,13 @@ namespace UserManagement.Handlers.Tests
                 EnteredLogin = login4
             };
 
-            var handler = new IsUserLoginRegisteredHandler(dbContext);
-
+            var handler = new IsUserLoginRegisteredHandler(userRepository);
 
             //Act
             var result1 = await handler.Handle(command1, default);
             var result2 = await handler.Handle(command2, default);
             var result3 = await handler.Handle(command3, default);
             var result4 = await handler.Handle(command4, default);
-
 
             //Assert
             Assert.True(result1.Flag == true);
@@ -614,6 +608,8 @@ namespace UserManagement.Handlers.Tests
         {
             //Arrange
             var dbContext = await InitMockDB();
+            var (roleRepository, userStatusRepository, refreshTokenRepository, userRepository) = InitRepositories(dbContext);
+
             var user = await dbContext.Users.AsNoTracking().FirstOrDefaultAsync(u=> u.Login == "ivan123");
 
             var command = new TakeAuthorizationInfoDTOByLoginQuery()
@@ -621,7 +617,7 @@ namespace UserManagement.Handlers.Tests
                 EnteredLogin = user.Login
             };
 
-            var handler = new TakeAuthorizationInfoDTOByLoginHandler(dbContext);
+            var handler = new TakeAuthorizationInfoDTOByLoginHandler(userRepository);
 
             //Act
             var result = await handler.Handle(command, default);
@@ -631,11 +627,14 @@ namespace UserManagement.Handlers.Tests
                     && result.Login == user.Login
                     && result.SecurityStamp == user.SecurityStamp);
         }
+
         [Fact]
         public async void TakeAuthorizationInfoDTOByUserIdHandler()
         {
             //Arrange
             var dbContext = await InitMockDB();
+            var (roleRepository, userStatusRepository, refreshTokenRepository, userRepository) = InitRepositories(dbContext);
+
             var user = await dbContext.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Login == "ivan123");
 
             var command = new TakeAuthorizationInfoDTOByUserIdQuery()
@@ -643,7 +642,7 @@ namespace UserManagement.Handlers.Tests
                 UserId = user.Id
             };
 
-            var handler = new TakeAuthorizationInfoDTOByUserIdHandler(dbContext);
+            var handler = new TakeAuthorizationInfoDTOByUserIdHandler(userRepository);
 
             //Act
             var result = await handler.Handle(command, default);
@@ -659,6 +658,8 @@ namespace UserManagement.Handlers.Tests
         {
             //Arrange
             var dbContext = await InitMockDB();
+            var (roleRepository, userStatusRepository, refreshTokenRepository, userRepository) = InitRepositories(dbContext);
+
             var user = await dbContext.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Login == "ivan123");
 
             var command = new TakeUserIdByLoginQuery()
@@ -666,7 +667,7 @@ namespace UserManagement.Handlers.Tests
                 Login = user.Login
             };
 
-            var handler = new TakeUserIdByLoginHandler(dbContext);
+            var handler = new TakeUserIdByLoginHandler(userRepository);
 
             //Act
             var result = await handler.Handle(command, default);

@@ -2,13 +2,9 @@
 using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
 using UserManagement.Application.Commands.RefreshTokenCommands;
 using UserManagement.Application.DTOs;
 using UserManagement.Application.Interfaces;
@@ -50,7 +46,6 @@ namespace UserManagement.Application.Services
                 Subject = new ClaimsIdentity(claims),
                 Issuer = _configuration["Authentication:Issuer"],
                 Audience = _configuration["Authentication:Audience"],
-                //Expires = DateTime.UtcNow.AddHours(4),
                 Expires = DateTime.UtcNow.AddMinutes(15),
                 SigningCredentials =
                     new SigningCredentials(key,

@@ -1,9 +1,11 @@
 ﻿using InnoShop.CommonLibrary.Logs;
 using InnoShop.CommonLibrary.Response;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 using UserManagement.Application.DTOs;
 using UserManagement.Application.Interfaces;
 using UserManagement.Application.Mappers;
+using UserManagement.Domain.Data.Models;
 using UserManagement.Infrastructure.Data;
 
 namespace UserManagement.Infrastructure.Repositories
@@ -92,9 +94,16 @@ namespace UserManagement.Infrastructure.Repositories
         {
             try
             {
-                var userStatus = UserStatusMapper.UserStatusDTOToUserStatus(userStatusDTO);
+                var userStatus = await _umDBContext.UserStatuses.FindAsync(userStatusDTO.Id);
 
-                _umDBContext.UserStatuses.Update(userStatus!);
+                if (userStatus == null)
+                {
+                    return new Response(false, "User Status not Found!");
+                }
+
+                ApplyPropertiesFromDTOToModel(userStatusDTO, userStatus);
+
+                _umDBContext.UserStatuses.Update(userStatus);
                 await _umDBContext.SaveChangesAsync();
 
                 return new Response(true, "Successfully Updated!");
@@ -103,6 +112,21 @@ namespace UserManagement.Infrastructure.Repositories
             {
                 LogException.LogExceptions(ex);
                 return new Response(false, "Error while updating User Status!");
+            }
+        }
+
+        private void ApplyPropertiesFromDTOToModel(UserStatusDTO userStatusDTO, UserStatus userStatus)
+        {
+            var dtoProperties = userStatusDTO.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            var modelProperties = userStatus.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance);
+
+            foreach (var dtoProperty in dtoProperties)
+            {
+                var modelProperty = modelProperties.FirstOrDefault(p => p.Name == dtoProperty.Name && p.PropertyType == dtoProperty.PropertyType);
+                if (modelProperty != null)
+                {
+                    modelProperty.SetValue(userStatus, dtoProperty.GetValue(userStatusDTO));
+                }
             }
         }
     }

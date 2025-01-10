@@ -33,7 +33,6 @@ namespace ProductManagement.Services.Tests
         {
             return new List<CategoryDTO>()
             {
-
                 new CategoryDTO
                 {
                     Id = null,
@@ -90,8 +89,8 @@ namespace ProductManagement.Services.Tests
                 var commandAdd = new AddCategoryCommand() { CategoryDTO = categoryDto };
 
                 var handlerAdd = new AddCategoryHandler(categoryRepository);
+                
                 await handlerAdd.Handle(commandAdd, default);
-
             }
 
             Assert.True(dbContext.Categories.Count() == categoryDTOs.Count);
@@ -107,7 +106,6 @@ namespace ProductManagement.Services.Tests
 
             //Assert
             Assert.True(result.Flag == true && !await dbContext.Categories.AnyAsync(ps => ps.Title == "Electronics"));
-
         }
 
         [Fact]
@@ -179,7 +177,6 @@ namespace ProductManagement.Services.Tests
         public async void UpdateCategoryHandler()
         {
             //Arrange
-
             var dbContext = InitDBContext();
             var (categoryRepository, subCategoryRepository, productStatusRepository, productRepository) = InitRepositories(dbContext);
             var categoryDTOs = InitCategoryDTOList();
@@ -189,8 +186,8 @@ namespace ProductManagement.Services.Tests
                 var commandAdd = new AddCategoryCommand() { CategoryDTO = categoryDto };
 
                 var handlerAdd = new AddCategoryHandler(categoryRepository);
+                
                 await handlerAdd.Handle(commandAdd, default);
-
             }
 
             Assert.True(dbContext.Categories.Count() == categoryDTOs.Count);

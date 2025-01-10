@@ -1,11 +1,5 @@
 ﻿using FluentValidation;
-using ProductManagement.Application.Commands.CategoryCommands;
 using ProductManagement.Application.Commands.ProductCommands;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProductManagement.Application.Validators.ProductValidators
 {

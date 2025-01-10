@@ -12,7 +12,6 @@ namespace ProductManagement.Application.Mappers
         [MapProperty([nameof(SubCategory.Category), nameof(SubCategory.Category.Title)],
             [nameof(SubCategoryDTO.Category), nameof(SubCategoryDTO.Category.Text)])]
         public static partial SubCategoryDTO? SubCategoryToSubCategoryDTO(SubCategory? subCategory);
-
         public static partial SubCategory? SubCategoryDTOToSubCategory(SubCategoryDTO? subCategoryDTO);
     }
 }

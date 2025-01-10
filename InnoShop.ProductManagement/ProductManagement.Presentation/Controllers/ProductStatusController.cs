@@ -2,11 +2,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ProductManagement.Application.Commands.ProductStatusCommands;
-using ProductManagement.Application.Commands.SubCategoryCommands;
 using ProductManagement.Application.DTOs;
 using ProductManagement.Application.Queries.ProductStatusQueries;
-using ProductManagement.Application.Queries.SubCategoryQueries;
-using ProductManagement.Domain.Data.Models;
 
 namespace ProductManagement.Presentation.Controllers
 {

@@ -1,25 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Moq;
 using ProductManagement.Application.Commands.CategoryCommands;
-using ProductManagement.Application.Commands.ProductStatusCommands;
 using ProductManagement.Application.Commands.SubCategoryCommands;
 using ProductManagement.Application.DTOs;
-using ProductManagement.Application.Interfaces;
-using ProductManagement.Application.Queries.ProductStatusQueries;
 using ProductManagement.Application.Queries.SubCategoryQueries;
 using ProductManagement.Infrastructure.Data;
 using ProductManagement.Infrastructure.Handlers.CategoryHandlers.CommandHandlers;
-using ProductManagement.Infrastructure.Handlers.ProductStatusHandlers.CommandHandlers;
-using ProductManagement.Infrastructure.Handlers.ProductStatusHandlers.QueryHandlers;
 using ProductManagement.Infrastructure.Handlers.SubCategoryHandlers.CommandHandlers;
 using ProductManagement.Infrastructure.Handlers.SubCategoryHandlers.QueryHandlers;
 using ProductManagement.Infrastructure.Repositories;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProductManagement.Services.Tests
 {
@@ -146,6 +134,7 @@ namespace ProductManagement.Services.Tests
             //Arrange 
             var dbContext = InitDBContext();
             var (categoryRepository, subCategoryRepository, productStatusRepository, productRepository) = InitRepositories(dbContext);
+
             var commandAddCat = new AddCategoryCommand() 
             { 
                 CategoryDTO = new CategoryDTO
@@ -179,7 +168,6 @@ namespace ProductManagement.Services.Tests
 
             //Assert
             Assert.True(result.Flag == true && await dbContext.SubCategories.AnyAsync(ps => ps.Title == "Laptops"));
-
         }
 
         [Fact]

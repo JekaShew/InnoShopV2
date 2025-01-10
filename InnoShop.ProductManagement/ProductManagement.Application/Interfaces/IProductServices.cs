@@ -13,6 +13,5 @@ namespace ProductManagement.Application.Interfaces
         public Task<Response> ChangeProductStatusesOfProductsByUserId(Guid userId);
         public Task<Response> CreateProduct(ProductDTO productDTO);
         public Guid? GetCurrentUserId();
-
     }
 }

@@ -8,7 +8,5 @@ namespace ProductManagement.Application.DTOs
         public List<ParameterDTO>? Category { get; set; }  
         public decimal? MinPrice { get; set; }
         public decimal? MaxPrice { get; set; }
-        
-
     }
 }

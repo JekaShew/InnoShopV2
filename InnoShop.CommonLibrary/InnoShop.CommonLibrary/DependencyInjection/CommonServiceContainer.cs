@@ -1,17 +1,10 @@
-﻿//using Hellang.Middleware.ProblemDetails;
-using InnoShop.CommonLibrary.Middleware;
-using MediatR;
+﻿using InnoShop.CommonLibrary.Middleware;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using Serilog.Events;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace InnoShop.CommonLibrary.DependencyInjection
 {

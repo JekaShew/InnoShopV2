@@ -1,7 +1,5 @@
-﻿using Azure.Core;
-using InnoShop.CommonLibrary.Logs;
+﻿using InnoShop.CommonLibrary.Logs;
 using InnoShop.CommonLibrary.Response;
-using MediatR;
 using Microsoft.EntityFrameworkCore;
 using ProductManagement.Application.DTOs;
 using ProductManagement.Application.Interfaces;
@@ -9,7 +7,6 @@ using ProductManagement.Application.Mappers;
 using ProductManagement.Domain.Data.Models;
 using ProductManagement.Infrastructure.Data;
 using System.Reflection;
-using System.Threading;
 
 namespace ProductManagement.Infrastructure.Repositories
 {

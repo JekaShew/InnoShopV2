@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ProductManagement.Domain.Data.Models
+﻿namespace ProductManagement.Domain.Data.Models
 {
     public class Product
     {
@@ -18,6 +12,5 @@ namespace ProductManagement.Domain.Data.Models
         public ProductStatus? ProductStatus { get; set; }
         public Guid SubCategoryId { get; set; }
         public SubCategory? SubCategory { get; set; }
-
     }
 }

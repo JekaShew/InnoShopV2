@@ -13,14 +13,13 @@ using UserManagement.Infrastructure.Handlers.RefreshTokenHandlers.QueryHandlers;
 using UserManagement.Infrastructure.Handlers.RoleHandlers.CommandHandlers;
 using UserManagement.Infrastructure.Handlers.UserHandlers.CommandHandlers;
 using UserManagement.Infrastructure.Handlers.UserStatusHandlers.CommandHandlers;
+using UserManagement.Infrastructure.Repositories;
 
 namespace UserManagement.Handlers.Tests
 {
     public class RefreshTokenHandlersTests
     {
- 
-        
-        private UserManagementDBContext Init()
+        private UserManagementDBContext InitDBContext()
         {
             var options = new DbContextOptionsBuilder<UserManagementDBContext>().UseInMemoryDatabase(Guid.NewGuid().ToString()).Options;
             var dbContext = new UserManagementDBContext(options);
@@ -78,10 +77,21 @@ namespace UserManagement.Handlers.Tests
                 },
             };
         }
+        private (RoleRepository, UserStatusRepository, RefreshTokenRepository, UserRepository) InitRepositories(UserManagementDBContext dbContext)
+        {
+            var roleRepository = new RoleRepository(dbContext);
+            var userStatusRepository = new UserStatusRepository(dbContext);
+            var refreshTokenRepository = new RefreshTokenRepository(dbContext);
+            var userRepository = new UserRepository(dbContext);
+
+            return (roleRepository, userStatusRepository, refreshTokenRepository, userRepository);
+        }
 
         public async Task<UserManagementDBContext> InitMockDB()
         {
-            var dbContext = Init();
+            var dbContext = InitDBContext();
+            var (roleRepository, userStatusRepository, refreshTokenRepository, userRepository) = InitRepositories(dbContext);
+
             var userStatusDTOs = InitUserStatusDTOList();
             var roleDTOs = InitRoleDTOList();
 
@@ -89,9 +99,9 @@ namespace UserManagement.Handlers.Tests
             {
                 var commandAddUS = new AddUserStatusCommand() { UserStatusDTO = userStatusDto };
 
-                var handlerAddUS = new AddUserStatusHandler(dbContext);
+                var handlerAddUS = new AddUserStatusHandler(userStatusRepository);
+                
                 await handlerAddUS.Handle(commandAddUS, default);
-
             }
 
             var aUserStatusId = (await dbContext.UserStatuses.FirstOrDefaultAsync(c => c.Title == "Activated")).Id;
@@ -101,9 +111,9 @@ namespace UserManagement.Handlers.Tests
             {
                 var commandAddRole = new AddRoleCommand() { RoleDTO = roleDto };
 
-                var handlerAddRole = new AddRoleHandler(dbContext);
+                var handlerAddRole = new AddRoleHandler(roleRepository);
+                
                 await handlerAddRole.Handle(commandAddRole, default);
-
             }
 
             var uRoleId = (await dbContext.Roles.FirstOrDefaultAsync(c => c.Title == "User")).Id;
@@ -165,7 +175,6 @@ namespace UserManagement.Handlers.Tests
                     Password = "zxczxc",
                     SecretWord = "1oleg1",
                 },
-
             };
 
             foreach (var registrationInfoDto in registrationInfoDTOs)
@@ -179,7 +188,8 @@ namespace UserManagement.Handlers.Tests
 
                 };
 
-                var handler = new AddUserHandler(dbContext);
+                var handler = new AddUserHandler(userRepository);
+                
                 await handler.Handle(command, default);
             }
 
@@ -189,7 +199,6 @@ namespace UserManagement.Handlers.Tests
 
             var refreshTokenDTOs = new List<RefreshTokenDTO>()
             {
-
                 new RefreshTokenDTO
                 {
                     Id = Guid.NewGuid(),
@@ -218,21 +227,21 @@ namespace UserManagement.Handlers.Tests
                 var command = new AddRefreshTokenCommand()
                 {
                     RefreshTokenDTO = refreshTokenDto
-
                 };
 
-                var handler = new AddRefreshTokenHandler(dbContext);
+                var handler = new AddRefreshTokenHandler(refreshTokenRepository);
+                
                 await handler.Handle(command, default);
             }
 
             return dbContext;
         }
 
-
         [Fact]
         public async void AddRefreshTokenHandler()
         {
             var dbContext = await InitMockDB();
+            var (roleRepository, userStatusRepository, refreshTokenRepository, userRepository) = InitRepositories(dbContext);
 
             var user1Id = (await dbContext.Users.AsNoTracking().FirstOrDefaultAsync(u=> u.Login == "ivan123")).Id;
             var refreshTokenDTO = new RefreshTokenDTO()
@@ -246,7 +255,7 @@ namespace UserManagement.Handlers.Tests
             //Arrange
             var command = new AddRefreshTokenCommand() { RefreshTokenDTO = refreshTokenDTO };
 
-            var handler = new AddRefreshTokenHandler(dbContext);
+            var handler = new AddRefreshTokenHandler(refreshTokenRepository);
 
 
             //Act
@@ -261,8 +270,8 @@ namespace UserManagement.Handlers.Tests
         public async void DeleteRefreshTokenByRTokenIdHandler()
         {
             //Arrange
-
             var dbContext = await InitMockDB();
+            var (roleRepository, userStatusRepository, refreshTokenRepository, userRepository) = InitRepositories(dbContext);
 
             var user1Id = (await dbContext.Users
                             .AsNoTracking()
@@ -273,7 +282,7 @@ namespace UserManagement.Handlers.Tests
 
             var command = new DeleteRefreshTokenByRTokenIdCommand() { RTokenId = rTokenId};
 
-            var handler = new DeleteRefreshTokenByRTokenIdHandler(dbContext);
+            var handler = new DeleteRefreshTokenByRTokenIdHandler(refreshTokenRepository);
 
 
             //Act
@@ -289,8 +298,8 @@ namespace UserManagement.Handlers.Tests
         public async void RevokeRefreshTokenByRTokenIdHandler()
         {
             //Arrange
-
             var dbContext = await InitMockDB();
+            var (roleRepository, userStatusRepository, refreshTokenRepository, userRepository) = InitRepositories(dbContext);
 
             var user1Id = (await dbContext.Users
                             .AsNoTracking()
@@ -301,7 +310,7 @@ namespace UserManagement.Handlers.Tests
 
             var command = new RevokeRefreshTokenByRTokenIdCommand() { RTokenId = rTokenId};
 
-            var handler = new RevokeRefreshTokenByRTokenIdHandler(dbContext);
+            var handler = new RevokeRefreshTokenByRTokenIdHandler(refreshTokenRepository);
 
             //Act
             var result = await handler.Handle(command, default);
@@ -316,8 +325,8 @@ namespace UserManagement.Handlers.Tests
         public async void IsRefreshTokenCorrectByRTokenIdHandler()
         {
             //Arrange
-
             var dbContext = await InitMockDB();
+            var (roleRepository, userStatusRepository, refreshTokenRepository, userRepository) = InitRepositories(dbContext);
 
             var user1Id = (await dbContext.Users
                            .AsNoTracking()
@@ -328,7 +337,7 @@ namespace UserManagement.Handlers.Tests
 
             var command = new IsRefreshTokenCorrectByRTokenIdQuery() { RTokenId = rTokenId};
 
-            var handler = new IsRefreshTokenCorrectByRTokenIdHandler(dbContext);
+            var handler = new IsRefreshTokenCorrectByRTokenIdHandler(refreshTokenRepository);
 
             //Act
             var result = await handler.Handle(command, default);
@@ -341,12 +350,12 @@ namespace UserManagement.Handlers.Tests
             public async void TakeRefreshTokenDTOListHandlerHandler()
             {
                 //Arrange
-
                 var dbContext = await InitMockDB();
+                var (roleRepository, userStatusRepository, refreshTokenRepository, userRepository) = InitRepositories(dbContext);
 
                 var command = new TakeRefreshTokenDTOListQuery() { };
 
-                var handler = new TakeRefreshTokenDTOListHandler(dbContext);
+                var handler = new TakeRefreshTokenDTOListHandler(refreshTokenRepository);
 
                 //Act
                 var result = await handler.Handle(command, default);
@@ -359,8 +368,8 @@ namespace UserManagement.Handlers.Tests
         public async void TakeUserIdByRTokenIdHandler()
         {
             //Arrange
-
             var dbContext = await InitMockDB();
+            var (roleRepository, userStatusRepository, refreshTokenRepository, userRepository) = InitRepositories(dbContext);
 
             var user1Id = (await dbContext.Users
                            .AsNoTracking()
@@ -372,7 +381,7 @@ namespace UserManagement.Handlers.Tests
 
             var command = new TakeUserIdByRTokenIdQuery() { RtokenId = rTokenId };
 
-            var handler = new TakeUserIdByRTokenIdHandler(dbContext);
+            var handler = new TakeUserIdByRTokenIdHandler(refreshTokenRepository);
 
 
             //Act

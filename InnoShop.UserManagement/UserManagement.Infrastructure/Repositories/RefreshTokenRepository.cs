@@ -1,9 +1,11 @@
 ﻿using InnoShop.CommonLibrary.Logs;
 using InnoShop.CommonLibrary.Response;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 using UserManagement.Application.DTOs;
 using UserManagement.Application.Interfaces;
 using UserManagement.Application.Mappers;
+using UserManagement.Domain.Data.Models;
 using UserManagement.Infrastructure.Data;
 
 namespace UserManagement.Infrastructure.Repositories
@@ -99,7 +101,14 @@ namespace UserManagement.Infrastructure.Repositories
         {
             try
             {
-                var refreshToken = RefreshTokenMapper.RefreshTokenDTOToRefreshToken(refreshTokenDTO);
+                var refreshToken = await _umDBContext.RefreshTokens.FindAsync(refreshTokenDTO.Id);
+
+                if (refreshToken == null)
+                {
+                    return new Response(false, "Refresh Token not Found!");
+                }
+
+                ApplyPropertiesFromDTOToModel(refreshTokenDTO, refreshToken);
 
                 _umDBContext.RefreshTokens.Update(refreshToken);
                 await _umDBContext.SaveChangesAsync();
@@ -109,7 +118,22 @@ namespace UserManagement.Infrastructure.Repositories
             catch (Exception ex)
             {
                 LogException.LogExceptions(ex);
-                return new Response(false, "Error while updating RefreshToken!");
+                return new Response(false, "Error while updating Refresh Token!");
+            }
+        }
+
+        private void ApplyPropertiesFromDTOToModel(RefreshTokenDTO refreshTokenDTO, RefreshToken refreshToken)
+        {
+            var dtoProperties = refreshTokenDTO.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            var modelProperties = refreshToken.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance);
+
+            foreach (var dtoProperty in dtoProperties)
+            {
+                var modelProperty = modelProperties.FirstOrDefault(p => p.Name == dtoProperty.Name && p.PropertyType == dtoProperty.PropertyType);
+                if (modelProperty != null)
+                {
+                    modelProperty.SetValue(refreshToken, dtoProperty.GetValue(refreshTokenDTO));
+                }
             }
         }
     }

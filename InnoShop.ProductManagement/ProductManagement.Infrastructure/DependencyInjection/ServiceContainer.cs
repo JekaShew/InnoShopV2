@@ -3,17 +3,11 @@ using InnoShop.CommonLibrary.DependencyInjection;
 using InnoShop.CommonLibrary.Middleware;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ProductManagement.Infrastructure.Data;
 using ProductManagement.Infrastructure.Handlers.SubCategoryHandlers.QueryHandlers;
 using ProductManagement.Infrastructure.Validators.CategoryValidators;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProductManagement.Infrastructure.DependencyInjection
 {

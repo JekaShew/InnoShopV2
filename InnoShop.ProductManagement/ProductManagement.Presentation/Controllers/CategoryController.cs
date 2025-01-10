@@ -18,7 +18,7 @@ namespace ProductManagement.Presentation.Controllers
         }
 
         [HttpGet]
-        //[Authorize]
+        [Authorize]
         public async Task<IActionResult> TakeCatigories()
         {     
             var categoryDTOs = await _mediator.Send(new TakeCategoryDTOListQuery());
@@ -29,7 +29,7 @@ namespace ProductManagement.Presentation.Controllers
         }
 
         [HttpGet("{categoryId}")]
-        //[Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> TakeCatigoryById(Guid categoryId)
         {
             var categoryDTO = await _mediator.Send(new TakeCategoryDTOByIdQuery() { Id = categoryId });
@@ -39,7 +39,7 @@ namespace ProductManagement.Presentation.Controllers
         }
 
         [HttpPost]
-        //[Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> AddCatigory([FromBody] CategoryDTO categoryDTO)
         {
             var result = await _mediator.Send(new AddCategoryCommand() { CategoryDTO = categoryDTO });

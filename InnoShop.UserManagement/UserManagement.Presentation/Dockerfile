@@ -11,7 +11,6 @@ COPY ["UserManagement.Presentation/UserManagement.Presentation.csproj", "UserMan
 COPY ["UserManagement.Infrastructure/UserManagement.Infrastructure.csproj", "UserManagement.Infrastructure/"]
 COPY ["UserManagement.Domain/UserManagement.Domain.csproj", "UserManagement.Domain/"]
 COPY ["UserManagement.Application/UserManagement.Application.csproj", "UserManagement.Application/"]
-# COPY ["InnoShop.CommonLibrary/InnoShop.CommonLibrary/InnoShop.CommonLibrary.csproj", "InnoShop.CommonLibrary/InnoShop.CommonLibrary/"]
 RUN dotnet restore "UserManagement.Presentation/UserManagement.Presentation.csproj"
 
 COPY . .

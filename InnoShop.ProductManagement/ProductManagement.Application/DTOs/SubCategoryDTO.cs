@@ -1,6 +1,5 @@
 ﻿using InnoShop.CommonLibrary.CommonDTOs;
 
-
 namespace ProductManagement.Application.DTOs
 {
     public class SubCategoryDTO
@@ -10,6 +9,5 @@ namespace ProductManagement.Application.DTOs
         public string? Description { get; set; }
         public Guid CategoryId { get; set; }
         public ParameterDTO? Category { get; set; }
-
     }
 }

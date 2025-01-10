@@ -3,6 +3,7 @@ using InnoShop.CommonLibrary.Logs;
 using InnoShop.CommonLibrary.Response;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
+using System.Reflection;
 using UserManagement.Application.DTOs;
 using UserManagement.Application.Interfaces;
 using UserManagement.Application.Mappers;
@@ -124,7 +125,14 @@ namespace UserManagement.Infrastructure.Repositories
         {
             try
             {
-                var user = UserMapper.UserDTOToUser(userDTO);
+                var user = await _umDBContext.Users.FindAsync(userDTO.Id);
+
+                if (user == null)
+                {
+                    return new Response(false, "User not Found!");
+                }
+
+                ApplyPropertiesFromDTOToModel(userDTO, user);
 
                 _umDBContext.Users.Update(user);
                 await _umDBContext.SaveChangesAsync();
@@ -201,6 +209,7 @@ namespace UserManagement.Infrastructure.Repositories
                     user.SecretWordHash = authorizationInfoDTO.SecretWordHash;
                     user.SecurityStamp = authorizationInfoDTO.SecurityStamp;
 
+                    await _umDBContext.SaveChangesAsync();
                     return new Response(true, "Successfylly Updated!");
                 }
             }
@@ -208,6 +217,20 @@ namespace UserManagement.Infrastructure.Repositories
             {
                 LogException.LogExceptions(ex);
                 return new Response(false, "Error while updating User's Authorization Info!");
+            }
+        }
+        private void ApplyPropertiesFromDTOToModel(UserDTO userDTO, User user)
+        {
+            var dtoProperties = userDTO.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            var modelProperties = user.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance);
+
+            foreach (var dtoProperty in dtoProperties)
+            {
+                var modelProperty = modelProperties.FirstOrDefault(p => p.Name == dtoProperty.Name && p.PropertyType == dtoProperty.PropertyType);
+                if (modelProperty != null)
+                {
+                    modelProperty.SetValue(user, dtoProperty.GetValue(userDTO));
+                }
             }
         }
     }

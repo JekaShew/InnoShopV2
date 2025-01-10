@@ -104,6 +104,4 @@ namespace UserMangement.Presentation.Controllers
             }
         }
     }
-
-
 }

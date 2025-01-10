@@ -1,10 +1,8 @@
-﻿using InnoShop.CommonLibrary.Response;
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ProductManagement.Application.Commands.SubCategoryCommands;
 using ProductManagement.Application.DTOs;
-using ProductManagement.Application.Interfaces;
 using ProductManagement.Application.Queries.SubCategoryQueries;
 
 namespace ProductManagement.Presentation.Controllers

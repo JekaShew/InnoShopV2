@@ -1,5 +1,4 @@
 using InnoShop.CommonLibrary.CommonDTOs;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProductManagement.Application.Commands.CategoryCommands;
 using ProductManagement.Application.Commands.ProductCommands;
@@ -7,7 +6,6 @@ using ProductManagement.Application.Commands.ProductStatusCommands;
 using ProductManagement.Application.Commands.SubCategoryCommands;
 using ProductManagement.Application.DTOs;
 using ProductManagement.Application.Queries.ProductQueries;
-using ProductManagement.Domain.Data.Models;
 using ProductManagement.Infrastructure.Data;
 using ProductManagement.Infrastructure.Handlers.CategoryHandlers.CommandHandlers;
 using ProductManagement.Infrastructure.Handlers.ProductHandlers.CommandHandlers;
@@ -464,7 +462,6 @@ namespace ProductManagement.Services.Tests
                             && !await dbContext.Products.AnyAsync(ps => ps.Title == "Asus"));
         }
 
-
         //Special Handlers
         [Fact]
         public async void ChangeProductStatusesOfProductsByUserIdHandler()
@@ -541,6 +538,7 @@ namespace ProductManagement.Services.Tests
             //Act
             var result1 = await handler.Handle(command1, default);
             var result2 = await handler.Handle(command2, default);
+
             //Assert
             Assert.True(result1 != null && result2 != null
                         && !result1.Any(r => r.UserId == user2Id)

@@ -1,12 +1,9 @@
-﻿using InnoShop.CommonLibrary.CommonDTOs;
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using UserManagement.Application.Commands.UserCommands;
 using UserManagement.Application.DTOs;
 using UserManagement.Application.Interfaces;
 using UserManagement.Application.Queries.UserQueries;
-using UserManagement.Domain.Data.Models;
 
 namespace UserMangement.Presentation.Controllers
 {
@@ -31,7 +28,6 @@ namespace UserMangement.Presentation.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    // rework as simple Mediator calls?????
                     var checkIsLoginRegistered = await _userServices.CheckIsLoginRegistered(loginInfoDTO.Login);
 
                     if (checkIsLoginRegistered.Flag == false)
@@ -53,7 +49,6 @@ namespace UserMangement.Presentation.Controllers
                         else
                             return Unauthorized(checkLoginPasswordPair);
                     }
-
                 }
                 else return BadRequest("Invalid Data.");
             }
@@ -87,7 +82,6 @@ namespace UserMangement.Presentation.Controllers
                     }
                 }
                 else return BadRequest("Invalid Data.");
-
             }
             catch (Exception ex)
             {
@@ -116,7 +110,6 @@ namespace UserMangement.Presentation.Controllers
             {
                 return StatusCode(500, ex.Message);
             }
-
         }
 
         [HttpPost("/refresh")]

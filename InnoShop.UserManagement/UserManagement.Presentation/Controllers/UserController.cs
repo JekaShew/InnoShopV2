@@ -3,10 +3,8 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using UserManagement.Application.Commands.UserCommands;
-using UserManagement.Application.DTOs;
 using UserManagement.Application.Interfaces;
 using UserManagement.Application.Queries.UserQueries;
-using UserManagement.Domain.Data.Models;
 
 namespace UserMangement.Presentation.Controllers
 {
@@ -150,24 +148,6 @@ namespace UserMangement.Presentation.Controllers
             }
         }
 
-        //[HttpGet("/takeproductsofcurrentuser")]
-        //public async Task<IActionResult> TakeProductsOfCurrentUser()
-        //{
-        //    try
-        //    {
-        //        var productsDTOs = await _userServices.TakeProductsOfCurrentUser();
-
-        //        if (!productsDTOs.Any())
-        //            return NotFound("No Product found!");
-        //        else
-        //            return Ok(productsDTOs);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return StatusCode(500, ex.Message);
-        //    }
-        //}
-
         [HttpPost("/checkisloginregistered")]
         public async Task<IActionResult> CheckIsLoginRegistered([FromBody] string login)
         {
@@ -205,7 +185,6 @@ namespace UserMangement.Presentation.Controllers
         }
 
         [HttpPost("/changeforgottenpasswordbysecretword")]
-        
         public async Task<IActionResult> ChangeForgottenPasswordBySecretWord([FromBody] string login, string secretWord, string newPassword)
         {
             try

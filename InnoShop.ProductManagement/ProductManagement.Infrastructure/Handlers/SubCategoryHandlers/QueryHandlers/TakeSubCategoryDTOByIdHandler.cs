@@ -12,7 +12,6 @@ namespace ProductManagement.Infrastructure.Handlers.SubCategoryHandlers.QueryHan
         {
             _subCategoryRepository = subCategoryRepository;
         }
-
         public async Task<SubCategoryDTO> Handle(TakeSubCategoryDTOByIdQuery request, CancellationToken cancellationToken)
         {
             return await _subCategoryRepository.TakeSubCategoryById(request.Id);
